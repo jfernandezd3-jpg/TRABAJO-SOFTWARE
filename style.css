@@ -1,0 +1,109 @@
+/* ==========================================================================
+   Diseño General (Basado en el Function Index)
+   ========================================================================== */
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #333;
+}
+
+a {
+    color: #0078ff;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   Contenedores Principales (Adaptado de .member-section)
+   ========================================================================== */
+.container {
+    background: white;
+    padding: 20px;
+    margin: 25px auto;
+    border-radius: 10px;
+    width: 85%;
+    max-width: 600px; /* Limitamos el ancho para formularios y paneles */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Cajas destacadas (Adaptado de .function-box) */
+.info-box {
+    border-left: 5px solid #0078ff;
+    padding: 15px;
+    margin-bottom: 20px;
+    background: #fafafa;
+    border-radius: 5px;
+}
+
+.info-box h3 {
+    margin: 0 0 10px 0;
+    color: #0078ff;
+}
+
+/* ==========================================================================
+   Estilos para Formularios (Login, Registro, etc.)
+   ========================================================================== */
+form {
+    margin-top: 15px;
+}
+
+label {
+    font-weight: bold;
+    color: #555;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Evita que el input se salga del contenedor */
+    font-family: Arial, sans-serif;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #0078ff;
+    box-shadow: 0 0 5px rgba(0, 120, 255, 0.3);
+}
+
+button[type="submit"], 
+.btn {
+    background: #0078ff;
+    color: white;
+    border: none;
+    padding: 12px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s ease;
+}
+
+button[type="submit"]:hover, 
+.btn:hover {
+    background: #005bb5;
+}
+
+.text-center {
+    text-align: center;
+}

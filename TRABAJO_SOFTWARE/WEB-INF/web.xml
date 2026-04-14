@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app>
+
+
+<servlet>
+  <servlet-name>primer</servlet-name>
+  <servlet-class>HelloWorld</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>primer</servlet-name>
+  <url-pattern>/start</url-pattern>
+</servlet-mapping>
+
+
+</web-app>

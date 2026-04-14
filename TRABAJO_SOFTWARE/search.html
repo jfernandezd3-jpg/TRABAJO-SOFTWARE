@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tournament Search</title>
+</head>
+<body>
+
+<h2>Search Tournaments</h2>
+
+<form action="SearchServlet" method="get">
+
+    <label>Modality:</label>
+    <select name="modality">
+        <option value="">Any</option>
+        <option value="Chess">Chess</option>
+        <option value="Mus">Mus</option>
+        <option value="Poker">Poker</option>
+    </select>
+    <br><br>
+
+    <label>Location:</label><br>
+    <input type="text" name="location"><br><br>
+
+    <label>Date:</label><br>
+    <input type="date" name="date"><br><br>
+
+    <label>Max Price:</label><br>
+    <input type="number" name="price"><br><br>
+
+    <button type="submit">Search</button>
+</form>
+
+</body>
+</html>

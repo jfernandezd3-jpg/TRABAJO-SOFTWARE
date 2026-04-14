@@ -107,3 +107,18 @@ button[type="submit"]:hover,
 .text-center {
     text-align: center;
 }
+
+/* =======================================
+   BARRA DE NAVEGACIÓN
+   ======================================= */
+.nav-bar {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+.nav-bar a {
+    margin: 0 10px; /* Separación a los lados de cada enlace */
+    font-size: 16px;
+}

@@ -3,13 +3,13 @@
 
 
 <servlet>
-  <servlet-name>primer</servlet-name>
-  <servlet-class>HelloWorld</servlet-class>
+  <servlet-name>EjemploServlet</servlet-name>
+  <servlet-class>EjemploServlet</servlet-class>
 </servlet>
 
 <servlet-mapping>
-  <servlet-name>primer</servlet-name>
-  <url-pattern>/start</url-pattern>
+  <servlet-name>EjemploServlet</servlet-name>
+  <url-pattern>/EjemploServlet</url-pattern>
 </servlet-mapping>
 
 

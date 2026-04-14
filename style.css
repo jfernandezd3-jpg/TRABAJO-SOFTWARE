@@ -122,3 +122,27 @@ button[type="submit"]:hover,
     margin: 0 10px; /* Separación a los lados de cada enlace */
     font-size: 16px;
 }
+
+/* =======================================
+   TABLAS (Para mostrar datos de BBDD)
+   ======================================= */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #0078ff;
+    color: white;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}

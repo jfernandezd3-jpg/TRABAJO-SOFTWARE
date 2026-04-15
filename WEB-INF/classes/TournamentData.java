@@ -9,7 +9,7 @@ public class TournamentData {
 
     int id;
     int organizer_id;
-    String tournament;
+    String tournament; // OJO: Tu compañero ha llamado 'tournament' al nombre del torneo
     String modality;
     String location;
     String tournament_date;
@@ -35,7 +35,7 @@ public class TournamentData {
         this.max_partici = max_partici;
     }
 
-    // LISTA COMPLETA (sin filtros)
+    // LISTA COMPLETA (sin filtros) - CREADA POR TU COMPAÑERO
     public static Vector<TournamentData> getTournamentList(Connection connection) {
 
         Vector<TournamentData> vec = new Vector<TournamentData>();
@@ -58,7 +58,7 @@ public class TournamentData {
                     rs.getDouble("entry_price"),
                     rs.getDouble("win_price"),
                     rs.getString("rules"),
-                    rs.getInt("max_partici")
+                    rs.getInt("max_participants")
                 );
                 vec.addElement(t);
             }
@@ -72,5 +72,45 @@ public class TournamentData {
         }
 
         return vec;
+    }
+
+    // =====================================================================
+    // NUEVO CÓDIGO AÑADIDO PARA LA BAJA (No afecta a lo de arriba)
+    // =====================================================================
+    
+    // Metodo para desapuntar (eliminar de registrations)
+    public static int deleteRegistration(Connection connection, int tournamentId, String username) {
+        int n = 0;
+        
+        // Primero buscamos el ID del usuario usando su username
+        String sqlUser = "SELECT ID FROM users WHERE username = ?";
+        System.out.println("getUserID: " + sqlUser);
+        
+        try {
+            PreparedStatement pstmtUser = connection.prepareStatement(sqlUser);
+            pstmtUser.setString(1, username);
+            ResultSet rsUser = pstmtUser.executeQuery();
+            
+            if(rsUser.next()) {
+                int userId = rsUser.getInt("ID");
+                
+                // Si existe el usuario, lo borramos de la tabla registrations
+                String sqlDelete = "DELETE FROM registrations WHERE user_id = ? AND torunament_id = ?";
+                System.out.println("deleteRegistration: " + sqlDelete);
+                
+                PreparedStatement pstmtDel = connection.prepareStatement(sqlDelete);
+                pstmtDel.setInt(1, userId);
+                pstmtDel.setInt(2, tournamentId);
+                
+                n = pstmtDel.executeUpdate();
+                pstmtDel.close();
+            }
+            rsUser.close();
+            pstmtUser.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error in deleteRegistration Exception: " + e);
+        }
+        return n;
     }
 }

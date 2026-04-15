@@ -25,5 +25,28 @@
 </servlet-mapping>
 
 
+<servlet>
+    <servlet-name>UserEdit</servlet-name>
+    <servlet-class>UserEdit</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>UserEdit</servlet-name>
+    <url-pattern>/UserEdit</url-pattern>
+</servlet-mapping>
+
+
+
+<servlet>
+    <servlet-name>UserUpdate</servlet-name>
+    <servlet-class>UserUpdate</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>UserUpdate</servlet-name>
+    <url-pattern>/UserUpdate</url-pattern>
+</servlet-mapping>
+
+
 
 </web-app>

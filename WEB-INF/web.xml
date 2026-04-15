@@ -49,4 +49,16 @@
 
 
 
+<servlet>
+    <servlet-name>TournamentList</servlet-name>
+    <servlet-class>TournamentList</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>TournamentList</servlet-name>
+    <url-pattern>/TournamentList</url-pattern>
+</servlet-mapping>
+
+
+
 </web-app>

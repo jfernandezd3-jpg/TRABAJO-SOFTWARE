@@ -11,10 +11,10 @@
 
 <form action="PCreateTournamentServlet" method="POST">
     
-	<label>Organizer Id:</label><br>
+    <label>Organizer Id:</label><br>
     <input type="text" name="organizerId" required><br><br>
-	
-	<label>Tournament Name:</label><br>
+    
+    <label>Tournament Name:</label><br>
     <input type="text" name="tournamentName" required><br><br>
 
     <label>Modality (Game):</label><br>
@@ -37,6 +37,12 @@
 
     <label>Entry Price (€):</label><br>
     <input type="number" name="entryPrice" min="0" step="0.01" required><br><br>
+
+    <label>Latitude:</label><br>
+    <input type="number" name="latitude" step="any" required><br><br>
+
+    <label>Longitude:</label><br>
+    <input type="number" name="longitude" step="any" required><br><br>
 
     <button type="submit">Create Tournament</button>
 </form>

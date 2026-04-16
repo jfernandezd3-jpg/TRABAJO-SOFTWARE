@@ -32,20 +32,22 @@ public class PCreateTournamentServlet extends HttpServlet {
 
         try {
             // 1. Recoger datos del formulario (insertournament.html)
-			String name = req.getParameter("tournamentName");
+            String name = req.getParameter("tournamentName");
             String modality = req.getParameter("modality");
             String dateTime = req.getParameter("dateTime");
             String address = req.getParameter("address");
             String rules = req.getParameter("rules");
             
             // Conversión de tipos numéricos
-			int organizerId = Integer.parseInt(req.getParameter("organizerId"));
+            int organizerId = Integer.parseInt(req.getParameter("organizerId"));
             int maxParticipants = Integer.parseInt(req.getParameter("maxParticipants"));
-			double prizes = Double.parseDouble(req.getParameter("prizes"));
+            double prizes = Double.parseDouble(req.getParameter("prizes"));
             double entryPrice = Double.parseDouble(req.getParameter("entryPrice"));
+            double latitude = Double.parseDouble(req.getParameter("latitude"));
+            double longitude = Double.parseDouble(req.getParameter("longitude"));
 
             // 2. Crear objeto de datos y realizar la inserción
-            PTournamentData torneo = new PTournamentData(organizerId, name, modality, address, dateTime, entryPrice, prizes, rules, maxParticipants);
+            PTournamentData torneo = new PTournamentData(organizerId, name, modality, address, dateTime, entryPrice, prizes, rules, maxParticipants, latitude, longitude);
             int result = PTournamentData.insertTournament(connection, torneo);
 
             // 3. Generar respuesta visual usando tu Utils.java actualizado

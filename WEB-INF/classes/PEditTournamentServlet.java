@@ -39,6 +39,8 @@ public class PEditTournamentServlet extends HttpServlet {
         out.println("Premios: <input type='number' name='prizes' step='0.01' value='" + t.win_price + "'><br><br>");
         out.println("Reglas: <textarea name='rules'>" + t.rules + "</textarea><br><br>");
         out.println("Participantes: <input type='number' name='maxParticipants' value='" + t.max_partici + "'><br><br>");
+        out.println("Latitud: <input type='number' name='latitude' step='any' value='" + t.latitude + "'><br><br>");
+        out.println("Longitud: <input type='number' name='longitude' step='any' value='" + t.longitude + "'><br><br>");
         out.println("<button type='submit'>Guardar Cambios</button>");
         out.println("</form>");
         
@@ -58,8 +60,10 @@ public class PEditTournamentServlet extends HttpServlet {
             double prizes = Double.parseDouble(req.getParameter("prizes"));
             double entryPrice = Double.parseDouble(req.getParameter("entryPrice"));
             int maxPart = Integer.parseInt(req.getParameter("maxParticipants"));
+            double latitude = Double.parseDouble(req.getParameter("latitude"));
+            double longitude = Double.parseDouble(req.getParameter("longitude"));
 
-            PTournamentData t = new PTournamentData(id, 0, name, modality, location, dateTime, prizes, entryPrice, rules, maxPart);
+            PTournamentData t = new PTournamentData(id, 0, name, modality, location, dateTime, entryPrice, prizes, rules, maxPart, latitude, longitude);
             int result = PTournamentData.updateTournament(connection, t);
 
             res.setContentType("text/html");

@@ -34,7 +34,7 @@ public class BTournamentDesapuntar extends HttpServlet {
         toClient.println(Utils.header("Desapuntarse de Torneo", req));
         
         // Apuntamos al nuevo Servlet de Update
-        toClient.println("<form action='BTournamentDesapuntarUpdate' method='GET'>");
+		toClient.println("<form action='BTournamentDesapuntarUpdate' method='GET' onsubmit=\"return confirm('¿Estás seguro de que quieres desapuntarte de este torneo? Esta acción no se puede deshacer.');\">");
         toClient.println("<table style='margin: 0 auto;'>"); 
         
         toClient.println("<tr><td><b>Torneo:</b></td>");

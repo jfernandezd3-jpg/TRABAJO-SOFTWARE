@@ -5,33 +5,45 @@
     <servlet-name>BLoginServlet</servlet-name>
     <servlet-class>BLoginServlet</servlet-class>
 </servlet>
+<servlet-mapping>
+    <servlet-name>BLoginServlet</servlet-name>
+    <url-pattern>/BLoginServlet</url-pattern>
+</servlet-mapping>
+
 <servlet>
     <servlet-name>BLogoutServlet</servlet-name>
     <servlet-class>BLogoutServlet</servlet-class>
 </servlet>
+<servlet-mapping>
+    <servlet-name>BLogoutServlet</servlet-name>
+    <url-pattern>/BLogoutServlet</url-pattern>
+</servlet-mapping>
+
 <servlet>
     <servlet-name>BTournamentDesapuntar</servlet-name>
     <servlet-class>BTournamentDesapuntar</servlet-class>
 </servlet>
+<servlet-mapping>
+    <servlet-name>BTournamentDesapuntar</servlet-name>
+    <url-pattern>/BTournamentDesapuntar</url-pattern>
+</servlet-mapping>
+
 <servlet>
     <servlet-name>BTournamentDesapuntarUpdate</servlet-name>
     <servlet-class>BTournamentDesapuntarUpdate</servlet-class>
 </servlet>
 <servlet-mapping>
-    <servlet-name>BLoginServlet</servlet-name>
-    <url-pattern>/BLoginServlet</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-    <servlet-name>BLogoutServlet</servlet-name>
-    <url-pattern>/BLogoutServlet</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-    <servlet-name>BTournamentDesapuntar</servlet-name>
-    <url-pattern>/BTournamentDesapuntar</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
     <servlet-name>BTournamentDesapuntarUpdate</servlet-name>
     <url-pattern>/BTournamentDesapuntarUpdate</url-pattern>
+</servlet-mapping>
+
+<servlet>
+    <servlet-name>BTournamentMap</servlet-name>
+    <servlet-class>BTournamentMap</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>BTournamentMap</servlet-name>
+    <url-pattern>/BTournamentMap</url-pattern>
 </servlet-mapping>
 
 
@@ -45,8 +57,6 @@
     <url-pattern>/PCreateTournamentServlet</url-pattern>
 </servlet-mapping>
 
-
-
 <servlet>
     <servlet-name>PEditTournamentServlet</servlet-name>
     <servlet-class>PEditTournamentServlet</servlet-class>
@@ -56,9 +66,6 @@
     <url-pattern>/PEditTournamentServlet</url-pattern>
 </servlet-mapping>
 
-
-
-
 <servlet>
     <servlet-name>PListOrganizerTournamentsServlet</servlet-name>
     <servlet-class>PListOrganizerTournamentsServlet</servlet-class>
@@ -67,7 +74,6 @@
     <servlet-name>PListOrganizerTournamentsServlet</servlet-name>
     <url-pattern>/PListOrganizerTournamentsServlet</url-pattern>
 </servlet-mapping>
-
 
 
 
@@ -103,6 +109,5 @@
     <servlet-name>UserUpdate</servlet-name>
     <url-pattern>/UserUpdate</url-pattern>
 </servlet-mapping>
-
 
 </web-app>

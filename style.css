@@ -1,107 +1,193 @@
 /* ==========================================================================
-   Diseño General (Basado en el Function Index)
+   Diseño General (Temática Tapete de Póker y Centrado Absoluto)
    ========================================================================== */
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f0f3f1; /* Un gris muy sutil con un ligero tono verdoso */
     color: #333;
     margin: 0;
     padding: 20px;
+    
+    /* LA MAGIA DEL CENTRADO */
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
 }
 
 h1, h2 {
     text-align: center;
-    color: #333;
+    color: #1a4f2c; /* Verde oscuro muy elegante */
 }
 
 a {
-    color: #0078ff;
+    color: #2e8b57; /* SeaGreen - Verde clásico de tapete de póker */
     font-weight: bold;
     text-decoration: none;
+    transition: color 0.2s;
 }
 
 a:hover {
     text-decoration: underline;
+    color: #1a4f2c;
 }
 
 /* ==========================================================================
-   Contenedores Principales (Adaptado de .member-section)
+   BARRA DE NAVEGACIÓN (Estilo Header con color corporativo)
    ========================================================================== */
-.container {
-    background: white;
-    padding: 20px;
-    margin: 25px auto;
-    border-radius: 10px;
-    width: 85%;
-    max-width: 600px; /* Limitamos el ancho para formularios y paneles */
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+.nav-bar {
+    background: #1a4f2c; /* Verde oscuro */
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto 30px auto;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; 
+    gap: 25px; 
+    box-sizing: border-box;
 }
 
-/* Cajas destacadas (Adaptado de .function-box) */
+.nav-bar a {
+    margin: 0; 
+    font-size: 16px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: white; 
+    transition: background 0.3s, transform 0.1s;
+}
+
+.nav-bar a:hover {
+    background: #2e8b57; 
+    color: white;
+    text-decoration: none;
+    transform: translateY(-2px); 
+}
+
+/* ==========================================================================
+   Contenedores Principales (Tarjetas Generales)
+   ========================================================================== */
+.container, .map-card {
+    background: white;
+    padding: 30px;
+    margin: 0 auto 25px auto;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 600px; 
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    box-sizing: border-box;
+}
+
+.map-card {
+    max-width: 1000px;
+}
+
 .info-box {
-    border-left: 5px solid #0078ff;
+    border-left: 5px solid #2e8b57; 
     padding: 15px;
     margin-bottom: 20px;
-    background: #fafafa;
+    background: #f8fbf9;
     border-radius: 5px;
 }
 
 .info-box h3 {
     margin: 0 0 10px 0;
-    color: #0078ff;
+    color: #2e8b57;
 }
 
 /* ==========================================================================
-   Estilos para Formularios (Login, Registro, etc.)
+   Estilos específicos para el INDEX.HTML (¡Lo que faltaba!)
+   ========================================================================== */
+.member-section {
+    background: white;
+    padding: 30px;
+    margin: 20px auto;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 800px; /* Un poco más ancho para las listas del index */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    box-sizing: border-box;
+}
+
+.function-box {
+    border-left: 5px solid #2e8b57;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    background: #f8fbf9;
+    border-radius: 6px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.function-box:hover {
+    transform: translateX(5px); /* Efecto de deslizamiento al pasar el ratón */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.function-box h3 {
+    margin: 0 0 10px 0;
+    color: #2e8b57;
+}
+
+/* ==========================================================================
+   Estilos para Formularios (Login, Registro, Desapuntar)
    ========================================================================== */
 form {
     margin-top: 15px;
+    width: 100%;
 }
 
 label {
     font-weight: bold;
     color: #555;
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
 }
 
 input[type="text"],
+input[type="number"],
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+select,
+textarea {
     width: 100%;
-    padding: 10px;
+    padding: 12px; 
     margin-bottom: 20px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box; /* Evita que el input se salga del contenedor */
-    font-family: Arial, sans-serif;
+    border-radius: 8px; 
+    box-sizing: border-box; 
+    font-family: inherit;
+    background-color: #fafafa;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus {
+input:focus, select:focus, textarea:focus {
     outline: none;
-    border-color: #0078ff;
-    box-shadow: 0 0 5px rgba(0, 120, 255, 0.3);
+    border-color: #2e8b57;
+    box-shadow: 0 0 8px rgba(46, 139, 87, 0.2);
+    background-color: #fff;
 }
 
 button[type="submit"], 
 .btn {
-    background: #0078ff;
+    background: #2e8b57; 
     color: white;
     border: none;
-    padding: 12px 15px;
+    padding: 14px 20px;
     font-size: 16px;
     font-weight: bold;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     width: 100%;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, transform 0.1s;
 }
 
 button[type="submit"]:hover, 
 .btn:hover {
-    background: #005bb5;
+    background: #1a4f2c; 
+    transform: translateY(-2px); 
 }
 
 .text-center {
@@ -109,40 +195,32 @@ button[type="submit"]:hover,
 }
 
 /* =======================================
-   BARRA DE NAVEGACIÓN
-   ======================================= */
-.nav-bar {
-    text-align: center;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #ccc;
-}
-
-.nav-bar a {
-    margin: 0 10px; /* Separación a los lados de cada enlace */
-    font-size: 16px;
-}
-
-/* =======================================
-   TABLAS (Para mostrar datos de BBDD)
+   TABLAS (Para mostrar la lista de torneos)
    ======================================= */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
 th, td {
-    padding: 12px;
+    padding: 15px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #eee;
 }
 
 th {
-    background-color: #0078ff;
+    background-color: #2e8b57;
     color: white;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.5px;
 }
 
 tr:hover {
-    background-color: #f1f1f1;
+    background-color: #f8fbf9;
 }

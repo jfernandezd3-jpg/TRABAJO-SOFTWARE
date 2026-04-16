@@ -8,12 +8,12 @@ public class PTournamentData {
     int id; // Añadido y vital para la edición
     int organizer_id;
     String tournament, modality, location, tournament_date, rules;
-    double win_price, entry_price;
+    double win_price, entry_price, latitude, longitude;
     int max_partici;
 
     // CONSTRUCTOR 1: Para CREAR torneos (FR13) - No lleva ID porque Access lo genera solo
     public PTournamentData(int organizer_id, String tournament, String modality, String location, 
-                          String tournament_date, double entry_price, double win_price, String rules, int max_partici) {
+                          String tournament_date, double entry_price, double win_price, String rules, int max_partici, double latitude, double longitude) {
         this.organizer_id = organizer_id;
         this.tournament = tournament;
         this.modality = modality;
@@ -23,11 +23,13 @@ public class PTournamentData {
         this.win_price = win_price;
         this.rules = rules;
         this.max_partici = max_partici;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     // CONSTRUCTOR 2: Para LEER y EDITAR torneos (FR14) - Incluye el ID
     public PTournamentData(int id, int organizer_id, String tournament, String modality, String location, 
-                          String tournament_date, double entry_price, double win_price, String rules, int max_partici) {
+                          String tournament_date, double entry_price, double win_price, String rules, int max_partici, double latitude, double longitude) {
         this.id = id;
         this.organizer_id = organizer_id;
         this.tournament = tournament;
@@ -38,6 +40,8 @@ public class PTournamentData {
         this.win_price = win_price;
         this.rules = rules;
         this.max_partici = max_partici;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     // ==========================================================
@@ -45,7 +49,7 @@ public class PTournamentData {
     // ==========================================================
     public static int insertTournament(Connection con, PTournamentData t) {
         int result = 0;
-        String sql = "INSERT INTO tournaments (tournament, modality, tournament_date, location, rules, win_price, max_participants, entry_price, organizer_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO tournaments (tournament, modality, tournament_date, location, rules, win_price, max_participants, entry_price, organizer_id, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, t.tournament);
@@ -57,6 +61,8 @@ public class PTournamentData {
             ps.setInt(7, t.max_partici);
             ps.setDouble(8, t.entry_price);
             ps.setInt(9, t.organizer_id);
+            ps.setDouble(10, t.latitude);
+            ps.setDouble(11, t.longitude);
             result = ps.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Error SQL al insertar: " + e.getMessage());
@@ -70,7 +76,7 @@ public class PTournamentData {
     // ==========================================================
     public static Vector<PTournamentData> getTournamentsByOrganizer(Connection con, int orgId) {
         Vector<PTournamentData> lista = new Vector<>();
-        String sql = "SELECT id, tournament, modality, location, tournament_date, entry_price, win_price, rules, max_participants FROM tournaments WHERE organizer_id = ?";
+        String sql = "SELECT id, tournament, modality, location, tournament_date, entry_price, win_price, rules, max_participants, latitude, longitude FROM tournaments WHERE organizer_id = ?";
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, orgId);
@@ -88,7 +94,9 @@ public class PTournamentData {
                     rs.getDouble("entry_price"),
                     rs.getDouble("win_price"),
                     rs.getString("rules"),
-                    rs.getInt("max_participants")
+                    rs.getInt("max_participants"),
+                    rs.getDouble("latitude"),
+                    rs.getDouble("longitude")
                 );
                 lista.add(t);
             }
@@ -117,7 +125,9 @@ public class PTournamentData {
                     rs.getDouble("entry_price"),
                     rs.getDouble("win_price"),
                     rs.getString("rules"),
-                    rs.getInt("max_participants")
+                    rs.getInt("max_participants"),
+                    rs.getDouble("latitude"),
+                    rs.getDouble("longitude")
                 );
             }
         } catch (SQLException e) { e.printStackTrace(); }
@@ -129,7 +139,7 @@ public class PTournamentData {
     // ==========================================================
     public static int updateTournament(Connection con, PTournamentData t) {
         int result = 0;
-        String sql = "UPDATE tournaments SET tournament=?, modality=?, tournament_date=?, location=?, rules=?, win_price=?, max_participants=?, entry_price=? WHERE id=?";
+        String sql = "UPDATE tournaments SET tournament=?, modality=?, tournament_date=?, location=?, rules=?, win_price=?, max_participants=?, entry_price=?, latitude=?, longitude=? WHERE id=?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, t.tournament);
             ps.setString(2, t.modality);
@@ -139,7 +149,9 @@ public class PTournamentData {
             ps.setDouble(6, t.win_price);
             ps.setInt(7, t.max_partici);
             ps.setDouble(8, t.entry_price);
-            ps.setInt(9, t.id); // Aquí usamos el ID oculto para actualizar la fila correcta
+            ps.setDouble(9, t.latitude);
+            ps.setDouble(10, t.longitude);
+            ps.setInt(11, t.id); // Aquí usamos el ID oculto para actualizar la fila correcta
             result = ps.executeUpdate();
         } catch (SQLException e) { e.printStackTrace(); }
         return result;

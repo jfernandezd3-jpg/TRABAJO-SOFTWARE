@@ -12,7 +12,7 @@ public class UserEdit extends HttpServlet {
 
         Connection connection = ConnectionUtils.getConnection(getServletConfig());
 
-        out.println(Utils.header("Editar Usuario"));
+        out.println(Utils.header("Editar Usuario", req));
 
         String idStr = req.getParameter("id");
         UserData user = UserData.getUser(connection, idStr);

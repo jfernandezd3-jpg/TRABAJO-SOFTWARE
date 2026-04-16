@@ -17,7 +17,7 @@ public class TournamentList extends HttpServlet {
 
         Vector<TournamentData> tournaments = TournamentData.getTournamentList(connection);
 
-        out.println(Utils.header("Lista de Torneos"));
+        out.println(Utils.header("Lista de Torneos", req));
 
         out.println("<table border='1'>");
         out.println("<tr>"

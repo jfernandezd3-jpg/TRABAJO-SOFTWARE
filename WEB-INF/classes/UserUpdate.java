@@ -23,7 +23,7 @@ public class UserUpdate extends HttpServlet {
 
         int n = UserData.updateUser(connection, user);
 
-        out.println(Utils.header("Actualizar Usuario"));
+        out.println(Utils.header("Actualizar Usuario", req));
 
         if (n > 0) {
             out.println("<p style='color:green; text-align:center;'>Usuario actualizado correctamente.</p>");

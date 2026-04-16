@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Tournament - TournamentHub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Create a new tournament</h2>
+
+<form action="CreateTournamentServlet" method="POST">
+    <label>Tournament Name:</label><br>
+    <input type="text" name="tournamentName" required><br><br>
+
+    <label>Modality (Game):</label><br>
+    <input type="text" name="modality" placeholder="e.g. Chess, Poker, Mus" required><br><br>
+
+    <label>Date and Time:</label><br>
+    <input type="datetime-local" name="dateTime" required><br><br>
+
+    <label>Venue Address:</label><br>
+    <input type="text" name="address" required><br><br>
+
+    <label>Rules:</label><br>
+    <input type="text" name="rules" required><br><br>
+
+    <label>Prize Structure:</label><br>
+    <input type="text" name="prizes" required><br><br>
+
+    <label>Max Participants:</label><br>
+    <input type="number" name="maxParticipants" min="1" required><br><br>
+
+    <label>Entry Price (€):</label><br>
+    <input type="number" name="entryPrice" min="0" step="0.01" required><br><br>
+
+    <button type="submit">Create Tournament</button>
+</form>
+
+</body>
+</html>

@@ -54,7 +54,7 @@ public class PCreateTournamentServlet extends HttpServlet {
             
             out.println("<div style='text-align: center; padding: 20px;'>");
             if (result > 0) {
-                out.println("<h3 style='color: green;'>¡Exito!</h3>");
+                out.println("<h3 style='color: green;'>Exito</h3>");
                 out.println("<p>El torneo <strong>" + name + "</strong> ha sido creado correctamente.</p>");
             } else {
                 out.println("<h3 style='color: red;'>Error</h3>");

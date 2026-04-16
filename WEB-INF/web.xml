@@ -48,6 +48,30 @@
 
 
 <servlet>
+    <servlet-name>PEditTournamentServlet</servlet-name>
+    <servlet-class>PEditTournamentServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>PEditTournamentServlet</servlet-name>
+    <url-pattern>/PEditTournamentServlet</url-pattern>
+</servlet-mapping>
+
+
+
+
+<servlet>
+    <servlet-name>PListOrganizerTournamentsServlet</servlet-name>
+    <servlet-class>PListOrganizerTournamentsServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>PListOrganizerTournamentsServlet</servlet-name>
+    <url-pattern>/PListOrganizerTournamentsServlet</url-pattern>
+</servlet-mapping>
+
+
+
+
+<servlet>
     <servlet-name>RegisterServlet</servlet-name>
     <servlet-class>RegisterServlet</servlet-class>
 </servlet>

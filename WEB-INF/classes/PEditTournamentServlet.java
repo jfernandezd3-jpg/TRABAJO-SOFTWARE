@@ -34,7 +34,7 @@ public class PEditTournamentServlet extends HttpServlet {
         out.println("Nombre: <input type='text' name='tournamentName' value='" + t.tournament + "'><br><br>");
         out.println("Modalidad: <input type='text' name='modality' value='" + t.modality + "'><br><br>");
         out.println("Fecha: <input type='text' name='dateTime' value='" + t.tournament_date + "'><br><br>");
-        out.println("Ubicación: <input type='text' name='location' value='" + t.location + "'><br><br>");
+        out.println("Ubicacion: <input type='text' name='location' value='" + t.location + "'><br><br>");
         out.println("Precio: <input type='number' name='entryPrice' step='0.01' value='" + t.entry_price + "'><br><br>");
         out.println("Premios: <input type='number' name='prizes' step='0.01' value='" + t.win_price + "'><br><br>");
         out.println("Reglas: <textarea name='rules'>" + t.rules + "</textarea><br><br>");
@@ -64,9 +64,9 @@ public class PEditTournamentServlet extends HttpServlet {
 
             res.setContentType("text/html");
             PrintWriter out = res.getWriter();
-            out.println(Utils.header("Resultado Edición", req));
+            out.println(Utils.header("Resultado Edicion", req));
             if (result > 0) {
-                out.println("<h3>¡Torneo actualizado con éxito!</h3>");
+                out.println("<h3>Torneo actualizado con exito</h3>");
             } else {
                 out.println("<h3>Error al actualizar.</h3>");
             }

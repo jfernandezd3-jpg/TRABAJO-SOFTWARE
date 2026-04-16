@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet {
                     session.setAttribute("userEmail", email); 
                     
                     // Redirigimos al EjemploServlet (la lista de torneos) para ver el menú cambiado
-                    response.sendRedirect("EjemploServlet");
+                    response.sendRedirect("index.html");
                     
                 } else {
                     // Login fallido

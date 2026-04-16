@@ -52,4 +52,39 @@ public class PTournamentData {
         }
         return result;
     }
+	
+	
+	public static Vector<PTournamentData> getTournamentsByOrganizer(Connection con, int orgId) {
+    Vector<PTournamentData> lista = new Vector<>();
+    // SQL filtrando por organizer_id
+    String sql = "SELECT id, tournament, modality, location, tournament_date, win_price, entry_price, rules, max_participants FROM tournaments WHERE organizer_id = ?";
+
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setInt(1, orgId);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            // Creamos un objeto por cada fila encontrada
+            PTournamentData t = new PTournamentData(
+                orgId,
+                rs.getString("tournament"),
+                rs.getString("modality"),
+                rs.getString("location"),
+                rs.getString("tournament_date"),
+                rs.getDouble("win_price"),
+                rs.getDouble("entry_price"),
+                rs.getString("rules"),
+                rs.getInt("max_participants")
+            );
+            // IMPORTANTE: Si añadiste el campo 'id' a tu clase, asígnale el valor aquí
+            // t.id = rs.getInt("id"); 
+            lista.add(t);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return lista;
+}
+	
+	
 }

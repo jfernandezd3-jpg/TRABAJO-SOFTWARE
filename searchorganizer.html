@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar por Organizador - TournamentHub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="centered-page">
+    <div class="card" style="max-width: 500px; margin: auto; padding: 20px; text-align: center;">
+        <h2>Ver mis torneos</h2>
+        <p>Introduce tu ID de organizador para ver la lista:</p>
+        <form action="PListOrganizerTournamentsServlet" method="POST">
+            <input type="number" name="organizerId" placeholder="Ej: 1" required style="padding: 10px; width: 80%;"><br><br>
+            <button type="submit" style="background-color: #0078ff; color: white; padding: 10px 20px; border: none; cursor: pointer;">
+                Listar Torneos
+            </button>
+        </form>
+    </div>
+</body>
+</html>

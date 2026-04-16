@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet encargado de la creación de nuevos torneos (FR13).
  * Autor: Paul
  */
-@WebServlet("/CreateTournamentServlet")
-public class CreateTournamentServlet extends HttpServlet {
+@WebServlet("/PCreateTournamentServlet")
+public class PCreateTournamentServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private Connection connection;
 
@@ -32,20 +32,21 @@ public class CreateTournamentServlet extends HttpServlet {
 
         try {
             // 1. Recoger datos del formulario (insertournament.html)
-            String name = req.getParameter("tournamentName");
+			String name = req.getParameter("tournamentName");
             String modality = req.getParameter("modality");
             String dateTime = req.getParameter("dateTime");
             String address = req.getParameter("address");
             String rules = req.getParameter("rules");
-            String prizes = req.getParameter("prizes");
             
             // Conversión de tipos numéricos
+			int organizerId = Integer.parseInt(req.getParameter("organizerId"));
             int maxParticipants = Integer.parseInt(req.getParameter("maxParticipants"));
+			double prizes = Double.parseDouble(req.getParameter("prizes"));
             double entryPrice = Double.parseDouble(req.getParameter("entryPrice"));
 
             // 2. Crear objeto de datos y realizar la inserción
-            DatosTorneo torneo = new DatosTorneo(name, modality, dateTime, address, rules, prizes, maxParticipants, entryPrice);
-            int result = DatosTorneo.insertTournament(connection, torneo);
+            PTournamentData torneo = new PTournamentData(organizerId, name, modality, address, dateTime, entryPrice, prizes, rules, maxParticipants);
+            int result = PTournamentData.insertTournament(connection, torneo);
 
             // 3. Generar respuesta visual usando tu Utils.java actualizado
             // IMPORTANTE: Ahora pasamos 'req' como segundo parámetro

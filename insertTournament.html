@@ -9,24 +9,28 @@
 
 <h2>Create a new tournament</h2>
 
-<form action="CreateTournamentServlet" method="POST">
-    <label>Tournament Name:</label><br>
+<form action="PCreateTournamentServlet" method="POST">
+    
+	<label>Organizer Id:</label><br>
+    <input type="text" name="organizerId" required><br><br>
+	
+	<label>Tournament Name:</label><br>
     <input type="text" name="tournamentName" required><br><br>
 
     <label>Modality (Game):</label><br>
     <input type="text" name="modality" placeholder="e.g. Chess, Poker, Mus" required><br><br>
 
     <label>Date and Time:</label><br>
-    <input type="datetime-local" name="dateTime" required><br><br>
+    <input type="text" name="dateTime" required><br><br>
 
-    <label>Venue Address:</label><br>
+    <label>Location:</label><br>
     <input type="text" name="address" required><br><br>
 
     <label>Rules:</label><br>
     <input type="text" name="rules" required><br><br>
 
-    <label>Prize Structure:</label><br>
-    <input type="text" name="prizes" required><br><br>
+    <label>Win Prize:</label><br>
+    <input type="number" name="prizes" required><br><br>
 
     <label>Max Participants:</label><br>
     <input type="number" name="maxParticipants" min="1" required><br><br>

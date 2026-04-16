@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inscripción - TournamentHub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="centered-page">
+    <div class="card" style="max-width: 800px; width: 100%;">
+        <div style='text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #ccc;'>
+            <a href='index.html' style='margin-right: 15px;'>Home</a>
+            <a href='EjemploServlet' style='margin-right: 15px;'>Ver Torneos</a>
+        </div>
+
+        <div style="text-align: center; padding: 30px;">
+            <h2>Inscripción a Torneo</h2>
+            <p>Introduce el ID del torneo para registrarte en la base de datos.</p>
+            
+            <form action="RegisterTournamentServlet" method="POST" style="margin-top: 20px;">
+                <div style="margin-bottom: 15px;">
+                    <label for="tournamentId">ID del Torneo:</label><br>
+                    <input type="number" id="tournamentId" name="tournamentId" required 
+                           style="padding: 8px; width: 200px; border-radius: 4px; border: 1px solid #ccc;">
+                </div>
+                
+                <button type="submit" 
+                        style="padding: 10px 25px; background-color: #0078ff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                    Confirmar Registro en Access
+                </button>
+            </form>
+            
+            <br>
+            <a href="index.html" style="color: #666; text-decoration: none;">← Volver al menú</a>
+        </div>
+    </div>
+</body>
+</html>

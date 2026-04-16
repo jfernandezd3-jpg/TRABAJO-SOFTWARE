@@ -26,7 +26,7 @@ public class Utils {
             // USUARIO LOGUEADO
             String email = (String) session.getAttribute("userEmail");
             str.append("            <span style='margin-right: 15px; color: #0078ff; font-weight: bold;'>Usuario: ").append(email).append("</span>\n");
-            str.append("            <a href='LogoutServlet' style='color: red;'>Cerrar Sesion</a>\n");
+            str.append("            <a href='BLogoutServlet' style='color: red;'>Cerrar Sesion</a>\n");
         } else {
             // USUARIO NO LOGUEADO
             str.append("            <a href='login.html' style='margin-right: 15px;'>Login</a>\n");

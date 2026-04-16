@@ -5,7 +5,7 @@ import javax.servlet.http.*;
 import java.sql.Connection;
 
 @SuppressWarnings("serial")
-public class TournamentDesapuntar extends HttpServlet {
+public class BTournamentDesapuntar extends HttpServlet {
     Connection connection;
 
     public void init(ServletConfig config) throws ServletException {
@@ -17,11 +17,11 @@ public class TournamentDesapuntar extends HttpServlet {
         res.setContentType("text/html");
         PrintWriter toClient = res.getWriter();
         
-        // 1. Recuperar la sesión para saber quién es el usuario actual
+        // 1. Recuperar la sesión
         HttpSession session = req.getSession(false);
         String username = (session != null) ? (String) session.getAttribute("userEmail") : null;
 
-        // 2. Si no hay nadie logueado, le bloqueamos el paso
+        // 2. Bloqueo si no hay sesión
         if (username == null) {
             toClient.println(Utils.header("Acceso Denegado", req));
             toClient.println("<h3 style='color:red; text-align:center;'>Debes iniciar sesión para desapuntarte de un torneo.</h3>");
@@ -33,21 +33,22 @@ public class TournamentDesapuntar extends HttpServlet {
         
         toClient.println(Utils.header("Desapuntarse de Torneo", req));
         
-        toClient.println("<form action='TournamentDesapuntarUpdate' method='GET'>");
-        toClient.println("<table style='margin: 0 auto;'>"); // Centramos un poco la tabla
+        // Apuntamos al nuevo Servlet de Update
+        toClient.println("<form action='BTournamentDesapuntarUpdate' method='GET'>");
+        toClient.println("<table style='margin: 0 auto;'>"); 
         
         toClient.println("<tr><td><b>Torneo:</b></td>");
         toClient.println("<td><select name='tournamentId' style='padding:5px;' required>");
         toClient.println("<option value='' disabled selected>-- Elige un torneo --</option>");
         
-        Vector<TournamentData> tList = TournamentData.getTournamentList(connection);
+        // Usamos la nueva clase BTournamentData
+        Vector<BTournamentData> tList = BTournamentData.getTournamentList(connection);
         for(int i=0; i < tList.size(); i++){
-            TournamentData t = tList.elementAt(i);
+            BTournamentData t = tList.elementAt(i);
             toClient.println("<option value='" + t.id + "'>" + t.tournament + "</option>");
         }
         toClient.println("</select></td></tr>");
         
-        // 3. Ya no pedimos el username con un input, se lo mostramos en texto plano
         toClient.println("<tr><td style='padding-top:10px;'><b>Usuario actual:</b></td>");
         toClient.println("<td style='padding-top:10px; color:#0078ff;'>" + username + "</td></tr>");
         

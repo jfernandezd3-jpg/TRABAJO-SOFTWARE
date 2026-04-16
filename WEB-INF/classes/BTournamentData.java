@@ -5,11 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class TournamentData {
+public class BTournamentData {
 
     int id;
     int organizer_id;
-    String tournament; // OJO: Tu compañero ha llamado 'tournament' al nombre del torneo
+    String tournament; 
     String modality;
     String location;
     String tournament_date;
@@ -19,7 +19,7 @@ public class TournamentData {
     int max_partici;
 
     // Constructor principal
-    public TournamentData(int id, int organizer_id, String tournament, String modality,
+    public BTournamentData(int id, int organizer_id, String tournament, String modality,
                           String location, String tournament_date, double entry_price,
                           double win_price, String rules, int max_partici) {
 
@@ -35,9 +35,10 @@ public class TournamentData {
         this.max_partici = max_partici;
     }
 
-    public static Vector<TournamentData> getTournamentList(Connection connection) {
+    // LISTA COMPLETA
+    public static Vector<BTournamentData> getTournamentList(Connection connection) {
 
-        Vector<TournamentData> vec = new Vector<TournamentData>();
+        Vector<BTournamentData> vec = new Vector<BTournamentData>();
 
         String sql = "SELECT * FROM tournaments";
         System.out.println("getTournamentList: " + sql);
@@ -47,7 +48,7 @@ public class TournamentData {
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                TournamentData t = new TournamentData(
+                BTournamentData t = new BTournamentData(
                     rs.getInt("ID"),
                     rs.getInt("organizer_id"),
                     rs.getString("tournament"),
@@ -71,5 +72,41 @@ public class TournamentData {
         }
 
         return vec;
+    }
+
+    // Metodo para desapuntar
+    public static int deleteRegistration(Connection connection, int tournamentId, String username) {
+        int n = 0;
+        
+        // Primero buscamos el ID del usuario usando su username (que en tu caso almacena el email en la sesión)
+        String sqlUser = "SELECT ID FROM users WHERE email = ?"; // Cambiado de username a email por coherencia con LoginServlet
+        System.out.println("getUserID: " + sqlUser);
+        
+        try {
+            PreparedStatement pstmtUser = connection.prepareStatement(sqlUser);
+            pstmtUser.setString(1, username);
+            ResultSet rsUser = pstmtUser.executeQuery();
+            
+            if(rsUser.next()) {
+                int userId = rsUser.getInt("ID");
+                
+                // Si existe el usuario, lo borramos de la tabla registrations
+                String sqlDelete = "DELETE FROM registrations WHERE user_id = ? AND torunament_id = ?";
+                System.out.println("deleteRegistration: " + sqlDelete);
+                
+                PreparedStatement pstmtDel = connection.prepareStatement(sqlDelete);
+                pstmtDel.setInt(1, userId);
+                pstmtDel.setInt(2, tournamentId);
+                
+                n = pstmtDel.executeUpdate();
+                pstmtDel.close();
+            }
+            rsUser.close();
+            pstmtUser.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error in deleteRegistration Exception: " + e);
+        }
+        return n;
     }
 }

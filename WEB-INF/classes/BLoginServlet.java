@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/LoginServlet")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/BLoginServlet")
+public class BLoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
             Connection conn = ConnectionUtils.getConnection(getServletConfig());
             
             if (conn != null) {
-                // 3. Consultar la tabla users (ajusta los nombres de las columnas si en tu foto se llaman diferente)
+                // 3. Consultar la tabla users
                 String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 pstmt.setString(1, email);
@@ -42,15 +42,14 @@ public class LoginServlet extends HttpServlet {
                     // ¡Login correcto! 
                     HttpSession session = request.getSession();
                     
-                    // Guardamos el email en la sesión. (Si en tu tabla tienes un campo 'username', podrías guardar ese)
+                    // Guardamos el email en la sesión
                     session.setAttribute("userEmail", email); 
                     
-                    // Redirigimos al EjemploServlet (la lista de torneos) para ver el menú cambiado
+                    // Redirigimos al inicio
                     response.sendRedirect("index.html");
                     
                 } else {
                     // Login fallido
-                    // Le pasamos el request al Utils.header para que sepa si hay sesión (aquí no la hay)
                     out.println(Utils.header("Error de Login", request));
                     out.println("<div style='text-align: center;'>");
                     out.println("<p style='color: red; font-weight: bold;'>Email o contraseña incorrectos.</p>");

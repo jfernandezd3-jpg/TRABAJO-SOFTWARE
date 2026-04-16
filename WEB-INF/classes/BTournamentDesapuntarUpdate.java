@@ -4,7 +4,7 @@ import javax.servlet.http.*;
 import java.sql.Connection;
 
 @SuppressWarnings("serial")
-public class TournamentDesapuntarUpdate extends HttpServlet {
+public class BTournamentDesapuntarUpdate extends HttpServlet {
     Connection connection;
 
     public void init(ServletConfig config) throws ServletException {
@@ -16,11 +16,11 @@ public class TournamentDesapuntarUpdate extends HttpServlet {
         res.setContentType("text/html");
         PrintWriter toClient = res.getWriter();
         
-        // 1. Extraemos el usuario de la SESIÓN (Seguridad)
+        // 1. Extraemos el usuario
         HttpSession session = req.getSession(false);
         String username = (session != null) ? (String) session.getAttribute("userEmail") : null;
 
-        // 2. Comprobación de seguridad por si accedió a esta URL directamente
+        // 2. Seguridad
         if (username == null) {
             toClient.println(Utils.header("Acceso Denegado", req));
             toClient.println("<h3 style='color:red; text-align:center;'>Debes iniciar sesión para realizar esta acción.</h3>");
@@ -35,8 +35,8 @@ public class TournamentDesapuntarUpdate extends HttpServlet {
         if (tournamentIdStr != null) {
             int tournamentId = Integer.parseInt(tournamentIdStr);
             
-            // 3. Ejecutamos el borrado usando el 'username' de su sesión
-            int n = TournamentData.deleteRegistration(connection, tournamentId, username);
+            // 3. Ejecutamos el borrado usando BTournamentData
+            int n = BTournamentData.deleteRegistration(connection, tournamentId, username);
             
             toClient.println(Utils.header("Resultado de la Baja", req));
             
@@ -50,7 +50,8 @@ public class TournamentDesapuntarUpdate extends HttpServlet {
             toClient.println("<h3 style='color:red; text-align:center;'>Faltan datos en el formulario.</h3>");
         }
         
-        toClient.println("<br><div style='text-align:center;'><a href='TournamentDesapuntar'>Volver al formulario</a></div>");
+        // Volvemos al nuevo Servlet de desapuntar
+        toClient.println("<br><div style='text-align:center;'><a href='BTournamentDesapuntar'>Volver al formulario</a></div>");
         
         toClient.println(Utils.footer());
         toClient.close();

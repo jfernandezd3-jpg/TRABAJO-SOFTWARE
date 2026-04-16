@@ -1,84 +1,80 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <web-app>
 
+<servlet>
+    <servlet-name>BLoginServlet</servlet-name>
+    <servlet-class>BLoginServlet</servlet-class>
+</servlet>
+<servlet>
+    <servlet-name>BLogoutServlet</servlet-name>
+    <servlet-class>BLogoutServlet</servlet-class>
+</servlet>
+<servlet>
+    <servlet-name>BTournamentDesapuntar</servlet-name>
+    <servlet-class>BTournamentDesapuntar</servlet-class>
+</servlet>
+<servlet>
+    <servlet-name>BTournamentDesapuntarUpdate</servlet-name>
+    <servlet-class>BTournamentDesapuntarUpdate</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>BLoginServlet</servlet-name>
+    <url-pattern>/BLoginServlet</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+    <servlet-name>BLogoutServlet</servlet-name>
+    <url-pattern>/BLogoutServlet</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+    <servlet-name>BTournamentDesapuntar</servlet-name>
+    <url-pattern>/BTournamentDesapuntar</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+    <servlet-name>BTournamentDesapuntarUpdate</servlet-name>
+    <url-pattern>/BTournamentDesapuntarUpdate</url-pattern>
+</servlet-mapping>
+
+
 
 <servlet>
-    <servlet-name>LoginServlet</servlet-name>
-    <servlet-class>LoginServlet</servlet-class>
+    <servlet-name>PCreateTournamentServlet</servlet-name>
+    <servlet-class>PCreateTournamentServlet</servlet-class>
 </servlet>
+<servlet-mapping>
+    <servlet-name>PCreateTournamentServlet</servlet-name>
+    <url-pattern>/PCreateTournamentServlet</url-pattern>
+</servlet-mapping>
 
-<servlet>
-    <servlet-name>LogoutServlet</servlet-name>
-    <servlet-class>LogoutServlet</servlet-class>
-</servlet>
+
 
 <servlet>
     <servlet-name>RegisterServlet</servlet-name>
     <servlet-class>RegisterServlet</servlet-class>
 </servlet>
-
-<servlet>
-    <servlet-name>TournamentDesapuntar</servlet-name>
-    <servlet-class>TournamentDesapuntar</servlet-class>
-</servlet>
-
-<servlet>
-    <servlet-name>TournamentDesapuntarUpdate</servlet-name>
-    <servlet-class>TournamentDesapuntarUpdate</servlet-class>
-</servlet>
-
 <servlet>
     <servlet-name>TournamentList</servlet-name>
     <servlet-class>TournamentList</servlet-class>
 </servlet>
-
 <servlet>
     <servlet-name>UserEdit</servlet-name>
     <servlet-class>UserEdit</servlet-class>
 </servlet>
-
 <servlet>
     <servlet-name>UserUpdate</servlet-name>
     <servlet-class>UserUpdate</servlet-class>
 </servlet>
-
-
-
-<servlet-mapping>
-    <servlet-name>LoginServlet</servlet-name>
-    <url-pattern>/LoginServlet</url-pattern>
-</servlet-mapping>
-
-<servlet-mapping>
-    <servlet-name>LogoutServlet</servlet-name>
-    <url-pattern>/LogoutServlet</url-pattern>
-</servlet-mapping>
-
 <servlet-mapping>
     <servlet-name>RegisterServlet</servlet-name>
     <url-pattern>/RegisterServlet</url-pattern>
 </servlet-mapping>
-
-<servlet-mapping>
-    <servlet-name>TournamentDesapuntar</servlet-name>
-    <url-pattern>/TournamentDesapuntar</url-pattern>
-</servlet-mapping>
-
-<servlet-mapping>
-    <servlet-name>TournamentDesapuntarUpdate</servlet-name>
-    <url-pattern>/TournamentDesapuntarUpdate</url-pattern>
-</servlet-mapping>
-
 <servlet-mapping>
     <servlet-name>TournamentList</servlet-name>
     <url-pattern>/TournamentList</url-pattern>
 </servlet-mapping>
-
 <servlet-mapping>
     <servlet-name>UserEdit</servlet-name>
     <url-pattern>/UserEdit</url-pattern>
 </servlet-mapping>
-
 <servlet-mapping>
     <servlet-name>UserUpdate</servlet-name>
     <url-pattern>/UserUpdate</url-pattern>

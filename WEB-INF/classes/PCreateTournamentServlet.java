@@ -50,11 +50,11 @@ public class PCreateTournamentServlet extends HttpServlet {
 
             // 3. Generar respuesta visual usando tu Utils.java actualizado
             // IMPORTANTE: Ahora pasamos 'req' como segundo parámetro
-            out.println(Utils.header("Estado de Creación", req));
+            out.println(Utils.header("Estado de Creacion", req));
             
             out.println("<div style='text-align: center; padding: 20px;'>");
             if (result > 0) {
-                out.println("<h3 style='color: green;'>¡Éxito!</h3>");
+                out.println("<h3 style='color: green;'>¡Exito!</h3>");
                 out.println("<p>El torneo <strong>" + name + "</strong> ha sido creado correctamente.</p>");
             } else {
                 out.println("<h3 style='color: red;'>Error</h3>");
@@ -68,12 +68,12 @@ public class PCreateTournamentServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             // También actualizamos el header en los catch
             out.println(Utils.header("Error de Formato", req));
-            out.println("<p style='color: red; text-align: center;'>Error: Los campos de precio o participantes deben ser numéricos.</p>");
+            out.println("<p style='color: red; text-align: center;'>Error: Los campos de precio o participantes deben ser numericos.</p>");
             out.println("<div style='text-align: center;'><a href='insertournament.html'>Reintentar</a></div>");
             out.println(Utils.footer());
         } catch (Exception e) {
             out.println(Utils.header("Error General", req));
-            out.println("<p style='text-align: center;'>Ocurrió un error inesperado: " + e.getMessage() + "</p>");
+            out.println("<p style='text-align: center;'>Ocurrio un error inesperado: " + e.getMessage() + "</p>");
             out.println(Utils.footer());
         }
     }

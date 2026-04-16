@@ -61,7 +61,7 @@ public class PListOrganizerTournamentsServlet extends HttpServlet {
                     out.println("<td style='padding: 10px;'>" + t.location + "</td>");
                     // Enlace para editar (FR14)
                     out.println("<td style='padding: 10px; text-align: center;'>");
-                    out.println("<a href='PEditTournamentServlet?id=" + t.organizer_id + "' style='color: #0078ff;'>Editar</a>");
+                    out.println("<a href='PEditTournamentServlet?id=" + t.id + "' style='color: #0078ff;'>Editar</a>");
                     out.println("</td>");
                     out.println("</tr>");
                 }

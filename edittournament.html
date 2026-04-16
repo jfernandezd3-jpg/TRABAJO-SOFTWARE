@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Torneo - TournamentHub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>Editar Información del Torneo</h2>
+    <form action="PEditTournamentServlet" method="POST">
+        <input type="hidden" name="id" value=""> 
+        
+        <label>Nombre del Torneo:</label><br>
+        <input type="text" name="tournamentName" required><br><br>
+
+        <label>Modalidad:</label><br>
+        <input type="text" name="modality" required><br><br>
+
+        <label>Ubicación:</label><br>
+        <input type="text" name="location" required><br><br>
+
+        <label>Fecha:</label><br>
+        <input type="datetime-local" name="dateTime" required><br><br>
+
+        <label>Precio Inscripción:</label><br>
+        <input type="number" name="entryPrice" step="0.01" required><br><br>
+
+        <label>Premios:</label><br>
+        <input type="number" name="prizes" step="0.01" required><br><br>
+
+        <label>Reglas:</label><br>
+        <textarea name="rules" required></textarea><br><br>
+
+        <label>Máx Participantes:</label><br>
+        <input type="number" name="maxParticipants" required><br><br>
+
+        <button type="submit">Actualizar Torneo</button>
+    </form>
+</body>
+</html>

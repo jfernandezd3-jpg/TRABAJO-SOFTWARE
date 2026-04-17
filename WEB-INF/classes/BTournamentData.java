@@ -130,7 +130,7 @@ public class BTournamentData {
             ResultSet rsUser = pstmtUser.executeQuery();
             if(rsUser.next()) {
                 int userId = rsUser.getInt("ID");
-                String sqlDelete = "DELETE FROM registrations WHERE user_id = ? AND torunament_id = ?";
+                String sqlDelete = "DELETE FROM registrations WHERE user_id = ? AND tournament_id = ?";
                 PreparedStatement pstmtDel = connection.prepareStatement(sqlDelete);
                 pstmtDel.setInt(1, userId);
                 pstmtDel.setInt(2, tournamentId);
@@ -152,9 +152,8 @@ public class BTournamentData {
         Vector<BTournamentData> vec = new Vector<BTournamentData>();
         
         // Cruzamos las 3 tablas usando la sintaxis implícita que mejor digiere MS Access
-        // (Respetando el nombre 'torunament_id' de tu base de datos)
         String sql = "SELECT t.* FROM tournaments t, registrations r, users u " +
-                     "WHERE t.ID = r.torunament_id AND r.user_id = u.ID AND u.email = ?";
+                     "WHERE t.ID = r.tournament_id AND r.user_id = u.ID AND u.email = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, email);

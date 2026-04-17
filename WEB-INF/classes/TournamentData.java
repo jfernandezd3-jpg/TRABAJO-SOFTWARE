@@ -9,7 +9,7 @@ public class TournamentData {
 
     int id;
     int organizer_id;
-    String tournament; // OJO: Tu compañero ha llamado 'tournament' al nombre del torneo
+    String tournament;
     String modality;
     String location;
     String tournament_date;

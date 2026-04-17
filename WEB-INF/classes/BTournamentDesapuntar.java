@@ -14,7 +14,8 @@ public class BTournamentDesapuntar extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException  {
-        res.setContentType("text/html");
+        res.setContentType("text/html; charset=UTF-8");
+        res.setCharacterEncoding("UTF-8");
         PrintWriter toClient = res.getWriter();
         
         // 1. Recuperar la sesión

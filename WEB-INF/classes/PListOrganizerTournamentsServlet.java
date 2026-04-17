@@ -59,10 +59,12 @@ public class PListOrganizerTournamentsServlet extends HttpServlet {
                     out.println("<td style='padding: 10px;'>" + t.modality + "</td>");
                     out.println("<td style='padding: 10px;'>" + t.tournament_date + "</td>");
                     out.println("<td style='padding: 10px;'>" + t.location + "</td>");
-                    // Enlace para editar (FR14)
+                    
                     out.println("<td style='padding: 10px; text-align: center;'>");
-                    out.println("<a href='PEditTournamentServlet?id=" + t.id + "' style='color: #0078ff;'>Editar</a>");
+                    out.println("<a href='PEditTournamentServlet?id=" + t.id + "' style='color: #0078ff; font-weight: bold; margin-right: 15px;'>Editar</a>");
+                    out.println("<a href='PCreateTournamentPosterServlet?id=" + t.id + "' style='color: #28a745; font-weight: bold;'>Crear Cartel</a>");
                     out.println("</td>");
+                    
                     out.println("</tr>");
                 }
                 out.println("</table>");

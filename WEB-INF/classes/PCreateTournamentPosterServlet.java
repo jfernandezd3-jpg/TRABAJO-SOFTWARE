@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet para generar un cartel publicitario del torneo.
+ * Servlet para generar y descargar un cartel publicitario del torneo.
  * Autor: Paul
  */
 @WebServlet("/PCreateTournamentPosterServlet")
@@ -26,14 +26,14 @@ public class PCreateTournamentPosterServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType("text/html");
+        res.setContentType("text/html; charset=UTF-8");
         PrintWriter out = res.getWriter();
 
         try {
             // 1. Recoger el ID del torneo por la URL
             int id = Integer.parseInt(req.getParameter("id"));
             
-            // 2. Reutilizamos tu método maestro para obtener los datos
+            // 2. Obtener los datos desde Access
             PTournamentData t = PTournamentData.getTournamentById(connection, id);
 
             if (t == null) {
@@ -44,8 +44,7 @@ public class PCreateTournamentPosterServlet extends HttpServlet {
             }
 
             // 3. Lógica para elegir la imagen según la modalidad
-            // Asegúrate de tener estas imágenes dentro de una carpeta "img" en tu WebContent
-            String imagenMod = "default.jpg"; // Imagen por defecto
+            String imagenMod = "default.jpg"; 
             String mod = t.modality.toLowerCase();
             
             if (mod.contains("mus")) {
@@ -56,22 +55,19 @@ public class PCreateTournamentPosterServlet extends HttpServlet {
                 imagenMod = "poker.jpg";
             }
 
-            // 4. Dibujar el Cartel (Tabla de 1 fila y 1 columna)
+            // 4. Imprimir la cabecera e importar la librería mágica para descargar imágenes
             out.println(Utils.header("Cartel: " + t.tournament, req));
+            out.println("<script src='https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'></script>");
             
-            out.println("<div style='display: flex; justify-content: center; padding: 40px;'>");
+            // 5. Dibujar el Cartel (Le ponemos el ID 'zona-cartel' para que el script sepa qué capturar)
+            out.println("<div id='zona-cartel' style='display: flex; justify-content: center; padding: 40px; background-color: #ffffff;'>");
             
-            // Inicio de la tabla de 1 fila y 1 columna con diseño de Cartel
             out.println("<table border='1' style='width: 400px; border-collapse: collapse; text-align: center; box-shadow: 5px 5px 15px rgba(0,0,0,0.3); border: 3px solid #0078ff; background-color: #fdfdfd;'>");
             out.println("<tr><td style='padding: 20px;'>");
 
-            // Título en negrita y grande
             out.println("<h1 style='color: #333; margin-top: 0;'><b>" + t.tournament.toUpperCase() + "</b></h1>");
-            
-            // Imagen de la modalidad
             out.println("<img src='img/" + imagenMod + "' alt='" + t.modality + "' style='width: 250px; height: auto; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 20px;'>");
             
-            // Datos del torneo
             out.println("<h3 style='color: #0078ff; border-bottom: 1px solid #ccc; padding-bottom: 5px;'>Detalles del Evento</h3>");
             out.println("<p style='font-size: 18px;'><b>Modalidad:</b> " + t.modality + "</p>");
             out.println("<p style='font-size: 16px;'><b>Fecha y Hora:</b> " + t.tournament_date + "</p>");
@@ -82,16 +78,33 @@ public class PCreateTournamentPosterServlet extends HttpServlet {
             out.println("<p style='margin: 0; font-style: italic;'>" + t.rules + "</p>");
             out.println("</div>");
             
-            // Sección de Premios y Precios
             out.println("<p style='font-size: 18px; color: green;'><b>Premio al ganador:</b> " + t.win_price + " Euros</p>");
             out.println("<p style='font-size: 16px;'><b>Cuota de entrada:</b> " + t.entry_price + " Euros</p>");
             out.println("<p style='font-size: 14px; color: #666;'><b>Max. Participantes:</b> " + t.max_partici + " plazas</p>");
 
             out.println("</td></tr>");
             out.println("</table>");
-            
+            out.println("</div>"); // Fin de zona-cartel
+
+            // 6. Botones de Acción (Descargar y Volver)
+            out.println("<div style='text-align: center; margin-top: 10px; margin-bottom: 30px;'>");
+            // Botón que llama a la función de JavaScript
+            out.println("<button onclick='descargarCartel()' style='background-color: #ff9800; color: white; padding: 12px 24px; border: none; cursor: pointer; font-weight: bold; border-radius: 5px; font-size: 16px; margin-right: 15px;'>Descargar como Imagen</button>");
+            out.println("<a href='searchorganizer.html' style='text-decoration: none; background-color: #666; color: white; padding: 12px 24px; border-radius: 5px; font-weight: bold; font-size: 16px;'>Volver al Panel</a>");
             out.println("</div>");
-            out.println("<div style='text-align: center;'><a href='searchorganizer.html' class='button'>Volver al Panel</a></div>");
+
+            // 7. El Script que hace la captura de pantalla
+            out.println("<script>");
+            out.println("function descargarCartel() {");
+            out.println("    html2canvas(document.querySelector('#zona-cartel')).then(canvas => {");
+            out.println("        let enlace = document.createElement('a');");
+            // Le ponemos el nombre del torneo al archivo descargado limpiando espacios
+            out.println("        enlace.download = 'Cartel_" + t.tournament.replaceAll(" ", "_") + ".png';");
+            out.println("        enlace.href = canvas.toDataURL('image/png');");
+            out.println("        enlace.click();");
+            out.println("    });");
+            out.println("}");
+            out.println("</script>");
             
             out.println(Utils.footer());
 
@@ -104,6 +117,6 @@ public class PCreateTournamentPosterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        doGet(req, res); // Permitimos que funcione tanto por GET como por POST
+        doGet(req, res); 
     }
 }

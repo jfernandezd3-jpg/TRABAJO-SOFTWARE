@@ -20,6 +20,15 @@
 </servlet-mapping>
 
 <servlet>
+    <servlet-name>BSelectTournament</servlet-name>
+    <servlet-class>BSelectTournament</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>BSelectTournament</servlet-name>
+    <url-pattern>/BSelectTournament</url-pattern>
+</servlet-mapping>
+
+<servlet>
     <servlet-name>BTournamentDesapuntar</servlet-name>
     <servlet-class>BTournamentDesapuntar</servlet-class>
 </servlet>
@@ -35,6 +44,15 @@
 <servlet-mapping>
     <servlet-name>BTournamentDesapuntarUpdate</servlet-name>
     <url-pattern>/BTournamentDesapuntarUpdate</url-pattern>
+</servlet-mapping>
+
+<servlet>
+    <servlet-name>BTournamentInfo</servlet-name>
+    <servlet-class>BTournamentInfo</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>BTournamentInfo</servlet-name>
+    <url-pattern>/BTournamentInfo</url-pattern>
 </servlet-mapping>
 
 <servlet>

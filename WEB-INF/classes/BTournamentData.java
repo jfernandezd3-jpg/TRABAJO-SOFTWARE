@@ -17,11 +17,14 @@ public class BTournamentData {
     double win_price;
     String rules;
     int max_partici;
+    double latitude;  // NUEVO
+    double longitude; // NUEVO
 
-    // Constructor principal
+    // Constructor principal actualizado con latitud y longitud
     public BTournamentData(int id, int organizer_id, String tournament, String modality,
                           String location, String tournament_date, double entry_price,
-                          double win_price, String rules, int max_partici) {
+                          double win_price, String rules, int max_partici, 
+                          double latitude, double longitude) {
 
         this.id = id;
         this.organizer_id = organizer_id;
@@ -33,6 +36,8 @@ public class BTournamentData {
         this.win_price = win_price;
         this.rules = rules;
         this.max_partici = max_partici;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     // LISTA COMPLETA
@@ -58,7 +63,9 @@ public class BTournamentData {
                     rs.getDouble("entry_price"),
                     rs.getDouble("win_price"),
                     rs.getString("rules"),
-                    rs.getInt("max_participants")
+                    rs.getInt("max_participants"),
+                    rs.getDouble("latitude"),  // Leemos latitud
+                    rs.getDouble("longitude")  // Leemos longitud
                 );
                 vec.addElement(t);
             }
@@ -74,12 +81,48 @@ public class BTournamentData {
         return vec;
     }
 
+    // ==========================================================
+    // NUEVO MÉTODO: BUSCAR UN SOLO TORNEO POR ID
+    // ==========================================================
+    public static BTournamentData getTournamentById(Connection connection, int id) {
+        BTournamentData t = null;
+        String sql = "SELECT * FROM tournaments WHERE ID = ?";
+        
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                t = new BTournamentData(
+                    rs.getInt("ID"),
+                    rs.getInt("organizer_id"),
+                    rs.getString("tournament"),
+                    rs.getString("modality"),
+                    rs.getString("location"),
+                    rs.getString("tournament_date"),
+                    rs.getDouble("entry_price"),
+                    rs.getDouble("win_price"),
+                    rs.getString("rules"),
+                    rs.getInt("max_participants"),
+                    rs.getDouble("latitude"),
+                    rs.getDouble("longitude")
+                );
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error in getTournamentById Exception: " + e);
+        }
+        return t;
+    }
+
     // Metodo para desapuntar
     public static int deleteRegistration(Connection connection, int tournamentId, String username) {
         int n = 0;
         
-        // Primero buscamos el ID del usuario usando su username (que en tu caso almacena el email en la sesión)
-        String sqlUser = "SELECT ID FROM users WHERE email = ?"; // Cambiado de username a email por coherencia con LoginServlet
+        String sqlUser = "SELECT ID FROM users WHERE email = ?"; 
         System.out.println("getUserID: " + sqlUser);
         
         try {
@@ -90,7 +133,6 @@ public class BTournamentData {
             if(rsUser.next()) {
                 int userId = rsUser.getInt("ID");
                 
-                // Si existe el usuario, lo borramos de la tabla registrations
                 String sqlDelete = "DELETE FROM registrations WHERE user_id = ? AND torunament_id = ?";
                 System.out.println("deleteRegistration: " + sqlDelete);
                 

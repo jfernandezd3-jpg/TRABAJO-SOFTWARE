@@ -143,12 +143,12 @@
 
 
 <servlet>
-    <servlet-name>OrganizerRequestServlet</servlet-name>
-    <servlet-class>OrganizerRequestServlet</servlet-class>
+    <servlet-name>ListTournamentsServlet</servlet-name>
+    <servlet-class>ListTournamentsServlet</servlet-class>
 </servlet>
 <servlet-mapping>
-    <servlet-name>OrganizerRequestServlet</servlet-name>
-    <url-pattern>/OrganizerRequestServlet</url-pattern>
+    <servlet-name>ListTournamentsServlet</servlet-name>
+    <url-pattern>/ListTournamentsServlet</url-pattern>
 </servlet-mapping>
 
 

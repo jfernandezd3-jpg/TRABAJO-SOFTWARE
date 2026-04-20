@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Preparar Partido</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align:center; color:#1a4f2c;">Configurar Nuevo Partido</h2>
+        
+        <form action="BMatchScoreConsole" method="POST" style="max-width: 400px; margin: 0 auto;">
+            
+            <div style="margin-bottom: 15px;">
+                <label>ID del Torneo:</label><br>
+                <input type="number" name="id_tournament" required style="width: 100%; padding: 8px;">
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label>ID del Jugador 1:</label><br>
+                <input type="number" name="id_player1" required style="width: 100%; padding: 8px;">
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label>ID del Jugador 2:</label><br>
+                <input type="number" name="id_player2" required style="width: 100%; padding: 8px;">
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button type="submit" class="btn">Empezar a Arbitrar</button>
+            </div>
+        </form>
+        
+        <div style="text-align:center; margin-top: 20px;">
+            <a href="index.html">Volver al inicio</a>
+        </div>
+    </div>
+</body>
+</html>

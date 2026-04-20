@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/BTournamentMap")
 public class BTournamentMap extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -51,7 +50,6 @@ public class BTournamentMap extends HttpServlet {
                         String name = t.tournament.replace("'", "\\'"); 
                         String loc = t.location.replace("'", "\\'");
 
-                        // SOLUCIÓN: Quitamos class="btn" y le damos el estilo compacto y verde a mano
                         String popupContent = "<b>" + name + "</b><br>" +
                                               "Lugar: " + loc + "<br>" +
                                               "Precio: " + t.entry_price + " EUR<br><br>" +

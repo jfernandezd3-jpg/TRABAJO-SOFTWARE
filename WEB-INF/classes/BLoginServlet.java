@@ -11,13 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/BLoginServlet")
 public class BLoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        // 1. Recoger datos del formulario
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         
@@ -25,11 +23,9 @@ public class BLoginServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         try {
-            // 2. Conectar a la BD Access
             Connection conn = ConnectionUtils.getConnection(getServletConfig());
             
             if (conn != null) {
-                // 3. Consultar la tabla users
                 String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 pstmt.setString(1, email);
@@ -37,15 +33,14 @@ public class BLoginServlet extends HttpServlet {
                 
                 ResultSet rs = pstmt.executeQuery();
 
-                // 4. ¿Existe el usuario?
                 if (rs.next()) {
-                    // ¡Login correcto! 
+                    // Login correcto
                     HttpSession session = request.getSession();
                     
-                    // Guardamos el email en la sesión
+                    // Guardar el email en la sesión
                     session.setAttribute("userEmail", email); 
                     
-                    // Redirigimos al inicio
+                    // Redirigir al inicio
                     response.sendRedirect("index.html");
                     
                 } else {

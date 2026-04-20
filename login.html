@@ -7,22 +7,56 @@
 </head>
 <body class="centered-page">
 
-    <div class="card" style="max-width: 400px; width: 100%;">
-        <h2 style="text-align:center;">Login</h2>
+    <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+        
+        <div class="card" style="max-width: 400px; width: 100%;">
+            <h2 style="text-align:center;">Login</h2>
 
-        <form action="BLoginServlet" method="post">
-            <label>Email:</label>
-            <input type="email" name="email" required>
+            <form action="BLoginServlet" method="post">
+                <label>Email:</label>
+                <input type="email" name="email" style="width: 100%; box-sizing: border-box;" required>
 
-            <label>Password:</label>
-            <input type="password" name="password" required>
+                <label>Password:</label>
+                <input type="password" name="password" style="width: 100%; box-sizing: border-box;" required>
 
-            <button type="submit">Login</button>
-        </form>
+                <button type="submit" style="width: 100%; margin-top: 10px;">Login</button>
+            </form>
 
-        <p style="text-align: center; margin-top: 15px;">
-            No account? <a href="register.html">Register here</a>
-        </p>
+            <p style="text-align: center; margin-top: 15px;">
+                No account? <a href="register.html">Register here</a>
+            </p>
+
+            <div class="test-accounts" style="width: 100%; margin-top: 25px;">
+                <h3 style="text-align: center; margin-bottom: 10px; color: #555;">Cuentas para hacer pruebas:</h3>
+                <table style="width: 100%; margin: 0 auto; border-collapse: collapse; text-align: left;">
+                    <thead>
+                        <tr>
+                            <th style="padding: 8px;">Email</th>
+                            <th style="padding: 8px;">Contraseña</th>
+                            <th style="padding: 8px;">Rol</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 8px;">userejemplo@gmail.com</td>
+                            <td style="padding: 8px;">5555</td>
+                            <td style="padding: 8px;">Usuario normal</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px;">alex@gmail.com</td>
+                            <td style="padding: 8px;">0000</td>
+                            <td style="padding: 8px;">Organizador</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px;">paul@gmail.com</td>
+                            <td style="padding: 8px;">3333</td>
+                            <td style="padding: 8px;">Admin</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
     </div>
 
 </body>

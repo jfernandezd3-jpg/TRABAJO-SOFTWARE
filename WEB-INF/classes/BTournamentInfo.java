@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/BTournamentInfo")
 public class BTournamentInfo extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private Connection connection;
@@ -28,7 +27,6 @@ public class BTournamentInfo extends HttpServlet {
 
         try (PrintWriter out = response.getWriter()) {
             
-            // 1. Recoger el ID del torneo de la URL
             String idParam = request.getParameter("id");
             
             if (idParam == null || idParam.trim().isEmpty()) {
@@ -40,15 +38,11 @@ public class BTournamentInfo extends HttpServlet {
 
             int id = Integer.parseInt(idParam);
 
-            // 2. Usamos TU clase para buscar los datos
             BTournamentData torneo = BTournamentData.getTournamentById(connection, id);
 
-            // 3. Imprimir Cabecera
             out.println(Utils.header(torneo != null ? torneo.tournament : "Torneo no encontrado", request));
 
-            // 4. Pintar la información del torneo
             if (torneo != null) {
-                // Inyectamos las librerías del mapa ANTES de usarlo
                 out.println("<link rel='stylesheet' href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css' />");
                 out.println("<script src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'></script>");
 
@@ -75,27 +69,22 @@ public class BTournamentInfo extends HttpServlet {
                 out.println("  <div class='info-box'>");
                 out.println("    <h3>Ubicacion en el Mapa</h3>");
                 
-                // Verificamos que las coordenadas sean válidas (no sean 0.0)
                 if (torneo.latitude != 0.0 && torneo.longitude != 0.0) {
                     out.println("    <div id='map' style='height: 300px; border-radius: 8px; z-index: 1;'></div>");
                     
-                    // Script que arranca este mapa específico
                     out.println("    <script>");
-                    // Zoom nivel 15 (mucho más cerca que el zoom 6 del mapa general de España)
                     out.println("      var map = L.map('map').setView([" + torneo.latitude + ", " + torneo.longitude + "], 11);");
                     out.println("      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' }).addTo(map);");
                     
                     String safeName = torneo.tournament.replace("'", "\\'");
                     out.println("      L.marker([" + torneo.latitude + ", " + torneo.longitude + "]).addTo(map)");
-                    out.println("          .bindPopup('<b>" + safeName + "</b>').openPopup();"); // openPopup() hace que el cartelito salga abierto por defecto
+                    out.println("          .bindPopup('<b>" + safeName + "</b>').openPopup();");
                     out.println("    </script>");
                 } else {
-                    // Si no hay coordenadas en la BD para este torneo
                     out.println("    <p style='color: #777;'><em>Las coordenadas GPS no estan disponibles para este torneo.</em></p>");
                 }
                 out.println("  </div>");
 
-                // Botón volver
                 out.println("  <div class='text-center' style='margin-top: 30px;'>");
                 out.println("    <a href='index.html' class='btn' style='display: inline-block; width: auto; text-decoration: none;'>Volver al Inicio</a>");
                 out.println("  </div>");

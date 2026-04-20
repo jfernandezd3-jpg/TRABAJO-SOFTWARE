@@ -16,11 +16,9 @@ public class BTournamentDesapuntarUpdate extends HttpServlet {
         res.setContentType("text/html");
         PrintWriter toClient = res.getWriter();
         
-        // 1. Extraemos el usuario
         HttpSession session = req.getSession(false);
         String username = (session != null) ? (String) session.getAttribute("userEmail") : null;
 
-        // 2. Seguridad
         if (username == null) {
             toClient.println(Utils.header("Acceso Denegado", req));
             toClient.println("<h3 style='color:red; text-align:center;'>Debes iniciar sesión para realizar esta acción.</h3>");
@@ -35,7 +33,6 @@ public class BTournamentDesapuntarUpdate extends HttpServlet {
         if (tournamentIdStr != null) {
             int tournamentId = Integer.parseInt(tournamentIdStr);
             
-            // 3. Ejecutamos el borrado usando BTournamentData
             int n = BTournamentData.deleteRegistration(connection, tournamentId, username);
             
             toClient.println(Utils.header("Resultado de la Baja", req));
@@ -50,7 +47,6 @@ public class BTournamentDesapuntarUpdate extends HttpServlet {
             toClient.println("<h3 style='color:red; text-align:center;'>Faltan datos en el formulario.</h3>");
         }
         
-        // Volvemos al nuevo Servlet de desapuntar
         toClient.println("<br><div style='text-align:center;'><a href='BTournamentDesapuntar'>Volver al formulario</a></div>");
         
         toClient.println(Utils.footer());

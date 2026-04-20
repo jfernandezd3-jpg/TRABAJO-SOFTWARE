@@ -18,11 +18,9 @@ public class BTournamentDesapuntar extends HttpServlet {
         res.setCharacterEncoding("UTF-8");
         PrintWriter toClient = res.getWriter();
         
-        // 1. Recuperar la sesión
         HttpSession session = req.getSession(false);
         String username = (session != null) ? (String) session.getAttribute("userEmail") : null;
 
-        // 2. Bloqueo si no hay sesión
         if (username == null) {
             toClient.println(Utils.header("Acceso Denegado", req));
             toClient.println("<div class='container text-center'>");
@@ -36,24 +34,20 @@ public class BTournamentDesapuntar extends HttpServlet {
         
         toClient.println(Utils.header(" ", req));
         
-        // Aplicamos el diseño premium de tarjeta
         toClient.println("<div class='container'>");
         toClient.println("<h2 style='text-align:center; color:#1a4f2c; margin-bottom:20px;'>Cancelar Inscripcion</h2>");
         
-        toClient.println("<form action='BTournamentDesapuntarUpdate' method='GET' onsubmit=\"return confirm('¿Estas seguro de que quieres desapuntarte de este torneo? Esta accion no se puede deshacer.');\">");
+        toClient.println("<form action='BTournamentDesapuntarUpdate' method='GET' onsubmit=\"return confirm('\\u00BFEstas seguro de que quieres desapuntarte de este torneo? Esta accion no se puede deshacer.');\">");
         
-        // Llamamos al NUEVO método filtrando por el username (email)
         Vector<BTournamentData> tList = BTournamentData.getTournamentsByUserEmail(connection, username);
         
         if (tList.isEmpty()) {
-            // Si no está apuntado a nada, le mostramos un aviso y bloqueamos el botón
             toClient.println("<div class='info-box' style='text-align:center; border-left-color: orange;'>");
             toClient.println("  <h3 style='color: orange;'>Sin inscripciones</h3>");
             toClient.println("  <p>No estas apuntado a ningun torneo actualmente.</p>");
             toClient.println("</div>");
             toClient.println("<br><div class='text-center'><button type='submit' class='btn' disabled style='background-color:#ccc; cursor:not-allowed;'>Desapuntarse</button></div>");
         } else {
-            // Si tiene torneos, pintamos el formulario normal
             toClient.println("<label for='tournamentId'>Selecciona el torneo a abandonar:</label>");
             toClient.println("<select name='tournamentId' id='tournamentId' required>");
             toClient.println("<option value='' disabled selected>-- Tus torneos activos --</option>");
@@ -72,7 +66,7 @@ public class BTournamentDesapuntar extends HttpServlet {
         toClient.println("</form>");
         
         toClient.println("<div class='text-center' style='margin-top: 20px;'><a href='index.html'>Volver al Inicio</a></div>");
-        toClient.println("</div>"); // Fin del container
+        toClient.println("</div>");
         
         toClient.println(Utils.footer());
         toClient.close();

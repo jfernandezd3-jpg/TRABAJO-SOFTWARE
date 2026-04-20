@@ -40,9 +40,7 @@ public class BTournamentData {
         this.longitude = longitude;
     }
 
-    // ==========================================================
     // 1. OBTENER TODOS LOS TORNEOS
-    // ==========================================================
     public static Vector<BTournamentData> getTournamentList(Connection connection) {
         Vector<BTournamentData> vec = new Vector<BTournamentData>();
         String sql = "SELECT * FROM tournaments";
@@ -66,9 +64,7 @@ public class BTournamentData {
         return vec;
     }
 
-    // ==========================================================
     // 2. OBTENER UN TORNEO POR ID
-    // ==========================================================
     public static BTournamentData getTournamentById(Connection connection, int id) {
         BTournamentData t = null;
         String sql = "SELECT * FROM tournaments WHERE ID = ?";
@@ -92,9 +88,7 @@ public class BTournamentData {
         return t;
     }
 
-    // ==========================================================
-    // 3. NUEVO: OBTENER SOLO TORNEOS CON COORDENADAS PARA EL MAPA
-    // ==========================================================
+    // 3. OBTENER SOLO TORNEOS CON COORDENADAS PARA EL MAPA
     public static Vector<BTournamentData> getTournamentsWithCoordinates(Connection connection) {
         Vector<BTournamentData> vec = new Vector<BTournamentData>();
         String sql = "SELECT * FROM tournaments WHERE latitude IS NOT NULL AND longitude IS NOT NULL";
@@ -118,9 +112,7 @@ public class BTournamentData {
         return vec;
     }
 
-    // ==========================================================
     // 4. DESAPUNTAR USUARIO
-    // ==========================================================
     public static int deleteRegistration(Connection connection, int tournamentId, String username) {
         int n = 0;
         String sqlUser = "SELECT ID FROM users WHERE email = ?"; 
@@ -145,13 +137,10 @@ public class BTournamentData {
         return n;
     }
 
-    // ==========================================================
-    // 5. NUEVO: OBTENER SOLO LOS TORNEOS A LOS QUE ESTA APUNTADO EL USUARIO
-    // ==========================================================
+    // 5. OBTENER SOLO LOS TORNEOS A LOS QUE ESTA APUNTADO EL USUARIO
     public static Vector<BTournamentData> getTournamentsByUserEmail(Connection connection, String email) {
         Vector<BTournamentData> vec = new Vector<BTournamentData>();
         
-        // Cruzamos las 3 tablas usando la sintaxis implícita que mejor digiere MS Access
         String sql = "SELECT t.* FROM tournaments t, registrations r, users u " +
                      "WHERE t.ID = r.tournament_id AND r.user_id = u.ID AND u.email = ?";
         try {

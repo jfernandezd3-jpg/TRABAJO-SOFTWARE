@@ -20,6 +20,24 @@
 </servlet-mapping>
 
 <servlet>
+    <servlet-name>BMatchScoreConsole</servlet-name>
+    <servlet-class>BMatchScoreConsole</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>BMatchScoreConsole</servlet-name>
+    <url-pattern>/BMatchScoreConsole</url-pattern>
+</servlet-mapping>
+
+<servlet>
+    <servlet-name>BMatchScoreCreate</servlet-name>
+    <servlet-class>BMatchScoreCreate</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>BMatchScoreCreate</servlet-name>
+    <url-pattern>/BMatchScoreCreate</url-pattern>
+</servlet-mapping>
+
+<servlet>
     <servlet-name>BSelectTournament</servlet-name>
     <servlet-class>BSelectTournament</servlet-class>
 </servlet>
@@ -99,30 +117,33 @@
     <servlet-name>RegisterServlet</servlet-name>
     <servlet-class>RegisterServlet</servlet-class>
 </servlet>
-<servlet>
-    <servlet-name>TournamentList</servlet-name>
-    <servlet-class>TournamentList</servlet-class>
-</servlet>
-<servlet>
-    <servlet-name>UserEdit</servlet-name>
-    <servlet-class>UserEdit</servlet-class>
-</servlet>
-<servlet>
-    <servlet-name>UserUpdate</servlet-name>
-    <servlet-class>UserUpdate</servlet-class>
-</servlet>
 <servlet-mapping>
     <servlet-name>RegisterServlet</servlet-name>
     <url-pattern>/RegisterServlet</url-pattern>
 </servlet-mapping>
+
+<servlet>
+    <servlet-name>TournamentList</servlet-name>
+    <servlet-class>TournamentList</servlet-class>
+</servlet>
 <servlet-mapping>
     <servlet-name>TournamentList</servlet-name>
     <url-pattern>/TournamentList</url-pattern>
 </servlet-mapping>
+
+<servlet>
+    <servlet-name>UserEdit</servlet-name>
+    <servlet-class>UserEdit</servlet-class>
+</servlet>
 <servlet-mapping>
     <servlet-name>UserEdit</servlet-name>
     <url-pattern>/UserEdit</url-pattern>
 </servlet-mapping>
+
+<servlet>
+    <servlet-name>UserUpdate</servlet-name>
+    <servlet-class>UserUpdate</servlet-class>
+</servlet>
 <servlet-mapping>
     <servlet-name>UserUpdate</servlet-name>
     <url-pattern>/UserUpdate</url-pattern>
@@ -145,8 +166,6 @@
     <servlet-name>TournamentMatchGenerator</servlet-name>
     <url-pattern>/TournamentMatchGenerator</url-pattern>
 </servlet-mapping>
-
-
 
 
 
@@ -185,8 +204,5 @@
     <servlet-name>ManageParticipantsServlet</servlet-name>
     <url-pattern>/ManageParticipantsServlet</url-pattern>
 </servlet-mapping>
-
-
-
 
 </web-app>

@@ -128,4 +128,27 @@
     <url-pattern>/UserUpdate</url-pattern>
 </servlet-mapping>
 
+
+
+
+<servlet>
+<servlet-name>RegisterTournamentServlet</servlet-name>
+<servlet-class>RegisterTournamentServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>RegisterTournamentServlet</servlet-name>
+<url-pattern>/RegisterTournamentServlet</url-pattern>
+</servlet-mapping>
+
+
+
+<servlet>
+    <servlet-name>OrganizerRequestServlet</servlet-name>
+    <servlet-class>OrganizerRequestServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>OrganizerRequestServlet</servlet-name>
+    <url-pattern>/OrganizerRequestServlet</url-pattern>
+</servlet-mapping>
+
 </web-app>

@@ -16,91 +16,86 @@ public class RegisterTournamentServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        // Verificar que el usuario esté logueado
         if (session == null || session.getAttribute("userEmail") == null) {
             response.sendRedirect("login.html");
             return;
         }
 
         String email = (String) session.getAttribute("userEmail");
-        int tId = Integer.parseInt(request.getParameter("tournamentId"));
-        
+        String tIdParam = request.getParameter("tournamentId");
+        int tId = Integer.parseInt(tIdParam);
+
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
 
         try (Connection conn = ConnectionUtils.getConnection(getServletConfig())) {
             if (conn != null) {
-                // 1. Obtener ID de usuario
+                // 1. Obtener ID y ROL
                 int uId = -1;
-                String sqlU = "SELECT id FROM Users WHERE email = ?";
-                PreparedStatement psU = conn.prepareStatement(sqlU);
-                psU.setString(1, email);
-                ResultSet rsU = psU.executeQuery();
-                if (rsU.next()) uId = rsU.getInt("id");
-
-                // 2. Comprobar si ya existe la inscripción
-                String sqlCheck = "SELECT * FROM Registrations WHERE user_id = ? AND tournament_id = ?";
-                PreparedStatement psC = conn.prepareStatement(sqlCheck);
-                psC.setInt(1, uId);
-                psC.setInt(2, tId);
-                if (psC.executeQuery().next()) {
-                    imprimirRespuesta(out, "Ya estás inscrito en este torneo.", "orange", request);
-                    return;
-                }
-
-                // 3. Validar capacidad
-                String sqlCap = "SELECT current_participants, max_participants FROM Tournaments WHERE id = ?";
-                PreparedStatement psCap = conn.prepareStatement(sqlCap);
-                psCap.setInt(1, tId);
-                ResultSet rsCap = psCap.executeQuery();
-
-                if (rsCap.next()) {
-                    int actual = rsCap.getInt("current_participants");
-                    int maximo = rsCap.getInt("max_participants");
-
-                    if (actual < maximo) {
-                        conn.setAutoCommit(false);
-                        try {
-                            // Insertar registro
-                            String sqlIns = "INSERT INTO Registrations (user_id, tournament_id, status) VALUES (?, ?, 'accepted')";
-                            PreparedStatement psI = conn.prepareStatement(sqlIns);
-                            psI.setInt(1, uId);
-                            psI.setInt(2, tId);
-                            psI.executeUpdate();
-
-                            // Actualizar contador
-                            String sqlUpd = "UPDATE Tournaments SET current_participants = current_participants + 1 WHERE id = ?";
-                            PreparedStatement psUpd = conn.prepareStatement(sqlUpd);
-                            psUpd.setInt(1, tId);
-                            psUpd.executeUpdate();
-
-                            conn.commit();
-                            // Si todo sale bien, volvemos al index
-                            response.sendRedirect("index.html?registration=success");
-                        } catch (Exception e) {
-                            conn.rollback();
-                            throw e;
+                String role = "user";
+                String sqlU = "SELECT id, role FROM Users WHERE email = ?";
+                try (PreparedStatement psU = conn.prepareStatement(sqlU)) {
+                    psU.setString(1, email);
+                    try (ResultSet rsU = psU.executeQuery()) {
+                        if (rsU.next()) {
+                            uId = rsU.getInt("id");
+                            role = rsU.getString("role");
                         }
-                    } else {
-                        imprimirRespuesta(out, "El torneo está lleno.", "red", request);
                     }
-                } else {
-                    imprimirRespuesta(out, "El ID del torneo no existe.", "red", request);
                 }
+
+                // 2. Comprobar si ya existe
+                String sqlCheck = "SELECT * FROM Registrations WHERE user_id = ? AND tournament_id = ?";
+                try (PreparedStatement psC = conn.prepareStatement(sqlCheck)) {
+                    psC.setInt(1, uId);
+                    psC.setInt(2, tId);
+                    if (psC.executeQuery().next()) {
+                        pintarPantallaAviso(out, "Ya estas inscrito en este torneo.", "Atencion");
+                        return;
+                    }
+                }
+
+                // 3. Determinar estado
+                String estado = "pending";
+                String mensaje = "Solicitud enviada correctamente. Debes esperar a que un organizador acepte la solicitud.";
+                
+                if ("admin".equalsIgnoreCase(role) || "organizer".equalsIgnoreCase(role)) {
+                    estado = "accepted";
+                    mensaje = "Inscripcion realizada con exito. Al ser personal de organizacion, tu acceso es directo.";
+                }
+
+                // 4. Insertar
+                String sqlIns = "INSERT INTO Registrations (user_id, tournament_id, status) VALUES (?, ?, ?)";
+                try (PreparedStatement psI = conn.prepareStatement(sqlIns)) {
+                    psI.setInt(1, uId);
+                    psI.setInt(2, tId);
+                    psI.setString(3, estado);
+                    psI.executeUpdate();
+                }
+
+                // 5. Mostrar pantalla de exito personalizada
+                pintarPantallaAviso(out, mensaje, "Registro Completado");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("error.html");
+            pintarPantallaAviso(out, "Hubo un error tecnico: " + e.getMessage(), "Error");
         }
     }
 
-    // Método para mostrar errores usando vuestro diseño sin usar JSP
-    private void imprimirRespuesta(PrintWriter out, String mensaje, String color, HttpServletRequest req) {
-        out.println(Utils.header("Atención", req));
-        out.println("<div style='text-align:center; padding:20px;'>");
-        out.println("<h3 style='color:" + color + ";'>" + mensaje + "</h3>");
-        out.println("<a href='inscripcion.html'><button>Volver a intentarlo</button></a>");
-        out.println("</div>");
-        out.println(Utils.footer());
+    // Metodo auxiliar para no repetir codigo HTML
+    private void pintarPantallaAviso(PrintWriter out, String mensaje, String titulo) {
+        out.println("<html><head><title>" + titulo + "</title>");
+        out.println("<style>");
+        out.println("body { font-family: Arial; background-color: #f4f4f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }");
+        out.println(".card { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; max-width: 400px; }");
+        out.println("h2 { color: #333; }");
+        out.println("p { color: #666; line-height: 1.5; margin-bottom: 30px; }");
+        out.println(".btn { background-color: #28a745; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; }");
+        out.println("</style></head><body>");
+        out.println("<div class='card'>");
+        out.println("<h2>" + titulo + "</h2>");
+        out.println("<p>" + mensaje + "</p>");
+        out.println("<a href='index.html' class='btn'>Continuar</a>");
+        out.println("</div></body></html>");
     }
 }

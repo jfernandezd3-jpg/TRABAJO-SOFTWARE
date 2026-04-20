@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Solicitud de Organizador</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="centered-page">
+    <div class="card" style="max-width: 600px; margin: auto; padding: 20px;">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <a href="index.html">Volver al Inicio</a>
+        </div>
+
+        <h2>Solicitud de Rango Organizador</h2>
+        <p>Tu solicitud sera revisada por un administrador.</p>
+        
+        <form action="OrganizerRequestServlet" method="POST">
+            <div style="margin-bottom: 15px; text-align: left;">
+                <label>Escribe el motivo de tu solicitud:</label><br>
+                <textarea name="motivo" rows="5" required 
+                          style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;"
+                          placeholder="Ej: Quiero organizar torneos..."></textarea>
+            </div>
+            
+            <button type="submit" 
+                    style="padding: 10px 25px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                Enviar Solicitud
+            </button>
+        </form>
+    </div>
+</body>
+</html>

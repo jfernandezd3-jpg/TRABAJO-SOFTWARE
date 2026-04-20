@@ -160,12 +160,12 @@
 </servlet-mapping>
 
 <servlet>
-    <servlet-name>ListTournamentsServlet</servlet-name>
-    <servlet-class>ListTournamentsServlet</servlet-class>
+    <servlet-name>PopularityRankingServlet</servlet-name>
+    <servlet-class>PopularityRankingServlet</servlet-class>
 </servlet>
 <servlet-mapping>
-    <servlet-name>ListTournamentsServlet</servlet-name>
-    <url-pattern>/ListTournamentsServlet</url-pattern>
+    <servlet-name>PopularityRankingServlet</servlet-name>
+    <url-pattern>/PopularityRankingServlet</url-pattern>
 </servlet-mapping>
 
 <servlet>

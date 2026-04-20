@@ -1,4 +1,4 @@
-import java.io.*;
+	import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.sql.Connection;
@@ -26,7 +26,7 @@ public class TournamentCheckIn extends HttpServlet {
 
             switch (status) {
                 case "accepted":
-                    out.println("<h3 style='color:green;'>Check-In completado. ¡Bienvenido al torneo!</h3>");
+                    out.println("<h3 style='color:green;'>Check-In completado.¡Bienvenido al torneo!</h3>");
                     break;
 
                 case "pending":

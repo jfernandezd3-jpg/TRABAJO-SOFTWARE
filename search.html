@@ -1,34 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Tournament Search</title>
+    <title>Buscar Torneos</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h2>Search Tournaments</h2>
+<h2>Buscar Torneos</h2>
 
-<form action="SearchServlet" method="get">
+<form action="TournamentSearch" method="GET">
+    <label>Modalidad:</label>
+    <input type="text" name="modality"><br><br>
 
-    <label>Modality:</label>
-    <select name="modality">
-        <option value="">Any</option>
-        <option value="Chess">Chess</option>
-        <option value="Mus">Mus</option>
-        <option value="Poker">Poker</option>
-    </select>
-    <br><br>
-
-    <label>Location:</label><br>
+    <label>Ubicación:</label>
     <input type="text" name="location"><br><br>
 
-    <label>Date:</label><br>
-    <input type="date" name="date"><br><br>
+    <label>Fecha:</label>
+    <input type="date" name="tournament_date"><br><br>
 
-    <label>Max Price:</label><br>
-    <input type="number" name="price"><br><br>
-
-    <button type="submit">Search</button>
+    <input type="submit" value="Buscar">
 </form>
 
 </body>

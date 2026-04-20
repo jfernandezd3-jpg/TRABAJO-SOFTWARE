@@ -7,18 +7,17 @@ import java.sql.SQLException;
 
 public class TournamentData {
 
-    int id;
-    int organizer_id;
-    String tournament;
-    String modality;
-    String location;
-    String tournament_date;
-    double entry_price;
-    double win_price;
-    String rules;
-    int max_partici;
+    public int id;
+    public int organizer_id;
+    public String tournament;
+    public String modality;
+    public String location;
+    public String tournament_date;
+    public double entry_price;
+    public double win_price;
+    public String rules;
+    public int max_partici;
 
-    // Constructor principal
     public TournamentData(int id, int organizer_id, String tournament, String modality,
                           String location, String tournament_date, double entry_price,
                           double win_price, String rules, int max_partici) {
@@ -68,6 +67,55 @@ public class TournamentData {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Error in getTournamentList: " + sql + " Exception: " + e);
+        }
+
+        return vec;
+    }
+
+    public static Vector<TournamentData> searchTournaments(Connection connection,
+                                                           String modality,
+                                                           String location) {
+
+        Vector<TournamentData> vec = new Vector<TournamentData>();
+
+        String sql = "SELECT * FROM tournaments WHERE 1=1";
+
+        if (modality != null && !modality.isEmpty()) {
+            sql += " AND modality LIKE '%" + modality + "%'";
+        }
+
+        if (location != null && !location.isEmpty()) {
+            sql += " AND location LIKE '%" + location + "%'";
+        }
+
+        System.out.println("searchTournaments: " + sql);
+
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                TournamentData t = new TournamentData(
+                    rs.getInt("ID"),
+                    rs.getInt("organizer_id"),
+                    rs.getString("tournament"),
+                    rs.getString("modality"),
+                    rs.getString("location"),
+                    rs.getString("tournament_date"),
+                    rs.getDouble("entry_price"),
+                    rs.getDouble("win_price"),
+                    rs.getString("rules"),
+                    rs.getInt("max_participants")
+                );
+                vec.addElement(t);
+            }
+
+            rs.close();
+            stmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error in searchTournaments: " + sql + " Exception: " + e);
         }
 
         return vec;

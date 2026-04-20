@@ -15,9 +15,27 @@ public class TournamentList extends HttpServlet {
 
         Connection connection = ConnectionUtils.getConnection(getServletConfig());
 
-        Vector<TournamentData> tournaments = TournamentData.getTournamentList(connection);
+        String modality = req.getParameter("modality");
+        String location = req.getParameter("location");
+
+        Vector<TournamentData> tournaments;
+
+        if ((modality != null && !modality.isEmpty()) ||
+            (location != null && !location.isEmpty())) {
+
+            tournaments = TournamentData.searchTournaments(connection, modality, location);
+
+        } else {
+            tournaments = TournamentData.getTournamentList(connection);
+        }
 
         out.println(Utils.header("Lista de Torneos", req));
+
+        out.println("<form method='GET' action='TournamentList'>");
+        out.println("Modalidad: <input type='text' name='modality'> ");
+        out.println("Localidad: <input type='text' name='location'> ");
+        out.println("<input type='submit' value='Filtrar'>");
+        out.println("</form><br>");
 
         out.println("<table border='1'>");
         out.println("<tr>"
@@ -33,8 +51,7 @@ public class TournamentList extends HttpServlet {
                 + "<th>Max Participants</th>"
                 + "</tr>");
 
-        for (int i = 0; i < tournaments.size(); i++) {
-            TournamentData t = tournaments.elementAt(i);
+        for (TournamentData t : tournaments) {
 
             out.println("<tr>");
             out.println("<td>" + t.id + "</td>");
@@ -53,5 +70,7 @@ public class TournamentList extends HttpServlet {
         out.println("</table>");
         out.println(Utils.footer());
         out.close();
+
+        ConnectionUtils.close(connection);
     }
 }

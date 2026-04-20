@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Check-In de Torneo</title>
+	<link rel="stylesheet" href="style.css">
+
+    <script>
+        function validateForm() {
+            let user = document.getElementById("user_id").value.trim();
+            let tour = document.getElementById("tournament_id").value.trim();
+
+            if (user === "" || tour === "") {
+                alert("Debes rellenar ambos campos.");
+                return false;
+            }
+
+            if (isNaN(user) || isNaN(tour)) {
+                alert("Los IDs deben ser números.");
+                return false;
+            }
+
+            document.getElementById("loading").style.display = "block";
+            return true;
+        }
+    </script>
+
+    <style>
+        #loading {
+            display: none;
+            color: blue;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Check-In de Torneo</h2>
+
+<form action="TournamentCheckIn" method="GET" onsubmit="return validateForm()">
+    <label>ID de Usuario:</label>
+    <input type="text" id="user_id" name="user_id"><br><br>
+
+    <label>ID del Torneo:</label>
+    <input type="text" id="tournament_id" name="tournament_id"><br><br>
+
+    <input type="submit" value="Realizar Check-In">
+</form>
+
+<p id="loading">Comprobando registro...</p>
+
+</body>
+</html>

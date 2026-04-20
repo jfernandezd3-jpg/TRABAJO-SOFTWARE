@@ -20,8 +20,9 @@ public class TournamentList extends HttpServlet {
 
         Vector<TournamentData> tournaments;
 
-        if ((modality != null && !modality.isEmpty()) ||
-            (location != null && !location.isEmpty())) {
+        // Si hay filtros → búsqueda
+        if ((modality != null && !modality.trim().isEmpty()) ||
+            (location != null && !location.trim().isEmpty())) {
 
             tournaments = TournamentData.searchTournaments(connection, modality, location);
 
@@ -31,12 +32,14 @@ public class TournamentList extends HttpServlet {
 
         out.println(Utils.header("Lista de Torneos", req));
 
+        // FORMULARIO DE FILTRO
         out.println("<form method='GET' action='TournamentList'>");
         out.println("Modalidad: <input type='text' name='modality'> ");
         out.println("Localidad: <input type='text' name='location'> ");
         out.println("<input type='submit' value='Filtrar'>");
         out.println("</form><br>");
 
+        // TABLA
         out.println("<table border='1'>");
         out.println("<tr>"
                 + "<th>ID</th>"
@@ -44,7 +47,6 @@ public class TournamentList extends HttpServlet {
                 + "<th>Tournament</th>"
                 + "<th>Modality</th>"
                 + "<th>Location</th>"
-                + "<th>Date</th>"
                 + "<th>Entry Price</th>"
                 + "<th>Win Price</th>"
                 + "<th>Rules</th>"
@@ -59,7 +61,6 @@ public class TournamentList extends HttpServlet {
             out.println("<td>" + t.tournament + "</td>");
             out.println("<td>" + t.modality + "</td>");
             out.println("<td>" + t.location + "</td>");
-            out.println("<td>" + t.tournament_date + "</td>");
             out.println("<td>" + t.entry_price + "</td>");
             out.println("<td>" + t.win_price + "</td>");
             out.println("<td>" + t.rules + "</td>");

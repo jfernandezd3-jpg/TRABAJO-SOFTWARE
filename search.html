@@ -9,17 +9,20 @@
 
 <h2>Buscar Torneos</h2>
 
-<form action="TournamentSearch" method="GET">
+<form action="TournamentList" method="GET">
+
     <label>Modalidad:</label>
-    <input type="text" name="modality"><br><br>
+    <input type="text" name="modality">
 
-    <label>Ubicación:</label>
-    <input type="text" name="location"><br><br>
+    <label>Localidad:</label>
+    <input type="text" name="location">
 
-    <label>Fecha:</label>
-    <input type="date" name="tournament_date"><br><br>
+    <input type="submit" value="Filtrar">
 
-    <input type="submit" value="Buscar">
+    <button type="button" onclick="window.location.href='TournamentList'">
+        Ver todos los torneos
+    </button>
+
 </form>
 
 </body>

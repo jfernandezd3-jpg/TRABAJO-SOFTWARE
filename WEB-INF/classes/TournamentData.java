@@ -34,9 +34,10 @@ public class TournamentData {
         this.max_partici = max_partici;
     }
 
+
     public static Vector<TournamentData> getTournamentList(Connection connection) {
 
-        Vector<TournamentData> vec = new Vector<TournamentData>();
+        Vector<TournamentData> vec = new Vector<>();
 
         String sql = "SELECT * FROM tournaments";
         System.out.println("getTournamentList: " + sql);
@@ -58,7 +59,7 @@ public class TournamentData {
                     rs.getString("rules"),
                     rs.getInt("max_participants")
                 );
-                vec.addElement(t);
+                vec.add(t);
             }
 
             rs.close();
@@ -72,27 +73,39 @@ public class TournamentData {
         return vec;
     }
 
+
     public static Vector<TournamentData> searchTournaments(Connection connection,
                                                            String modality,
                                                            String location) {
 
-        Vector<TournamentData> vec = new Vector<TournamentData>();
+        Vector<TournamentData> vec = new Vector<>();
 
         String sql = "SELECT * FROM tournaments WHERE 1=1";
 
-        if (modality != null && !modality.isEmpty()) {
-            sql += " AND modality LIKE '%" + modality + "%'";
+        if (modality != null && !modality.trim().isEmpty()) {
+            sql += " AND modality LIKE ?";
         }
 
-        if (location != null && !location.isEmpty()) {
-            sql += " AND location LIKE '%" + location + "%'";
+        if (location != null && !location.trim().isEmpty()) {
+            sql += " AND location LIKE ?";
         }
 
-        System.out.println("searchTournaments: " + sql);
+        System.out.println("searchTournaments SQL: " + sql);
 
         try {
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            int index = 1;
+
+            if (modality != null && !modality.trim().isEmpty()) {
+                stmt.setString(index++, "%" + modality + "%");
+            }
+
+            if (location != null && !location.trim().isEmpty()) {
+                stmt.setString(index++, "%" + location + "%");
+            }
+
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 TournamentData t = new TournamentData(
@@ -107,7 +120,7 @@ public class TournamentData {
                     rs.getString("rules"),
                     rs.getInt("max_participants")
                 );
-                vec.addElement(t);
+                vec.add(t);
             }
 
             rs.close();
@@ -115,9 +128,71 @@ public class TournamentData {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error in searchTournaments: " + sql + " Exception: " + e);
         }
 
         return vec;
     }
+	public static String checkRegistration(Connection connection, int userId, int tournamentId) {
+
+    String sql = "SELECT status FROM registrations WHERE user_id = ? AND tournament_id = ?";
+
+    try {
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, userId);
+        stmt.setInt(2, tournamentId);
+
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            return rs.getString("status"); // accepted / pending / rejected
+        }
+
+        rs.close();
+        stmt.close();
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return "not_found";
+	}
+public static String getTournamentModality(Connection connection, int tournamentId) {
+    String sql = "SELECT modality FROM tournaments WHERE ID = ?";
+    try {
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, tournamentId);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            String mod = rs.getString("modality");
+            rs.close();
+            stmt.close();
+            return mod;
+        }
+        rs.close();
+        stmt.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return null;
+}
+
+public static java.util.List<Integer> getAcceptedPlayers(Connection connection, int tournamentId) {
+    java.util.List<Integer> players = new java.util.ArrayList<>();
+    String sql = "SELECT user_id FROM registrations WHERE tournament_id = ? AND status = 'accepted'";
+    try {
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, tournamentId);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            players.add(rs.getInt("user_id"));
+        }
+        rs.close();
+        stmt.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return players;
+}
+
+
 }

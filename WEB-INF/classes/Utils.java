@@ -18,7 +18,7 @@ public class Utils {
         // --- INICIO DE LA BARRA DE NAVEGACION DINAMICA ---
         str.append("        <div style='text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #ccc;'>\n");
         str.append("            <a href='index.html' style='margin-right: 15px;'>Home</a>\n");
-        str.append("            <a href='EjemploServlet' style='margin-right: 15px;'>Ver Torneos</a>\n");
+        str.append("            <a href='TournamentList' style='margin-right: 15px;'>Ver Torneos</a>\n");
         
         // Comprobamos si hay una sesion activa
         HttpSession session = request.getSession(false); 

@@ -193,6 +193,24 @@ button[type="submit"]:hover,
 .text-center {
     text-align: center;
 }
+/* ==========================================================================
+   Estilos para TournamentMatchGenerator (Brackets y Mesas)
+   ========================================================================== */
+.match, .table {
+    border: 2px solid #2e8b57;
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 10px;
+    background: #f8fbf9;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+}
+
+.match:hover, .table:hover {
+    transform: translateX(5px);
+}
+
 
 /* =======================================
    TABLAS (Para mostrar la lista de torneos)

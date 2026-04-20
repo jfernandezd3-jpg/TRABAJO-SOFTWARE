@@ -128,6 +128,25 @@
     <url-pattern>/UserUpdate</url-pattern>
 </servlet-mapping>
 
+<servlet>
+    <servlet-name>TournamentCheckIn</servlet-name>
+    <servlet-class>TournamentCheckIn</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>TournamentCheckIn</servlet-name>
+    <url-pattern>/TournamentCheckIn</url-pattern>
+</servlet-mapping>
+
+<servlet>
+    <servlet-name>TournamentMatchGenerator</servlet-name>
+    <servlet-class>TournamentMatchGenerator</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>TournamentMatchGenerator</servlet-name>
+    <url-pattern>/TournamentMatchGenerator</url-pattern>
+</servlet-mapping>
+
+
 
 
 
@@ -140,8 +159,6 @@
 <url-pattern>/RegisterTournamentServlet</url-pattern>
 </servlet-mapping>
 
-
-
 <servlet>
     <servlet-name>ListTournamentsServlet</servlet-name>
     <servlet-class>ListTournamentsServlet</servlet-class>
@@ -150,6 +167,26 @@
     <servlet-name>ListTournamentsServlet</servlet-name>
     <url-pattern>/ListTournamentsServlet</url-pattern>
 </servlet-mapping>
+
+<servlet>
+    <servlet-name>OrganizerLoginServlet</servlet-name>
+    <servlet-class>OrganizerLoginServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>OrganizerLoginServlet</servlet-name>
+    <url-pattern>/OrganizerLoginServlet</url-pattern>
+</servlet-mapping>
+
+<servlet>
+    <servlet-name>ManageParticipantsServlet</servlet-name>
+    <servlet-class>ManageParticipantsServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>ManageParticipantsServlet</servlet-name>
+    <url-pattern>/ManageParticipantsServlet</url-pattern>
+</servlet-mapping>
+
+
 
 
 </web-app>

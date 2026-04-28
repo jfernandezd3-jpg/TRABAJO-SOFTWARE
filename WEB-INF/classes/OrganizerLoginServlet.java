@@ -68,7 +68,7 @@ public class OrganizerLoginServlet extends HttpServlet {
         out.println("<div class='card'>");
         out.println("<h2>" + titulo + "</h2>");
         out.println("<p>" + mensaje + "</p>");
-        out.println("<a href='index.html' class='btn'>Volver al Inicio</a>");
+        out.println("<a href='home.html' class='btn'>Volver al Inicio</a>");
         out.println("</div></body></html>");
     }
 }

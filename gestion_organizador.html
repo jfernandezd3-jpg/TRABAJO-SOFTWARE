@@ -2,88 +2,114 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Panel de Gestion - TournamentHub</title>
+    <title>Panel Organizador - TournamentHub</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+        .panel-grid {
             display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            text-align: center;
-            max-width: 500px;
-            width: 100%;
-        }
-        h1 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-        p {
-            color: #666;
-            margin-bottom: 25px;
-        }
-        .btn-gestion {
-            display: inline-block;
-            background-color: #f39c12; /* Color naranja llamativo */
-            color: white;
-            padding: 15px 25px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background 0.3s;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .btn-gestion:hover {
-            background-color: #e67e22;
-        }
-        .btn-volver {
-            display: block;
             margin-top: 20px;
-            color: #007bff;
+        }
+        .panel-card {
+            background: white;
+            border-left: 5px solid #f39c12;
+            border-radius: 10px;
+            padding: 20px 24px;
+            flex: 1 1 200px;
+            max-width: 230px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+            transition: transform 0.2s, box-shadow 0.2s;
             text-decoration: none;
-            font-size: 14px;
+            color: inherit;
+            display: block;
         }
-        .btn-volver:hover {
-            text-decoration: underline;
+        .panel-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            text-decoration: none;
         }
-        hr {
-            margin: 20px 0;
-            border: 0;
-            border-top: 1px solid #eee;
+        .panel-card h3 { color: #c0392b; margin: 0 0 8px 0; font-size: 16px; }
+        .panel-card p { color: #666; font-size: 13px; margin: 0; }
+        .panel-card .icon { font-size: 28px; margin-bottom: 10px; display: block; }
+        .topbar {
+            background: #1a4f2c;
+            border-radius: 12px;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 860px;
+            margin: 0 auto 25px auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
+        .topbar .brand { color: white; font-size: 20px; font-weight: bold; }
+        .topbar a { color: #a8d5b9; text-decoration: none; font-size: 14px; margin-left: 18px; }
+        .topbar a:hover { color: white; }
+        .topbar a.logout { color: #ff8a80; }
     </style>
 </head>
-<body>
+<body style="background:#f0f3f1; padding:20px;">
 
-    <div class="card">
-        <h1>Panel de Gestion</h1>
-        <p>Bienvenido, organizador. Aqui puedes administrar las actividades de tus torneos.</p>
-        
-        <hr>
+<div class="topbar">
+    <span class="brand">🏆 TournamentHub</span>
+    <div>
+        <a href="home.html">Mi Panel</a>
+        <a href="TournamentList">Ver Torneos</a>
+        <a href="BLogoutServlet" class="logout">Cerrar Sesión</a>
+    </div>
+</div>
 
-        <div style="margin-top: 20px;">
-            <h3>Participantes y Registros</h3>
-            <p>Revisa las solicitudes de los jugadores que quieren apuntarse a los torneos.</p>
-            
-            <a href="ManageParticipantsServlet" class="btn-gestion">
-                Gestionar Participantes Pendientes
-            </a>
-        </div>
+<div style="max-width:860px; margin:0 auto;">
 
-        <hr>
-        
-        <a href="index.html" class="btn-volver">Volver al Menu Principal</a>
+    <h2 style="text-align:center; color:#1a4f2c; margin-bottom:5px;">Panel de Organizador</h2>
+    <p style="text-align:center; color:#888; margin-bottom:0;">Gestiona tus torneos e inscripciones.</p>
+
+    <div class="panel-grid">
+
+        <a href="ManageParticipantsServlet" class="panel-card">
+            <span class="icon">👥</span>
+            <h3>Gestionar Participantes</h3>
+            <p>Acepta o rechaza las inscripciones pendientes.</p>
+        </a>
+
+        <a href="insertTournament.html" class="panel-card">
+            <span class="icon">➕</span>
+            <h3>Crear Torneo</h3>
+            <p>Crea un nuevo torneo con todos sus parámetros.</p>
+        </a>
+
+        <a href="searchorganizer.html" class="panel-card">
+            <span class="icon">📋</span>
+            <h3>Mis Torneos</h3>
+            <p>Lista, edita y gestiona tus torneos organizados.</p>
+        </a>
+
+        <a href="TournamentMatchGenerator.html" class="panel-card">
+            <span class="icon">⚔️</span>
+            <h3>Generar Emparejamientos</h3>
+            <p>Genera automáticamente los enfrentamientos del torneo.</p>
+        </a>
+
+        <a href="prepararPartido.html" class="panel-card">
+            <span class="icon">🏅</span>
+            <h3>Arbitrar Partido</h3>
+            <p>Configura y arbitra un partido registrando resultados.</p>
+        </a>
+
+        <a href="PopularityRankingServlet" class="panel-card">
+            <span class="icon">📊</span>
+            <h3>Ranking Popularidad</h3>
+            <p>Torneos con más participantes inscritos.</p>
+        </a>
+
     </div>
 
+    <div style="text-align:center; margin-top:30px;">
+        <a href="home.html" style="color:#888; font-size:14px;">← Volver al panel de usuario</a>
+    </div>
+
+</div>
 </body>
 </html>

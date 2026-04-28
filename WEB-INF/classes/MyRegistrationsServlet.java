@@ -26,23 +26,14 @@ public class MyRegistrationsServlet extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        out.println("<html><head><style>");
-        out.println("body { font-family: sans-serif; background-color: #f8f9fa; text-align: center; padding: 40px; }");
-        out.println(".container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: inline-block; min-width: 60%; }");
-        out.println("table { width: 100%; border-collapse: collapse; margin-top: 20px; }");
-        out.println("th, td { padding: 12px; border: 1px solid #dee2e6; text-align: center; }");
-        out.println("th { background-color: #007bff; color: white; }");
-        out.println(".status-pending { color: orange; font-weight: bold; }");
-        out.println(".status-accepted { color: green; font-weight: bold; }");
-        out.println(".status-rejected { color: red; font-weight: bold; }");
-        out.println("</style></head><body>");
-        out.println("<div class='container'><h1>Mis Inscripciones</h1>");
-        out.println("<p>Usuario: <b>" + email + "</b></p>");
+        out.println(Utils.header("Mis Inscripciones", request));
+
+        out.println("<div class='container'>");
+        out.println("<p style='text-align:center;'>Usuario: <b>" + email + "</b></p>");
 
         try (Connection conn = ConnectionUtils.getConnection(getServletConfig())) {
             
-            // Query con parentesis para Access
-            String sql = "SELECT t.name, r.status " +
+            String sql = "SELECT t.tournament, r.status " +
                          "FROM (Registrations AS r " +
                          "INNER JOIN Users AS u ON r.user_id = u.id) " +
                          "INNER JOIN Tournaments AS t ON r.tournament_id = t.id " +
@@ -57,34 +48,42 @@ public class MyRegistrationsServlet extends HttpServlet {
                     boolean found = false;
                     while (rs.next()) {
                         found = true;
-                        String tName = rs.getString("name");
+                        String tName = rs.getString("tournament");
                         String status = rs.getString("status");
-                        String cssClass = "status-pending";
                         
-                        if ("accepted".equalsIgnoreCase(status)) cssClass = "status-accepted";
-                        if ("rejected".equalsIgnoreCase(status)) cssClass = "status-rejected";
+                        String color = "orange";
+                        String estadoTraducido = "Pendiente";
+                        
+                        if ("accepted".equalsIgnoreCase(status)) {
+                            color = "green";
+                            estadoTraducido = "Aceptada";
+                        } else if ("rejected".equalsIgnoreCase(status)) {
+                            color = "red";
+                            estadoTraducido = "Rechazada";
+                        }
 
                         out.println("<tr>");
                         out.println("<td>" + tName + "</td>");
-                        out.println("<td class='" + cssClass + "'>" + status.toUpperCase() + "</td>");
+                        out.println("<td style='color: " + color + "; font-weight: bold; text-align: center;'>" + estadoTraducido.toUpperCase() + "</td>");
                         out.println("</tr>");
                     }
                     
                     if (!found) {
-                        out.println("<tr><td colspan='2'>No tienes ninguna inscripcion registrada.</td></tr>");
+                        out.println("<tr><td colspan='2' style='text-align:center;'>No tienes ninguna inscripcion registrada.</td></tr>");
                     }
                     out.println("</table>");
                 }
             }
         } catch (Exception e) {
-            out.println("<div style='color:red; margin-top:20px;'>");
-            out.println("<h3>Error en la Base de Datos</h3>");
+            out.println("<div class='info-box' style='border-left-color: red;'>");
+            out.println("<h3 style='color:red;'>Error en la Base de Datos</h3>");
             out.println("<p>" + e.getMessage() + "</p>");
             out.println("</div>");
         }
 
-        // He quitado la flecha especial aqui para evitar el error de javac
-        out.println("<br><a href='index.html' style='text-decoration:none; color:#007bff;'>Volver al Inicio</a>");
-        out.println("</div></body></html>");
+        out.println("<br><div class='text-center'><a href='home.html' class='btn' style='display:inline-block; width:auto; text-decoration:none;'>Volver a Mi Panel</a></div>");
+        out.println("</div>");
+        
+        out.println(Utils.footer());
     }
 }

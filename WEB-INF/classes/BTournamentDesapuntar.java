@@ -65,7 +65,7 @@ public class BTournamentDesapuntar extends HttpServlet {
         
         toClient.println("</form>");
         
-        toClient.println("<div class='text-center' style='margin-top: 20px;'><a href='index.html'>Volver al Inicio</a></div>");
+        toClient.println("<div class='text-center' style='margin-top: 20px;'><a href='home.html'>Volver al Inicio</a></div>");
         toClient.println("</div>");
         
         toClient.println(Utils.footer());

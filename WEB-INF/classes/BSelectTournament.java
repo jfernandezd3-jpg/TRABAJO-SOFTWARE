@@ -57,7 +57,7 @@ public class BSelectTournament extends HttpServlet {
             out.println("  </form>");
 
             out.println("  <div class='text-center' style='margin-top: 20px;'>");
-            out.println("    <a href='index.html'>Volver al Inicio</a>");
+            out.println("    <a href='home.html'>Volver al Inicio</a>");
             out.println("  </div>");
 
             out.println("</div>");

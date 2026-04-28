@@ -48,6 +48,6 @@ public class PopularityRankingServlet extends HttpServlet {
             out.println("<p style='color:red;'>Error: " + e.getMessage() + "</p>");
         }
 
-        out.println("<br><a href='index.html'>Volver</a></div></body></html>");
+        out.println("<br><a href='home.html'>Volver</a></div></body></html>");
     }
 }

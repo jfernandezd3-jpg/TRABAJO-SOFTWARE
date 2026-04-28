@@ -41,7 +41,7 @@ public class BLoginServlet extends HttpServlet {
                     session.setAttribute("userEmail", email); 
                     
                     // Redirigir al inicio
-                    response.sendRedirect("index.html");
+                    response.sendRedirect("home.html");
                     
                 } else {
                     // Login fallido

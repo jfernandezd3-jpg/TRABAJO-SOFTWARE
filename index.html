@@ -1,160 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>TournamentHub</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <h1>TOURNAMENTHUB</h1>
-<p style="text-align:center;">Deliverable 2 – Development (Servlets, HTML, JS)</p>
-<p> </p>
-<div style="text-align: center; margin-bottom: 30px;">
-    <a href="login.html" class="btn" style="padding: 10px 20px; font-size: 18px; text-decoration: none; background-color: #1a4f2c; color: white; border-radius: 5px; font-weight: bold;">Iniciar Sesión</a>
-</div>
 
-<div class="member-section">
-    <h2>Ander – User Authentication & Profile Management</h2>
-
-    <div class="function-box">
-        <h3>User Registration</h3>
-        <p><strong>Autor:</strong> Ander</p>
-        <p><strong>Descripción:</strong> Registro de usuario con validación y almacenamiento en BD.</p>
-        <p><strong>Cómo probar:</strong> Introducir usuario, email y contraseña. Verificar inserción en BD.</p>
-        <p><a href="register.html">Ir a register.html</a></p>
-    </div>
-
-    <div class="function-box">
-        <h3>User Profile Editing</h3>
-        <p><strong>Autor:</strong> Ander</p>
-        <p><strong>Descripción:</strong> Edición del perfil del usuario logueado (username, password, phone).</p>
-        <p><strong>Cómo probar:</strong> Iniciar sesión y modificar los datos del usuario.</p>
-        <p><a href="UserEdit">Editar mi perfil</a></p>
-    </div>
-
-    <div class="function-box">
-        <h3>Tournament Search</h3>
-        <p><strong>Autor:</strong> Ander</p>
-        <p><strong>Descripción:</strong> Búsqueda básica de torneos mediante filtros simples.</p>
-        <p><strong>Cómo probar:</strong> Introducir criterios como modalidad, ubicación o fecha y ver los resultados filtrados.</p>
-        <p><a href="search.html">Buscar torneos</a></p>
-    </div>
-
-    <div class="function-box">
-        <h3>Tournament Check‑In</h3>
-        <p><strong>Autor:</strong> Ander</p>
-        <p><strong>Descripción:</strong> Permite a los jugadores confirmar su asistencia a un torneo y actualizar su estado.</p>
-        <p><strong>Cómo probar:</strong> Introducir un ID de torneo y realizar el check‑in como jugador.</p>
-        <p><a href="checkin.html">Ir al Check‑In</a></p>
-    </div>
-
-    <div class="function-box">
-        <h3>Tournament Match Generator</h3>
-        <p><strong>Autor:</strong> Ander</p>
-        <p><strong>Descripción:</strong> Genera los emparejamientos del torneo según la modalidad (Chess, Mus o Poker).</p>
-        <p><strong>Cómo probar:</strong> Introducir un ID de torneo para ver los emparejamientos generados.</p>
-        <p><a href="TournamentMatchGenerator.html">Generar emparejamientos</a></p>
-    </div>
-
-</div>
-
-
-<div class="member-section">
-    <h2>Alex – Registration & Organizer Management</h2>
-
-    <div class="function-box">
-        <h3>Tournament Registration</h3>
-        <p><strong>Autor:</strong> Alex</p>
-        <p><strong>Descripción:</strong> Inscripción con validación y email.</p>
-        <p><a href="inscripcion.html">Probar inscripción</a></p>
-    </div>
-
-    <div class="function-box">
-        <h3>Popularity table</h3>
-        <p><strong>Autor:</strong> Alex</p>
-        <p><strong>Descripción:</strong> Visualizar torneos mas populares.</p>
-        <p><a href="PopularityRankingServlet">Ver popularidad</a></p>
-    </div>
-
-    <div class="function-box">
-        <h3>Organizer Login</h3>
-        <p><strong>Autor:</strong> Alex</p>
-        <p><strong>Descripción:</strong> Login con permisos elevados.</p>
-        <p><a href="login_organizador.html">Probar login organizador</a></p>
-    </div>
-
-    <div class="function-box">
-        <h3>Manage Participants</h3>
-        <p><strong>Autor:</strong> Alex</p>
-        <p><strong>Descripción:</strong> Aceptar/rechazar inscripciones.</p>
-        <p><a href="login_organizador.html">Probar gestión</a></p>
+<div style="text-align: center; margin-bottom: 30px; padding: 20px; background: white; border-radius: 12px; max-width: 800px; margin: 0 auto 30px auto; box-shadow: 0 8px 25px rgba(0,0,0,0.08);">
+    <p style="color:#555; font-size:16px; margin-bottom:20px;">Bienvenido. Para acceder a la aplicación, inicia sesión o regístrate.</p>
+    <div style="display:flex; gap:15px; justify-content:center; flex-wrap:wrap;">
+        <a href="login.html" style="padding:14px 40px; background:#1a4f2c; color:white; border-radius:8px; font-weight:bold; text-decoration:none; font-size:16px;">Iniciar Sesión</a>
+        <a href="register.html" style="padding:14px 40px; background:#2e8b57; color:white; border-radius:8px; font-weight:bold; text-decoration:none; font-size:16px;">Registrarse</a>
     </div>
 </div>
 
 <div class="member-section">
-    <h2>Jaime – Map & Tournament Info</h2>
-
-    <div class="function-box">
-        <h3>Map View</h3>
-        <p><strong>Autor:</strong> Jaime</p>
-        <p><strong>Descripción:</strong> Vista mapa con pines y popups.</p>
-        <p><a href="BTournamentMap">Probar mapa</a></p>
-    </div>
-
-    <div class="function-box">
-        <h3>Tournament Info Page</h3>
-        <p><strong>Autor:</strong> Jaime</p>
-        <p><strong>Descripción:</strong> Página de información completa.</p>
-        <p><a href="BSelectTournament">Probar info</a></p>
-    </div>
-
-    <div class="function-box">
-        <h3>Live Match Scoring</h3>
-        <p><strong>Autor:</strong> Jaime</p>
-        <p><strong>Descripción:</strong> Consola para arbitrar y guardar resultados de partidos en directo.</p>
-        <p><a href="prepararPartido.html">Arbitrar Partido</a></p>
-    </div>
-
-    <div class="function-box">
-        <h3>Cancel Registration</h3>
-        <p><strong>Autor:</strong> Jaime</p>
-        <p><strong>Descripción:</strong> Cancelación de inscripción a torneos.</p>
-        <p><a href="BTournamentDesapuntar">Probar cancelación</a></p>
-    </div>
+    <h2>Ander – User Authentication &amp; Profile Management</h2>
+    <div class="function-box"><h3>User Registration</h3><p><strong>Autor:</strong> Ander</p><p><strong>Descripción:</strong> Registro de usuario con validación y almacenamiento en BD.</p><p><a href="register.html">Ir a register.html</a></p></div>
+    <div class="function-box"><h3>User Profile Editing</h3><p><strong>Autor:</strong> Ander</p><p><strong>Descripción:</strong> Edición del perfil del usuario logueado (username, password, phone).</p><p><a href="UserEdit">Editar mi perfil</a></p></div>
+    <div class="function-box"><h3>Tournament Search</h3><p><strong>Autor:</strong> Ander</p><p><strong>Descripción:</strong> Búsqueda básica de torneos mediante filtros simples.</p><p><a href="search.html">Buscar torneos</a></p></div>
+    <div class="function-box"><h3>Tournament Check-In</h3><p><strong>Autor:</strong> Ander</p><p><strong>Descripción:</strong> Permite a los jugadores confirmar su asistencia a un torneo.</p><p><a href="checkin.html">Ir al Check-In</a></p></div>
+    <div class="function-box"><h3>Tournament Match Generator</h3><p><strong>Autor:</strong> Ander</p><p><strong>Descripción:</strong> Genera los emparejamientos del torneo según la modalidad.</p><p><a href="TournamentMatchGenerator.html">Generar emparejamientos</a></p></div>
 </div>
 
 <div class="member-section">
-    <h2>Paul – Tournament Creation & Admin</h2>
+    <h2>Alex – Registration &amp; Organizer Management</h2>
+    <div class="function-box"><h3>Tournament Registration</h3><p><strong>Autor:</strong> Alex</p><p><strong>Descripción:</strong> Inscripción con validación y email.</p><p><a href="inscripcion.html">Probar inscripción</a></p></div>
+    <div class="function-box"><h3>Popularity table</h3><p><strong>Autor:</strong> Alex</p><p><strong>Descripción:</strong> Visualizar torneos mas populares.</p><p><a href="PopularityRankingServlet">Ver popularidad</a></p></div>
+    <div class="function-box"><h3>Organizer Login</h3><p><strong>Autor:</strong> Alex</p><p><strong>Descripción:</strong> Login con permisos elevados.</p><p><a href="login_organizador.html">Probar login organizador</a></p></div>
+    <div class="function-box"><h3>Manage Participants</h3><p><strong>Autor:</strong> Alex</p><p><strong>Descripción:</strong> Aceptar/rechazar inscripciones.</p><p><a href="ManageParticipantsServlet">Probar gestión</a></p></div>
+</div>
 
-    <div class="function-box">
-        <h3>Create Tournament</h3>
-        <p><strong>Autor:</strong> Paul</p>
-        <p><strong>Descripción:</strong> Formulario de creación de torneos.</p>
-        <p><a href="insertTournament.html">Crear torneo</a></p>
-    </div>
-    
-    <div class="function-box">
-        <h3>Tournaments List (filtred by organizer)</h3>
-        <p><strong>Autor:</strong> Paul</p>
-        <p><strong>Descripción:</strong> Lista de torneos organizados por un mismo organizador</p>
-        <p><a href="searchorganizer.html">Filtrar</a></p>
-    </div>
-    
-    <div class="function-box">
-        <h3>Edit Tournament</h3>
-        <p><strong>Autor:</strong> Paul</p>
-        <p><strong>Descripción:</strong> Edición de torneos existentes.</p>
-        <p><a href="searchorganizer.html">Editar torneo</a></p>
-    </div>
+<div class="member-section">
+    <h2>Jaime – Map &amp; Tournament Info</h2>
+    <div class="function-box"><h3>Map View</h3><p><strong>Autor:</strong> Jaime</p><p><strong>Descripción:</strong> Vista mapa con pines y popups.</p><p><a href="BTournamentMap">Probar mapa</a></p></div>
+    <div class="function-box"><h3>Tournament Info Page</h3><p><strong>Autor:</strong> Jaime</p><p><strong>Descripción:</strong> Página de información completa.</p><p><a href="BSelectTournament">Probar info</a></p></div>
+    <div class="function-box"><h3>Live Match Scoring</h3><p><strong>Autor:</strong> Jaime</p><p><strong>Descripción:</strong> Consola para arbitrar y guardar resultados de partidos en directo.</p><p><a href="prepararPartido.html">Arbitrar Partido</a></p></div>
+    <div class="function-box"><h3>Cancel Registration</h3><p><strong>Autor:</strong> Jaime</p><p><strong>Descripción:</strong> Cancelación de inscripción a torneos.</p><p><a href="BTournamentDesapuntar">Probar cancelación</a></p></div>
+</div>
 
-    <div class="function-box">
-        <h3>Create poster</h3>
-        <p><strong>Autor:</strong> Paul</p>
-        <p><strong>Descripción:</strong> Crea un poster para un torneo</p>
-        <p><a href="searchorganizer.html"> Crear Torneo </a></p>
-    </div>
+<div class="member-section">
+    <h2>Paul – Tournament Creation &amp; Admin</h2>
+    <div class="function-box"><h3>Create Tournament</h3><p><strong>Autor:</strong> Paul</p><p><strong>Descripción:</strong> Formulario de creación de torneos.</p><p><a href="insertTournament.html">Crear torneo</a></p></div>
+    <div class="function-box"><h3>Tournaments List (filtred by organizer)</h3><p><strong>Autor:</strong> Paul</p><p><strong>Descripción:</strong> Lista de torneos organizados por un mismo organizador.</p><p><a href="searchorganizer.html">Filtrar</a></p></div>
+    <div class="function-box"><h3>Edit Tournament</h3><p><strong>Autor:</strong> Paul</p><p><strong>Descripción:</strong> Edición de torneos existentes.</p><p><a href="searchorganizer.html">Editar torneo</a></p></div>
+    <div class="function-box"><h3>Create poster</h3><p><strong>Autor:</strong> Paul</p><p><strong>Descripción:</strong> Crea un poster para un torneo.</p><p><a href="searchorganizer.html">Crear Torneo</a></p></div>
 </div>
 
 </body>

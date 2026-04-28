@@ -70,7 +70,7 @@ public class PListOrganizerTournamentsServlet extends HttpServlet {
                 out.println("</table>");
             }
             
-            out.println("<br><div style='text-align: center;'><a href='index.html'>Volver al Inicio</a></div>");
+            out.println("<br><div style='text-align: center;'><a href='home.html'>Volver al Inicio</a></div>");
             out.println("</div>");
             out.println(Utils.footer());
 

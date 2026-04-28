@@ -62,7 +62,7 @@ public class PCreateTournamentServlet extends HttpServlet {
                 out.println("<h3 style='color: red;'>Error</h3>");
                 out.println("<p>No se pudo guardar el torneo en la base de datos.</p>");
             }
-            out.println("<br><a href='index.html' class='button'>Volver al Inicio</a>");
+            out.println("<br><a href='home.html' class='button'>Volver al Inicio</a>");
             out.println("</div>");
             
             out.println(Utils.footer());

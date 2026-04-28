@@ -73,6 +73,6 @@ public class ListTournamentsServlet extends HttpServlet {
             out.println("<p style='color:red;'>Error al acceder a los datos: " + e.getMessage() + "</p>");
         }
 
-        out.println("<a href='index.html' class='back-link'>Volver al Inicio</a></div></body></html>");
+        out.println("<a href='home.html' class='back-link'>Volver al Inicio</a></div></body></html>");
     }
 }

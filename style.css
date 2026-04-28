@@ -32,39 +32,45 @@ a:hover {
 }
 
 /* ==========================================================================
-   BARRA DE NAVEGACIÓN (Estilo Header con color corporativo)
+   BARRA DE NAVEGACIÓN (Topbar - Nuevo Estilo Consolidado)
    ========================================================================== */
-.nav-bar {
-    background: #1a4f2c; /* Verde oscuro */
+.topbar, .nav-bar {
+    background: #1a4f2c;
     width: 100%;
-    max-width: 1000px;
-    margin: 0 auto 30px auto;
-    padding: 15px 20px;
+    max-width: 860px;
+    margin: 0 auto 25px auto;
+    padding: 12px 24px;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
-    
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap; 
-    gap: 25px; 
     box-sizing: border-box;
 }
 
-.nav-bar a {
-    margin: 0; 
-    font-size: 16px;
-    padding: 8px 12px;
-    border-radius: 6px;
+.topbar .brand { 
     color: white; 
-    transition: background 0.3s, transform 0.1s;
+    font-size: 20px; 
+    font-weight: bold; 
 }
 
-.nav-bar a:hover {
-    background: #2e8b57; 
-    color: white;
+.topbar a, .nav-bar a {
+    color: #a8d5b9; 
+    text-decoration: none; 
+    font-size: 14px; 
+    margin-left: 18px; 
+    font-weight: normal;
+    transition: color 0.3s;
+}
+
+.topbar a:hover, .nav-bar a:hover { 
+    color: white; 
     text-decoration: none;
-    transform: translateY(-2px); 
+}
+
+.topbar a.logout { 
+    color: #ff8a80; 
 }
 
 /* ==========================================================================
@@ -99,7 +105,7 @@ a:hover {
 }
 
 /* ==========================================================================
-   Estilos específicos para el INDEX.HTML (¡Lo que faltaba!)
+   Estilos específicos para el INDEX y PANELES (Dashboard)
    ========================================================================== */
 .member-section {
     background: white;
@@ -107,7 +113,7 @@ a:hover {
     margin: 20px auto;
     border-radius: 12px;
     width: 100%;
-    max-width: 800px; /* Un poco más ancho para las listas del index */
+    max-width: 800px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.08);
     box-sizing: border-box;
 }
@@ -122,13 +128,123 @@ a:hover {
 }
 
 .function-box:hover {
-    transform: translateX(5px); /* Efecto de deslizamiento al pasar el ratón */
+    transform: translateX(5px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 .function-box h3 {
     margin: 0 0 10px 0;
     color: #2e8b57;
+}
+
+/* --- Contenedor General del Panel --- */
+.panel-container {
+    width: 100%;
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.page-title {
+    margin-bottom: 5px;
+}
+
+.page-subtitle {
+    text-align: center;
+    color: #888;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.section-title {
+    text-align: center;
+    color: #1a4f2c;
+    margin: 30px 0 5px 0;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+/* --- Cuadrícula de Tarjetas (Jugador) --- */
+.panel-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.panel-card {
+    background: white;
+    border-left: 5px solid #2e8b57;
+    border-radius: 10px;
+    padding: 20px 24px;
+    flex: 1 1 45%; 
+    max-width: 350px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    box-sizing: border-box;
+}
+
+.panel-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    text-decoration: none;
+    color: inherit;
+}
+
+.panel-card h3 {
+    color: #1a4f2c;
+    margin: 0 0 8px 0;
+    font-size: 16px;
+}
+
+.panel-card p {
+    color: #666;
+    font-size: 13px;
+    margin: 0;
+    font-weight: normal;
+}
+
+.panel-card .icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* --- Banner de Organizador --- */
+.organizer-banner {
+    background: #fff8e1;
+    border: 2px solid #f39c12;
+    border-radius: 10px;
+    padding: 18px 24px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.organizer-banner p {
+    color: #666;
+    margin: 6px 0 0 0;
+    font-size: 14px;
+}
+
+.organizer-banner a.btn-orange {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 28px;
+    background: #f39c12;
+    color: white;
+    border-radius: 7px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.organizer-banner a.btn-orange:hover { 
+    background: #e67e22; 
+    color: white;
 }
 
 /* ==========================================================================
@@ -182,6 +298,7 @@ button[type="submit"],
     cursor: pointer;
     width: 100%;
     transition: background 0.3s ease, transform 0.1s;
+    box-sizing: border-box;
 }
 
 button[type="submit"]:hover, 
@@ -193,6 +310,7 @@ button[type="submit"]:hover,
 .text-center {
     text-align: center;
 }
+
 /* ==========================================================================
    Estilos para TournamentMatchGenerator (Brackets y Mesas)
    ========================================================================== */
@@ -210,7 +328,6 @@ button[type="submit"]:hover,
 .match:hover, .table:hover {
     transform: translateX(5px);
 }
-
 
 /* =======================================
    TABLAS (Para mostrar la lista de torneos)

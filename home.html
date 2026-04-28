@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>TournamentHub - Mi Panel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="topbar">
+    <span class="brand">🏆 TournamentHub</span>
+    <div>
+        <a href="TournamentList">Ver Torneos</a>
+        <a href="BTournamentMap">Mapa</a>
+        <a href="MyRegistrationsServlet">Mis Inscripciones</a>
+        <a href="BLogoutServlet" class="logout">Cerrar Sesión</a>
+    </div>
+</div>
+
+<div class="panel-container">
+
+    <h2 class="page-title">Mi Panel</h2>
+    <p class="page-subtitle">¿Qué quieres hacer hoy?</p>
+
+    <p class="section-title">Como Jugador</p>
+    <div class="panel-grid">
+
+        <a href="search.html" class="panel-card">
+            <span class="icon">🔍</span>
+            <h3>Explorar torneos</h3>
+            <p>Filtra torneos por modalidad o localidad.</p>
+        </a>
+
+        <a href="MyRegistrationsServlet" class="panel-card">
+            <span class="icon">📋</span>
+            <h3>Mis Inscripciones</h3>
+            <p>Consulta el estado de tus inscripciones.</p>
+        </a>
+
+        <a href="PopularityRankingServlet" class="panel-card">
+            <span class="icon">📊</span>
+            <h3>Ranking</h3>
+            <p>Los torneos más populares por inscritos.</p>
+        </a>
+
+        <a href="UserEdit" class="panel-card">
+            <span class="icon">👤</span>
+            <h3>Mi Perfil</h3>
+            <p>Edita tu nombre de usuario, email o contraseña.</p>
+        </a>
+
+    </div>
+
+    <div class="organizer-banner">
+        <strong>¿Eres organizador?</strong>
+        <p>Accede al panel para crear torneos, gestionar inscripciones y arbitrar partidos.</p>
+        <a href="OrganizerLoginServlet" class="btn-orange">Acceder al Panel de Organizador →</a>
+    </div>
+
+</div>
+
+</body>
+</html>

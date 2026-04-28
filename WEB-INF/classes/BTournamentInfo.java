@@ -86,14 +86,14 @@ public class BTournamentInfo extends HttpServlet {
                 out.println("  </div>");
 
                 out.println("  <div class='text-center' style='margin-top: 30px;'>");
-                out.println("    <a href='index.html' class='btn' style='display: inline-block; width: auto; text-decoration: none;'>Volver al Inicio</a>");
+                out.println("    <a href='home.html' class='btn' style='display: inline-block; width: auto; text-decoration: none;'>Volver al Inicio</a>");
                 out.println("  </div>");
                 
                 out.println("</div>");
             } else {
                 out.println("<div class='container text-center'>");
                 out.println("  <h3 style='color: red;'>El torneo solicitado no existe en la base de datos.</h3>");
-                out.println("  <br><a href='index.html' class='btn' style='display: inline-block; width: auto; text-decoration: none;'>Volver al Inicio</a>");
+                out.println("  <br><a href='home.html' class='btn' style='display: inline-block; width: auto; text-decoration: none;'>Volver al Inicio</a>");
                 out.println("</div>");
             }
 

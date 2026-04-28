@@ -95,7 +95,7 @@ public class RegisterTournamentServlet extends HttpServlet {
         out.println("<div class='card'>");
         out.println("<h2>" + titulo + "</h2>");
         out.println("<p>" + mensaje + "</p>");
-        out.println("<a href='index.html' class='btn'>Continuar</a>");
+        out.println("<a href='home.html' class='btn'>Continuar</a>");
         out.println("</div></body></html>");
     }
 }

@@ -35,7 +35,7 @@ public class BMatchScoreCreate extends HttpServlet {
             } else {
                 toClient.println("<h3 style='color:red;'>Error al guardar el partido en la base de datos.</h3>");
             }
-            toClient.println("<br><a href='index.html' class='btn'>Volver al Inicio</a>");
+            toClient.println("<br><a href='home.html' class='btn'>Volver al Inicio</a>");
             toClient.println("</div>");
             
         } catch (Exception e) {

@@ -74,7 +74,7 @@ public class PEditTournamentServlet extends HttpServlet {
             } else {
                 out.println("<h3>Error al actualizar.</h3>");
             }
-            out.println("<a href='index.html'>Volver</a>");
+            out.println("<a href='home.html'>Volver</a>");
             out.println(Utils.footer());
         } catch (Exception e) { e.printStackTrace(); }
     }

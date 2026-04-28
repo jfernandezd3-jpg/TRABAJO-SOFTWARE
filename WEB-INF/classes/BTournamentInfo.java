@@ -65,7 +65,7 @@ public class BTournamentInfo extends HttpServlet {
                 out.println("    <p><strong>Max. Participantes:</strong> " + torneo.max_partici + " personas</p>");
                 out.println("  </div>");
 
-                // CAJA 3: EL MAPA INDIVIDUAL
+                // CAJA 3: Mapa
                 out.println("  <div class='info-box'>");
                 out.println("    <h3>Ubicacion en el Mapa</h3>");
                 

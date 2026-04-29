@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/MyRegistrationsServlet")
 public class MyRegistrationsServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -52,7 +51,7 @@ public class MyRegistrationsServlet extends HttpServlet {
                 ps.setString(2, email);
 
                 try (ResultSet rs = ps.executeQuery()) {
-					
+                    
                     out.println("<table><tr><th>Torneo</th><th>Estado</th><th>Check-In</th></tr>");
 
                     boolean found = false;

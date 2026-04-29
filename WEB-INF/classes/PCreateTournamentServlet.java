@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet encargado de la creación de nuevos torneos (FR13).
  * Autor: Paul
  */
-@WebServlet("/PCreateTournamentServlet")
 public class PCreateTournamentServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private Connection connection;

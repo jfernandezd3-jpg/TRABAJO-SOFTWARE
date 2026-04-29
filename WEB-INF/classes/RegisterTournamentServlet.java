@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/RegisterTournamentServlet")
 public class RegisterTournamentServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -26,6 +25,7 @@ public class RegisterTournamentServlet extends HttpServlet {
         int tId = Integer.parseInt(tIdParam);
 
         response.setContentType("text/html; charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
 
         try (Connection conn = ConnectionUtils.getConnection(getServletConfig())) {
@@ -50,7 +50,8 @@ public class RegisterTournamentServlet extends HttpServlet {
                     psC.setInt(1, uId);
                     psC.setInt(2, tId);
                     if (psC.executeQuery().next()) {
-                        pintarPantallaAviso(out, "Ya estas inscrito en este torneo.", "Atencion");
+                        // Pasamos el request para que Utils pinte la barra de navegación
+                        pintarPantallaAviso(out, request, "Ya estas inscrito en este torneo.", "Atencion");
                         return;
                     }
                 }
@@ -74,28 +75,30 @@ public class RegisterTournamentServlet extends HttpServlet {
                 }
 
                 // 5. Mostrar pantalla de exito personalizada
-                pintarPantallaAviso(out, mensaje, "Registro Completado");
+                pintarPantallaAviso(out, request, mensaje, "Registro Completado");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            pintarPantallaAviso(out, "Hubo un error tecnico: " + e.getMessage(), "Error");
+            pintarPantallaAviso(out, request, "Hubo un error tecnico: " + e.getMessage(), "Error");
         }
     }
 
-    // Metodo auxiliar para no repetir codigo HTML
-    private void pintarPantallaAviso(PrintWriter out, String mensaje, String titulo) {
-        out.println("<html><head><title>" + titulo + "</title>");
-        out.println("<style>");
-        out.println("body { font-family: Arial; background-color: #f4f4f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }");
-        out.println(".card { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; max-width: 400px; }");
-        out.println("h2 { color: #333; }");
-        out.println("p { color: #666; line-height: 1.5; margin-bottom: 30px; }");
-        out.println(".btn { background-color: #28a745; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; }");
-        out.println("</style></head><body>");
-        out.println("<div class='card'>");
-        out.println("<h2>" + titulo + "</h2>");
-        out.println("<p>" + mensaje + "</p>");
-        out.println("<a href='home.html' class='btn'>Continuar</a>");
-        out.println("</div></body></html>");
+    private void pintarPantallaAviso(PrintWriter out, HttpServletRequest request, String mensaje, String titulo) {
+        
+        out.println(Utils.header(" ", request));
+        
+        out.println("<div class='container text-center'>");
+        
+        if (titulo.contains("Error") || titulo.contains("Atencion")) {
+            out.println("  <h2 style='color: #dc3545;'>" + titulo + "</h2>");
+        } else {
+            out.println("  <h2 style='color: #2e8b57;'>" + titulo + "</h2>");
+        }
+        
+        out.println("  <p style='color: #666; font-size: 16px; margin-bottom: 30px;'>" + mensaje + "</p>");
+        out.println("  <a href='home.html' class='btn' style='display:inline-block; width:auto;'>Continuar</a>");
+        out.println("</div>");
+        
+        out.println(Utils.footer());
     }
 }

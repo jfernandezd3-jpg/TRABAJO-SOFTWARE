@@ -22,6 +22,7 @@ public class Utils {
         if (session != null && session.getAttribute("userEmail") != null) {
             // USUARIO LOGUEADO
             String email = (String) session.getAttribute("userEmail");
+            str.append("            <a href=\"index.html\">Index</a>\n");
             str.append("            <a href=\"home.html\">Mi Panel</a>\n");
             str.append("            <a href=\"TournamentList\">Ver Torneos</a>\n");
             str.append("            <a href=\"BTournamentMap\">Mapa</a>\n");
@@ -29,7 +30,7 @@ public class Utils {
             str.append("            <a href=\"BLogoutServlet\" class=\"logout\">Cerrar Sesi&oacute;n</a>\n");
         } else {
             // USUARIO NO LOGUEADO
-            str.append("            <a href=\"index.html\">Inicio</a>\n");
+            str.append("            <a href=\"index.html\">Index</a>\n");
             str.append("            <a href=\"TournamentList\">Ver Torneos</a>\n");
             str.append("            <a href=\"BTournamentMap\">Mapa</a>\n");
             str.append("            <a href=\"login.html\">Login</a>\n");

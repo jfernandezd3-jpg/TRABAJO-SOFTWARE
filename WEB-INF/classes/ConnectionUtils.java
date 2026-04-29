@@ -30,7 +30,6 @@ public class ConnectionUtils {
         return connection;
     }
 
-    // LO ÚNICO NUEVO: El método close() que te piden los Servlets
     public static void close(Connection connection) {
         if (connection != null) {
             try {

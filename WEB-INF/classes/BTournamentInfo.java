@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+// JAIME FERNANDEZ DE BETONO
+
 public class BTournamentInfo extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private Connection connection;

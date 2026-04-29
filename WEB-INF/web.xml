@@ -82,7 +82,26 @@
     <url-pattern>/BTournamentMap</url-pattern>
 </servlet-mapping>
 
+<servlet>
+    <servlet-name>BTournamentPopupAjax</servlet-name>
+    <servlet-class>BTournamentPopupAjax</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>BTournamentPopupAjax</servlet-name>
+    <url-pattern>/BTournamentPopupAjax</url-pattern>
+</servlet-mapping>
 
+
+
+
+<servlet>
+    <servlet-name>PCreateTournamentPosterServlet</servlet-name>
+    <servlet-class>PCreateTournamentPosterServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>PCreateTournamentPosterServlet</servlet-name>
+    <url-pattern>/PCreateTournamentPosterServlet</url-pattern>
+</servlet-mapping>
 
 <servlet>
     <servlet-name>PCreateTournamentServlet</servlet-name>
@@ -112,6 +131,16 @@
 </servlet-mapping>
 
 
+
+
+<servlet>
+    <servlet-name>MyRegistrationsServlet</servlet-name>
+    <servlet-class>MyRegistrationsServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>MyRegistrationsServlet</servlet-name>
+    <url-pattern>/MyRegistrationsServlet</url-pattern>
+</servlet-mapping>
 
 <servlet>
     <servlet-name>RegisterServlet</servlet-name>
@@ -169,22 +198,14 @@
 
 
 
-<servlet>
-<servlet-name>RegisterTournamentServlet</servlet-name>
-<servlet-class>RegisterTournamentServlet</servlet-class>
-</servlet>
-<servlet-mapping>
-<servlet-name>RegisterTournamentServlet</servlet-name>
-<url-pattern>/RegisterTournamentServlet</url-pattern>
-</servlet-mapping>
 
 <servlet>
-    <servlet-name>PopularityRankingServlet</servlet-name>
-    <servlet-class>PopularityRankingServlet</servlet-class>
+    <servlet-name>ManageParticipantsServlet</servlet-name>
+    <servlet-class>ManageParticipantsServlet</servlet-class>
 </servlet>
 <servlet-mapping>
-    <servlet-name>PopularityRankingServlet</servlet-name>
-    <url-pattern>/PopularityRankingServlet</url-pattern>
+    <servlet-name>ManageParticipantsServlet</servlet-name>
+    <url-pattern>/ManageParticipantsServlet</url-pattern>
 </servlet-mapping>
 
 <servlet>
@@ -197,12 +218,23 @@
 </servlet-mapping>
 
 <servlet>
-    <servlet-name>ManageParticipantsServlet</servlet-name>
-    <servlet-class>ManageParticipantsServlet</servlet-class>
+    <servlet-name>PopularityRankingServlet</servlet-name>
+    <servlet-class>PopularityRankingServlet</servlet-class>
 </servlet>
 <servlet-mapping>
-    <servlet-name>ManageParticipantsServlet</servlet-name>
-    <url-pattern>/ManageParticipantsServlet</url-pattern>
+    <servlet-name>PopularityRankingServlet</servlet-name>
+    <url-pattern>/PopularityRankingServlet</url-pattern>
 </servlet-mapping>
+
+<servlet>
+<servlet-name>RegisterTournamentServlet</servlet-name>
+<servlet-class>RegisterTournamentServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>RegisterTournamentServlet</servlet-name>
+<url-pattern>/RegisterTournamentServlet</url-pattern>
+</servlet-mapping>
+
+
 
 </web-app>

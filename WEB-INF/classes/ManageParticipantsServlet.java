@@ -22,47 +22,70 @@ public class ManageParticipantsServlet extends HttpServlet {
         }
 
         response.setContentType("text/html; charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
 
+        out.println(Utils.header("Inscripciones Pendientes", request));
+
+        out.println("<div class='container' style='max-width: 800px;'>");
+        out.println("<p style='text-align:center; color:#888; margin-bottom: 25px;'>Revisa y gestiona las solicitudes de los usuarios a tus torneos.</p>");
+
         try (Connection conn = ConnectionUtils.getConnection(getServletConfig())) {
-            out.println("<html><head><style>");
-            out.println("body { font-family: Arial; background-color: #f4f4f4; text-align: center; }");
-            out.println("table { width: 85%; border-collapse: collapse; margin: 20px auto; background: white; }");
-            out.println("th, td { padding: 12px; border: 1px solid #ddd; }");
-            out.println("th { background-color: #f39c12; color: white; }");
-            out.println("button { padding: 8px 12px; cursor: pointer; border: none; border-radius: 4px; font-weight: bold; }");
-            out.println(".btn-ok { background-color: #28a745; color: white; }");
-            out.println(".btn-no { background-color: #dc3545; color: white; }");
-            out.println("</style></head><body>");
             
-            out.println("<h1>Inscripciones Pendientes</h1>");
-            out.println("<table><tr><th>ID Usuario</th><th>ID Torneo</th><th>Accion</th></tr>");
+            out.println("<table>");
+            out.println("<tr><th>ID Usuario</th><th>ID Torneo</th><th style='text-align:center;'>Acci&oacute;n</th></tr>");
 
             String sql = "SELECT user_id, tournament_id FROM Registrations WHERE status = 'pending'";
             try (PreparedStatement ps = conn.prepareStatement(sql);
                  ResultSet rs = ps.executeQuery()) {
+                
+                boolean hayDatos = false;
+                
                 while (rs.next()) {
+                    hayDatos = true;
                     int uId = rs.getInt("user_id");
                     int tId = rs.getInt("tournament_id");
-                    out.println("<tr><td>" + uId + "</td><td>" + tId + "</td><td>");
-                    out.println("<form action='ManageParticipantsServlet' method='POST' style='display:inline;'>");
-                    out.println("<input type='hidden' name='uId' value='" + uId + "'>");
-                    out.println("<input type='hidden' name='tId' value='" + tId + "'>");
-                    out.println("<button type='submit' name='accion' value='validar' class='btn-ok'>Aceptar</button>");
-                    out.println("<button type='submit' name='accion' value='rechazar' class='btn-no'>Rechazar</button>");
-                    out.println("</form></td></tr>");
+                    
+                    out.println("<tr>");
+                    out.println("  <td>" + uId + "</td>");
+                    out.println("  <td>" + tId + "</td>");
+                    out.println("  <td style='text-align:center;'>");
+                    out.println("    <form action='ManageParticipantsServlet' method='POST' style='margin: 0;'>");
+                    out.println("      <input type='hidden' name='uId' value='" + uId + "'>");
+                    out.println("      <input type='hidden' name='tId' value='" + tId + "'>");
+                    out.println("      <button type='submit' name='accion' value='validar' class='btn' style='padding: 8px 12px; font-size: 14px; width: auto; margin-right: 5px;'>Aceptar</button>");
+                    out.println("      <button type='submit' name='accion' value='rechazar' class='btn' style='padding: 8px 12px; font-size: 14px; width: auto; background-color: #dc3545;'>Rechazar</button>");
+                    out.println("    </form>");
+                    out.println("  </td>");
+                    out.println("</tr>");
+                }
+                
+                if (!hayDatos) {
+                    out.println("<tr><td colspan='3' style='text-align:center;'>No tienes ninguna inscripción pendiente en este momento.</td></tr>");
                 }
             }
-            out.println("</table><br><a href='gestion_organizador.html'>Volver</a></body></html>");
+            out.println("</table>");
+            
+            out.println("<div class='text-center' style='margin-top: 30px;'>");
+            out.println("  <a href='gestion_organizador.html' class='btn' style='display:inline-block; width:auto; text-decoration:none;'>Volver al Panel</a>");
+            out.println("</div>");
+
         } catch (Exception e) {
             e.printStackTrace();
+            out.println("<div class='info-box' style='border-left-color: red;'>");
+            out.println("  <p style='color:red;'>Error al cargar los datos: " + e.getMessage() + "</p>");
+            out.println("</div>");
         }
+        
+        out.println("</div>");
+        out.println(Utils.footer());
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String uId = request.getParameter("uId");
         String tId = request.getParameter("tId");
         String accion = request.getParameter("accion");
+        
         String nuevoEstado = "accepted"; 
         if ("rechazar".equals(accion)) { nuevoEstado = "rejected"; }
 

@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet para generar y descargar un cartel publicitario del torneo.
  * Autor: Paul
  */
-@WebServlet("/PCreateTournamentPosterServlet")
 public class PCreateTournamentPosterServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private Connection connection;

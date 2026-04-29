@@ -4,6 +4,8 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.sql.Connection;
 
+// JAIME FERNANDEZ DE BETONO
+
 @SuppressWarnings("serial")
 public class BMatchScoreCreate extends HttpServlet {
     Connection connection;
@@ -14,7 +16,8 @@ public class BMatchScoreCreate extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException  {
-        res.setContentType("text/html; charset=UTF-8");
+        
+        res.setContentType("application/json; charset=UTF-8");
         res.setCharacterEncoding("UTF-8");
         PrintWriter toClient = res.getWriter();
         
@@ -27,26 +30,17 @@ public class BMatchScoreCreate extends HttpServlet {
             
             int n = BMatchData.insertMatchScore(connection, idTournament, idPlayer1, idPlayer2, pointsP1, pointsP2);
             
-            toClient.println(Utils.header("Resultado Guardado", req));
-            toClient.println("<div class='container text-center'>");
             if (n > 0) {
-                toClient.println("<h3 style='color:green;'>&iexcl;Exito!, El partido ha sido registrado.</h3>");
-                toClient.println("<p>Resultado Final: " + pointsP1 + " - " + pointsP2 + "</p>");
+                toClient.print("{\"status\": \"ok\", \"message\": \"Partido registrado correctamente\"}");
             } else {
-                toClient.println("<h3 style='color:red;'>Error al guardar el partido en la base de datos.</h3>");
+                toClient.print("{\"status\": \"error\", \"message\": \"No se ha podido guardar en la BD\"}");
             }
-            toClient.println("<br><a href='home.html' class='btn'>Volver al Inicio</a>");
-            toClient.println("</div>");
             
         } catch (Exception e) {
-            toClient.println(Utils.header("Error", req));
-            toClient.println("<div class='container text-center'>");
-            toClient.println("<h3 style='color:red;'>Ocurrio un error inesperado al procesar los datos.</h3>");
-            toClient.println("<p>" + e.getMessage() + "</p>");
-            toClient.println("</div>");
+            String safeError = e.getMessage().replace("\"", "'");
+            toClient.print("{\"status\": \"error\", \"message\": \"Excepcion: " + safeError + "\"}");
         }
         
-        toClient.println(Utils.footer());
         toClient.close();
     }
 }

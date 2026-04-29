@@ -16,7 +16,7 @@ public class MyRegistrationsServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        
+
         if (session == null || session.getAttribute("userEmail") == null) {
             response.sendRedirect("login.html");
             return;
@@ -27,33 +27,44 @@ public class MyRegistrationsServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         out.println(Utils.header("Mis Inscripciones", request));
-
         out.println("<div class='container'>");
         out.println("<p style='text-align:center;'>Usuario: <b>" + email + "</b></p>");
 
         try (Connection conn = ConnectionUtils.getConnection(getServletConfig())) {
-            
-            String sql = "SELECT t.tournament, r.status " +
+
+            UserData user = UserData.getUserByEmail(conn, email);
+            if (user == null) {
+                out.println("<p style='color:red;'>Usuario no encontrado.</p>");
+                out.println("</div>");
+                out.println(Utils.footer());
+                return;
+            }
+
+            String sql = "SELECT t.id AS tournament_id, t.tournament, r.status, " +
+                         "  (SELECT COUNT(*) FROM CheckIns c WHERE c.user_id = ? AND c.tournament_id = t.id) AS ya_checkin " +
                          "FROM (Registrations AS r " +
                          "INNER JOIN Users AS u ON r.user_id = u.id) " +
                          "INNER JOIN Tournaments AS t ON r.tournament_id = t.id " +
                          "WHERE u.email = ?";
 
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
-                ps.setString(1, email);
-                
+                ps.setInt(1, user.id);
+                ps.setString(2, email);
+
                 try (ResultSet rs = ps.executeQuery()) {
-                    out.println("<table><tr><th>Torneo</th><th>Estado</th></tr>");
-                    
+					
+                    out.println("<table><tr><th>Torneo</th><th>Estado</th><th>Check-In</th></tr>");
+
                     boolean found = false;
                     while (rs.next()) {
                         found = true;
-                        String tName = rs.getString("tournament");
-                        String status = rs.getString("status");
-                        
+                        int tournamentId    = rs.getInt("tournament_id");
+                        String tName        = rs.getString("tournament");
+                        String status       = rs.getString("status");
+                        int yaCheckin       = rs.getInt("ya_checkin");
+
                         String color = "orange";
                         String estadoTraducido = "Pendiente";
-                        
                         if ("accepted".equalsIgnoreCase(status)) {
                             color = "green";
                             estadoTraducido = "Aceptada";
@@ -64,26 +75,65 @@ public class MyRegistrationsServlet extends HttpServlet {
 
                         out.println("<tr>");
                         out.println("<td>" + tName + "</td>");
-                        out.println("<td style='color: " + color + "; font-weight: bold; text-align: center;'>" + estadoTraducido.toUpperCase() + "</td>");
+                        out.println("<td style='color:" + color + "; font-weight:bold; text-align:center;'>" + estadoTraducido.toUpperCase() + "</td>");
+
+
+                        out.println("<td style='text-align:center;'>");
+                        if ("accepted".equalsIgnoreCase(status)) {
+                            if (yaCheckin > 0) {
+                                out.println("<span style='color:green;'>Realizado</span>");
+
+                            } else {
+                                out.println("<button onclick=\"hacerCheckin(" + user.id + "," + tournamentId + ",this)\">Check-In</button>");
+                            }
+                        } else {
+                            out.println("<span style='color:#aaa;'>—</span>");
+                        }
+                        out.println("</td>");
                         out.println("</tr>");
                     }
-                    
+
                     if (!found) {
-                        out.println("<tr><td colspan='2' style='text-align:center;'>No tienes ninguna inscripcion registrada.</td></tr>");
+                        out.println("<tr><td colspan='3' style='text-align:center;'>No tienes ninguna inscripcion registrada.</td></tr>");
                     }
                     out.println("</table>");
                 }
             }
         } catch (Exception e) {
-            out.println("<div class='info-box' style='border-left-color: red;'>");
+            out.println("<div class='info-box' style='border-left-color:red;'>");
             out.println("<h3 style='color:red;'>Error en la Base de Datos</h3>");
             out.println("<p>" + e.getMessage() + "</p>");
             out.println("</div>");
         }
 
-        out.println("<br><div class='text-center'><a href='home.html' class='btn' style='display:inline-block; width:auto; text-decoration:none;'>Volver a Mi Panel</a></div>");
+        out.println("<br><div class='text-center'><a href='home.html' class='btn' style='display:inline-block;width:auto;text-decoration:none;'>Volver a Mi Panel</a></div>");
         out.println("</div>");
-        
+
+        // AJAX para el botón de check-in
+        out.println("<script>" +
+            "function hacerCheckin(userId, tournamentId, btn) {" +
+            "  btn.disabled = true;" +
+            "  btn.textContent = 'Procesando...';" +
+            "  fetch('TournamentCheckIn?user_id=' + userId + '&tournament_id=' + tournamentId + '&format=json')" +
+            "    .then(function(r) { return r.json(); })" +
+            "    .then(function(data) {" +
+            "      var td = btn.parentNode;" +
+            "      if (data.status === 'checkin_ok') {" +
+            "        td.innerHTML = \"<span style='color:green;'>Realizado</span>\";" +
+            "      } else {" +
+            "        btn.disabled = false;" +
+            "        btn.textContent = 'Check-In';" +
+            "        alert(data.message);" +
+            "      }" +
+            "    })" +
+            "    .catch(function() {" +
+            "      btn.disabled = false;" +
+            "      btn.textContent = 'Check-In';" +
+            "      alert('Error de conexión.');" +
+            "    });" +
+            "}" +
+            "</script>");
+
         out.println(Utils.footer());
     }
 }

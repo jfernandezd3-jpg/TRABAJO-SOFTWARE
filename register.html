@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>User Registration</title>
-	<link rel="stylesheet" href="style.css">
-
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <h2>Create your account</h2>
 
-<form action="RegisterServlet" method="GET">
+<form id="registerForm">
     <label>Username:</label><br>
     <input type="text" name="username" required><br><br>
 
@@ -25,6 +24,47 @@
 
     <button type="submit">Register</button>
 </form>
+
+<!-- Aquí aparecerá el resultado sin recargar la página -->
+<div id="resultado" style="margin-top: 15px; font-weight: bold;"></div>
+
+<script>
+    document.getElementById("registerForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        var form = e.target;
+        var params = new URLSearchParams({
+            username: form.username.value,
+            email:    form.email.value,
+            password: form.password.value,
+            phone:    form.phone.value,
+            format:   "json"  
+        });
+
+        var div = document.getElementById("resultado");
+        div.style.color = "gray";
+        div.textContent = "Registrando...";
+
+        fetch("RegisterServlet?" + params.toString())
+            .then(function(response) {
+                return response.json(); 
+            })
+            .then(function(data) {
+                if (data.success) {
+                    div.style.color = "green";
+                    div.textContent = data.message;
+                    setTimeout(function() { window.location.href = "login.html"; }, 1500);
+                } else {
+                    div.style.color = "red";
+                    div.textContent = data.message;
+                }
+            })
+            .catch(function(err) {
+                div.style.color = "red";
+                div.textContent = "Error de conexión con el servidor.";
+            });
+    });
+</script>
 
 </body>
 </html>

@@ -36,7 +36,7 @@ public class ManageParticipantsServlet extends HttpServlet {
         try (Connection conn = ConnectionUtils.getConnection(getServletConfig())) {
             
             out.println("<table id='tablaInscripciones' style='width:100%; border-collapse: collapse;'>");
-            out.println("<tr><th>ID Usuario</th><th>ID Torneo</th><th style='text-align:center;'>Accion</th></tr>");
+            out.println("<tr><th>ID Usuario</th><th>ID Torneo</th><th style='text-align:center;'>Acci&oacute;n</th></tr>");
 
             String sql = "SELECT user_id, tournament_id FROM Registrations WHERE status = 'pending'";
             try (PreparedStatement ps = conn.prepareStatement(sql);

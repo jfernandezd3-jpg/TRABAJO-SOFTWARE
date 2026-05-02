@@ -86,7 +86,7 @@ public class MyRegistrationsServlet extends HttpServlet {
                                 out.println("<button onclick=\"hacerCheckin(" + user.id + "," + tournamentId + ",this)\">Check-In</button>");
                             }
                         } else {
-                            out.println("<span style='color:#aaa;'>—</span>");
+                            out.println("<span style='color:#aaa;'>Tiene que estar aceptado</span>");
                         }
                         out.println("</td>");
                         out.println("</tr>");

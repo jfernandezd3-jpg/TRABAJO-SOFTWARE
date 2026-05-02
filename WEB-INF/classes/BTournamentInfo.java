@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-// JAIME FERNANDEZ DE BETONO
+// JAIME FERNANDEZ DE BETOÑO
 
 public class BTournamentInfo extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -50,7 +50,6 @@ public class BTournamentInfo extends HttpServlet {
 
                 out.println("<div class='container'>");
                 
-                // CAJA 1: Detalles principales
                 out.println("  <div class='info-box'>");
                 out.println("    <h3>Detalles Principales</h3>");
                 out.println("    <p><strong>Modalidad:</strong> " + torneo.modality + "</p>");
@@ -59,7 +58,6 @@ public class BTournamentInfo extends HttpServlet {
                 out.println("    <p><strong>Reglas:</strong> " + torneo.rules + "</p>");
                 out.println("  </div>");
 
-                // CAJA 2: Inscripción, Premios
                 out.println("  <div class='info-box'>");
                 out.println("    <h3>Inscripcion y Premios</h3>");
                 out.println("    <p><strong>Precio de Entrada:</strong> " + torneo.entry_price + " EUR</p>");
@@ -67,7 +65,6 @@ public class BTournamentInfo extends HttpServlet {
                 out.println("    <p><strong>Max. Participantes:</strong> " + torneo.max_partici + " personas</p>");
                 out.println("  </div>");
 
-                // CAJA 3: Mapa
                 out.println("  <div class='info-box'>");
                 out.println("    <h3>Ubicacion en el Mapa</h3>");
                 
@@ -88,14 +85,18 @@ public class BTournamentInfo extends HttpServlet {
                 out.println("  </div>");
 
                 out.println("  <div class='text-center' style='margin-top: 30px;'>");
-                out.println("    <a href='home.html' class='btn' style='display: inline-block; width: auto; text-decoration: none;'>Volver al Inicio</a>");
+                out.println("    <form action='RegisterTournamentServlet' method='POST' style='display: inline-block; margin: 10px;'>");
+                out.println("      <input type='hidden' name='tournamentId' value='" + torneo.id + "'>");
+                out.println("      <button type='submit' class='btn' style='width: auto; cursor: pointer; border: none;'>Inscribirse en este Torneo</button>");
+                out.println("    </form>");
+                out.println("    <a href='TournamentList' class='btn' style='display: inline-block; width: auto; text-decoration: none; background-color: #6c757d; margin: 10px;'>Volver a Torneos</a>");
                 out.println("  </div>");
                 
                 out.println("</div>");
             } else {
                 out.println("<div class='container text-center'>");
                 out.println("  <h3 style='color: red;'>El torneo solicitado no existe en la base de datos.</h3>");
-                out.println("  <br><a href='home.html' class='btn' style='display: inline-block; width: auto; text-decoration: none;'>Volver al Inicio</a>");
+                out.println("  <br><a href='TournamentList' class='btn' style='display: inline-block; width: auto; text-decoration: none;'>Volver a Torneos</a>");
                 out.println("</div>");
             }
 

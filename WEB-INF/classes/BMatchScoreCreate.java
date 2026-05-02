@@ -4,7 +4,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.sql.Connection;
 
-// JAIME FERNANDEZ DE BETONO
+// JAIME FERNANDEZ DE BETOÑO
 
 @SuppressWarnings("serial")
 public class BMatchScoreCreate extends HttpServlet {

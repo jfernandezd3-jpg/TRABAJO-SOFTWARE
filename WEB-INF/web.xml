@@ -38,6 +38,15 @@
 </servlet-mapping>
 
 <servlet>
+    <servlet-name>BMatchSetup</servlet-name>
+    <servlet-class>BMatchSetup</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>BMatchSetup</servlet-name>
+    <url-pattern>/BMatchSetup</url-pattern>
+</servlet-mapping>
+
+<servlet>
     <servlet-name>BSelectTournament</servlet-name>
     <servlet-class>BSelectTournament</servlet-class>
 </servlet>
@@ -234,7 +243,5 @@
 <servlet-name>RegisterTournamentServlet</servlet-name>
 <url-pattern>/RegisterTournamentServlet</url-pattern>
 </servlet-mapping>
-
-
 
 </web-app>

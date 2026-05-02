@@ -1,8 +1,9 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
-// JAIME FERNANDEZ DE BETONO
+// JAIME FERNANDEZ DE BETOÑO
 
 public class BMatchData {
 
@@ -24,5 +25,41 @@ public class BMatchData {
             System.out.println("Error en insertMatchScore: " + e);
         }
         return n;
+    }
+
+    public static String getTournamentName(Connection connection, int id) {
+        String name = "Desconocido";
+        String sql = "SELECT tournament FROM tournaments WHERE ID = ?";
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                name = rs.getString("tournament");
+            }
+            rs.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            System.out.println("Error en getTournamentName: " + e);
+        }
+        return name;
+    }
+
+    public static String getPlayerUsername(Connection connection, int id) {
+        String name = "Desconocido";
+        String sql = "SELECT username FROM users WHERE ID = ?";
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                name = rs.getString("username");
+            }
+            rs.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            System.out.println("Error en getPlayerUsername: " + e);
+        }
+        return name;
     }
 }

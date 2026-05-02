@@ -52,7 +52,7 @@ public class MyRegistrationsServlet extends HttpServlet {
 
                 try (ResultSet rs = ps.executeQuery()) {
                     
-                    out.println("<table><tr><th>Torneo</th><th>Estado</th><th>Check-In</th></tr>");
+                    out.println("<table><tr><th>Torneo</th><th>Estado</th><th>Check-In</th><th>Detalles</th><th>Desapuntarse</th></tr>");
 
                     boolean found = false;
                     while (rs.next()) {
@@ -83,17 +83,29 @@ public class MyRegistrationsServlet extends HttpServlet {
                                 out.println("<span style='color:green;'>Realizado</span>");
 
                             } else {
-                                out.println("<button onclick=\"hacerCheckin(" + user.id + "," + tournamentId + ",this)\">Check-In</button>");
+                                out.println("<button onclick=\"hacerCheckin(" + user.id + "," + tournamentId + ",this)\" class='btn' style='padding: 4px 8px; font-size: 12px; width: auto;'>Check-In</button>");
                             }
                         } else {
                             out.println("<span style='color:#aaa;'>Tiene que estar aceptado</span>");
                         }
                         out.println("</td>");
+
+                        out.println("<td style='text-align: center;'>");
+                        out.println("<a href='BTournamentInfo?id=" + tournamentId + "' class='btn' style='padding: 4px 8px; font-size: 12px; text-decoration: none; white-space: nowrap;'>Ver Info</a>");
+                        out.println("</td>");
+
+                        out.println("<td style='text-align:center;'>");
+                        out.println("<form action='BTournamentDesapuntarUpdate' method='GET' style='margin:0;' onsubmit=\"return confirm('¿Estas seguro de que quieres desapuntarte de este torneo? Esta accion no se puede deshacer.');\">");
+                        out.println("<input type='hidden' name='tournamentId' value='" + tournamentId + "'>");
+                        out.println("<button type='submit' class='btn' style='background-color:#dc3545; padding: 4px 8px; font-size: 12px; width: auto;'>Desapuntarse</button>");
+                        out.println("</form>");
+                        out.println("</td>");
+
                         out.println("</tr>");
                     }
 
                     if (!found) {
-                        out.println("<tr><td colspan='3' style='text-align:center;'>No tienes ninguna inscripcion registrada.</td></tr>");
+                        out.println("<tr><td colspan='5' style='text-align:center;'>No tienes ninguna inscripcion registrada.</td></tr>");
                     }
                     out.println("</table>");
                 }
@@ -108,7 +120,6 @@ public class MyRegistrationsServlet extends HttpServlet {
         out.println("<br><div class='text-center'><a href='home.html' class='btn' style='display:inline-block;width:auto;text-decoration:none;'>Volver a Mi Panel</a></div>");
         out.println("</div>");
 
-        // AJAX para el botón de check-in
         out.println("<script>" +
             "function hacerCheckin(userId, tournamentId, btn) {" +
             "  btn.disabled = true;" +

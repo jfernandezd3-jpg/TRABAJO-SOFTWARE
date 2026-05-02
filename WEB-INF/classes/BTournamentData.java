@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-// JAIME FERNANDEZ DE BETONO
+// JAIME FERNANDEZ DE BETOÑO
 
 public class BTournamentData {
 
@@ -22,7 +22,6 @@ public class BTournamentData {
     double latitude;
     double longitude;
 
-    // Constructor principal
     public BTournamentData(int id, int organizer_id, String tournament, String modality,
                           String location, String tournament_date, double entry_price,
                           double win_price, String rules, int max_partici, 
@@ -42,7 +41,6 @@ public class BTournamentData {
         this.longitude = longitude;
     }
 
-    // 1. OBTENER TODOS LOS TORNEOS
     public static Vector<BTournamentData> getTournamentList(Connection connection) {
         Vector<BTournamentData> vec = new Vector<BTournamentData>();
         String sql = "SELECT * FROM tournaments";
@@ -66,7 +64,6 @@ public class BTournamentData {
         return vec;
     }
 
-    // 2. OBTENER UN TORNEO POR ID
     public static BTournamentData getTournamentById(Connection connection, int id) {
         BTournamentData t = null;
         String sql = "SELECT * FROM tournaments WHERE ID = ?";
@@ -90,7 +87,6 @@ public class BTournamentData {
         return t;
     }
 
-    // 3. OBTENER SOLO TORNEOS CON COORDENADAS PARA EL MAPA
     public static Vector<BTournamentData> getTournamentsWithCoordinates(Connection connection) {
         Vector<BTournamentData> vec = new Vector<BTournamentData>();
         String sql = "SELECT * FROM tournaments WHERE latitude IS NOT NULL AND longitude IS NOT NULL";
@@ -114,7 +110,6 @@ public class BTournamentData {
         return vec;
     }
 
-    // 4. DESAPUNTAR USUARIO
     public static int deleteRegistration(Connection connection, int tournamentId, String username) {
         int n = 0;
         String sqlUser = "SELECT ID FROM users WHERE email = ?"; 
@@ -139,7 +134,6 @@ public class BTournamentData {
         return n;
     }
 
-    // 5. OBTENER SOLO LOS TORNEOS A LOS QUE ESTA APUNTADO EL USUARIO
     public static Vector<BTournamentData> getTournamentsByUserEmail(Connection connection, String email) {
         Vector<BTournamentData> vec = new Vector<BTournamentData>();
         
@@ -162,6 +156,27 @@ public class BTournamentData {
             ps.close();
         } catch (SQLException e) {
             System.out.println("Error in getTournamentsByUserEmail: " + sql + " Exception: " + e);
+        }
+        return vec;
+    }
+
+    public static Vector<String[]> getAcceptedPlayers(Connection connection, int tournamentId) {
+        Vector<String[]> vec = new Vector<String[]>();
+        String sql = "SELECT u.ID, u.email FROM users u INNER JOIN registrations r ON u.ID = r.user_id WHERE r.tournament_id = ? AND r.status = 'accepted'";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, tournamentId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String[] player = new String[2];
+                player[0] = String.valueOf(rs.getInt("ID"));
+                player[1] = rs.getString("email");
+                vec.addElement(player);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println("Error in getAcceptedPlayers: " + sql + " Exception: " + e);
         }
         return vec;
     }

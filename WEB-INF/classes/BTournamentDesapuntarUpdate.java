@@ -3,7 +3,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import java.sql.Connection;
 
-// JAIME FERNANDEZ DE BETONO
+// JAIME FERNANDEZ DE BETOÑO
 
 @SuppressWarnings("serial")
 public class BTournamentDesapuntarUpdate extends HttpServlet {
@@ -15,7 +15,7 @@ public class BTournamentDesapuntarUpdate extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException  {
-        res.setContentType("text/html");
+        res.setContentType("text/html; charset=UTF-8");
         PrintWriter toClient = res.getWriter();
         
         HttpSession session = req.getSession(false);
@@ -23,8 +23,10 @@ public class BTournamentDesapuntarUpdate extends HttpServlet {
 
         if (username == null) {
             toClient.println(Utils.header("Acceso Denegado", req));
-            toClient.println("<h3 style='color:red; text-align:center;'>Debes iniciar sesión para realizar esta acción.</h3>");
-            toClient.println("<div style='text-align:center;'><a href='login.html'>Ir al Login</a></div>");
+            toClient.println("<div class='container text-center'>");
+            toClient.println("<h3 style='color:red;'>Debes iniciar sesion para realizar esta accion.</h3>");
+            toClient.println("<br><a href='login.html' class='btn' style='display:inline-block; width:auto;'>Ir al Login</a>");
+            toClient.println("</div>");
             toClient.println(Utils.footer());
             toClient.close();
             return;
@@ -32,24 +34,25 @@ public class BTournamentDesapuntarUpdate extends HttpServlet {
         
         String tournamentIdStr = req.getParameter("tournamentId");
         
+        toClient.println(Utils.header("Resultado de la Baja", req));
+        toClient.println("<div class='container'>");
+
         if (tournamentIdStr != null) {
             int tournamentId = Integer.parseInt(tournamentIdStr);
             
             int n = BTournamentData.deleteRegistration(connection, tournamentId, username);
             
-            toClient.println(Utils.header("Resultado de la Baja", req));
-            
             if (n > 0) {
-                toClient.println("<h3 style='text-align:center; color:green;'>Exito: Te has desapuntado correctamente del torneo.</h3>");
+                toClient.println("<h3 style='text-align:center; color:#2e8b57;'>Exito: Te has desapuntado correctamente del torneo.</h3>");
             } else {
-                toClient.println("<h3 style='color:red; text-align:center;'>Error: No se te pudo desapuntar. Revisa que realmente estuvieras apuntado a este torneo.</h3>");
+                toClient.println("<h3 style='color:#dc3545; text-align:center;'>Error: No se te pudo desapuntar. Revisa que realmente estuvieras apuntado a este torneo.</h3>");
             }
         } else {
-            toClient.println(Utils.header("Error", req));
-            toClient.println("<h3 style='color:red; text-align:center;'>Faltan datos en el formulario.</h3>");
+            toClient.println("<h3 style='color:#dc3545; text-align:center;'>Faltan datos en el formulario.</h3>");
         }
         
-        toClient.println("<br><div style='text-align:center;'><a href='BTournamentDesapuntar'>Volver al formulario</a></div>");
+        toClient.println("<br><div class='text-center'><a href='MyRegistrationsServlet' class='btn' style='display:inline-block; width:auto; text-decoration:none;'>Volver a Mis Inscripciones</a></div>");
+        toClient.println("</div>");
         
         toClient.println(Utils.footer());
         toClient.close();

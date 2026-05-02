@@ -50,7 +50,6 @@ public class RegisterTournamentServlet extends HttpServlet {
                     psC.setInt(1, uId);
                     psC.setInt(2, tId);
                     if (psC.executeQuery().next()) {
-                        // Pasamos el request para que Utils pinte la barra de navegación
                         pintarPantallaAviso(out, request, "Ya estas inscrito en este torneo.", "Atencion");
                         return;
                     }
@@ -96,7 +95,7 @@ public class RegisterTournamentServlet extends HttpServlet {
         }
         
         out.println("  <p style='color: #666; font-size: 16px; margin-bottom: 30px;'>" + mensaje + "</p>");
-        out.println("  <a href='home.html' class='btn' style='display:inline-block; width:auto;'>Continuar</a>");
+        out.println("  <a href='MyRegistrationsServlet' class='btn' style='display:inline-block; width:auto;'>Ver mis Inscripciones</a>");
         out.println("</div>");
         
         out.println(Utils.footer());

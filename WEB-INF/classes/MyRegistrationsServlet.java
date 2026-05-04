@@ -95,7 +95,7 @@ public class MyRegistrationsServlet extends HttpServlet {
                         out.println("</td>");
 
                         out.println("<td style='text-align:center;'>");
-                        out.println("<form action='BTournamentDesapuntarUpdate' method='GET' style='margin:0;' onsubmit=\"return confirm('¿Estas seguro de que quieres desapuntarte de este torneo? Esta accion no se puede deshacer.');\">");
+                        out.println("<form action='BTournamentDesapuntarUpdate' method='GET' style='margin:0;' onsubmit=\"return confirm('\\u00BFEstas seguro de que quieres desapuntarte de este torneo? Esta accion no se puede deshacer.');\">");
                         out.println("<input type='hidden' name='tournamentId' value='" + tournamentId + "'>");
                         out.println("<button type='submit' class='btn' style='background-color:#dc3545; padding: 4px 8px; font-size: 12px; width: auto;'>Desapuntarse</button>");
                         out.println("</form>");

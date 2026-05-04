@@ -27,6 +27,7 @@ public class BTournamentMap extends HttpServlet {
 
             out.println("<link rel='stylesheet' href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css' />");
             out.println("<script src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'></script>");
+            out.println("<script src='js/mapa.js'></script>");
             
             out.println("<style>");
             out.println("  .map-card { max-width: 1000px; margin: 40px auto; padding: 20px; background-color: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }");
@@ -49,37 +50,7 @@ public class BTournamentMap extends HttpServlet {
                         BTournamentData t = torneos.elementAt(i);
                         
                         out.println("  var marker_" + t.id + " = L.marker([" + t.latitude + ", " + t.longitude + "]).addTo(map);");
-                        
-                        out.println("  marker_" + t.id + ".on('click', function(e) {");
-                        out.println("      var popup = L.popup().setLatLng(e.latlng).setContent('<i>Cargando info...</i>').openOn(map);");
-                        
-                        out.println("      var request = new XMLHttpRequest();");
-                        out.println("      request.open('GET', 'BTournamentPopupAjax?id=" + t.id + "', true);");
-                        
-                        out.println("      request.onload = function() {");
-                        out.println("          if (request.status >= 200 && request.status < 400) {");
-                        out.println("              var resp = request.responseText;");
-                        out.println("              var data = JSON.parse(resp);");
-                        
-                        out.println("              if(data.error) {");
-                        out.println("                  popup.setContent('<b style=\"color:red;\">Error: ' + data.error + '</b>');");
-                        out.println("              } else {");
-                        out.println("                  var html = \"<div style='text-align: center;'>\" + ");
-                        out.println("                             \"<b style='color: #1a4f2c; font-size: 15px;'>\" + data.name + \"</b><br>\" +");
-                        out.println("                             \"<span style='color: #666;'>Lugar: \" + data.location + \"</span><br>\" +");
-                        out.println("                             \"<span style='font-weight: bold; color: #f39c12;'>Precio: \" + data.price + \" &euro;</span><br><br>\" +");
-                        out.println("                             \"<a href='BTournamentInfo?id=\" + data.id + \"' class='btn' style='padding: 6px 12px; font-size: 13px; color: white !important; text-decoration: none;'>Ver Detalles</a>\" +");
-                        out.println("                             \"</div>\";");
-                        out.println("                  popup.setContent(html);");
-                        out.println("              }");
-                        out.println("          } else {");
-                        out.println("              popup.setContent('<b style=\"color:red;\">Error del servidor</b>');");
-                        out.println("          }");
-                        out.println("      };");
-                        
-                        out.println("      request.send();");
-                        
-                        out.println("  });");
+                        out.println("  cargarPopup(marker_" + t.id + ", " + t.id + ", map);");
                     }
                 }
             } catch (Exception e) {

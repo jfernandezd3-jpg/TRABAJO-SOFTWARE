@@ -64,64 +64,10 @@ public class BMatchScoreConsole extends HttpServlet {
         toClient.println("<div id='mensaje-ajax' style='text-align:center; margin-bottom: 20px; display:none;'></div>");
 
         toClient.println("<div class='text-center'>");
-        toClient.println("  <button id='btn-finalizar' class='btn' style='background-color: #d9534f;' onclick='finalizarPartido()'>Finalizar y Guardar Resultado</button>");
+        toClient.println("  <button id='btn-finalizar' class='btn' style='background-color: #d9534f;' onclick='finalizarPartido(" + idTournament + ", " + idPlayer1 + ", " + idPlayer2 + ")'>Finalizar y Guardar Resultado</button>");
         toClient.println("</div>");
 
-        toClient.println("<script>");
-        toClient.println("  let marcadorJ1 = 0;");
-        toClient.println("  let marcadorJ2 = 0;");
-        
-        toClient.println("  function sumarPunto(jugador) {");
-        toClient.println("      if (jugador === 1) {");
-        toClient.println("          marcadorJ1++; document.getElementById('puntos-j1').innerText = marcadorJ1;");
-        toClient.println("      } else {");
-        toClient.println("          marcadorJ2++; document.getElementById('puntos-j2').innerText = marcadorJ2;");
-        toClient.println("      }");
-        toClient.println("  }");
-
-        toClient.println("  function restarPunto(jugador) {");
-        toClient.println("      if (jugador === 1 && marcadorJ1 > 0) {");
-        toClient.println("          marcadorJ1--; document.getElementById('puntos-j1').innerText = marcadorJ1;");
-        toClient.println("      } else if (jugador === 2 && marcadorJ2 > 0) {");
-        toClient.println("          marcadorJ2--; document.getElementById('puntos-j2').innerText = marcadorJ2;");
-        toClient.println("      }");
-        toClient.println("  }");
-
-        toClient.println("  function finalizarPartido() {");
-        toClient.println("      if(confirm('\\u00BFEstas seguro de finalizar el partido y guardar los resultados?')) {");
-        
-        toClient.println("          document.getElementById('btn-finalizar').disabled = true;");
-        toClient.println("          document.getElementById('btn-finalizar').innerText = 'Guardando...';");
-        
-        toClient.println("          var params = 'id_tournament=" + idTournament + "&id_player1=" + idPlayer1 + "&id_player2=" + idPlayer2 + "&points_p1=' + marcadorJ1 + '&points_p2=' + marcadorJ2;");
-        
-        toClient.println("          var request = new XMLHttpRequest();");
-        toClient.println("          request.open('POST', 'BMatchScoreCreate', true);");
-        toClient.println("          request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');");
-        
-        toClient.println("          request.onload = function() {");
-        toClient.println("              var mensajeDiv = document.getElementById('mensaje-ajax');");
-        toClient.println("              mensajeDiv.style.display = 'block';");
-        
-        toClient.println("              if (request.status >= 200 && request.status < 400) {");
-        toClient.println("                  var data = JSON.parse(request.responseText);");
-        toClient.println("                  if(data.status === 'ok') {");
-        toClient.println("                      mensajeDiv.innerHTML = '<h3 style=\"color:green;\">&iexcl;&Eacute;xito! ' + data.message + '</h3><a href=\"home.html\" class=\"btn\" style=\"display:inline-block; width:auto; margin-top:10px;\">Volver al Panel</a>';");
-        toClient.println("                      document.getElementById('btn-finalizar').style.display = 'none';");
-        toClient.println("                  } else {");
-        toClient.println("                      mensajeDiv.innerHTML = '<h3 style=\"color:red;\">Error: ' + data.message + '</h3>';");
-        toClient.println("                      document.getElementById('btn-finalizar').disabled = false;");
-        toClient.println("                      document.getElementById('btn-finalizar').innerText = 'Reintentar Guardar';");
-        toClient.println("                  }");
-        toClient.println("              } else {");
-        toClient.println("                  mensajeDiv.innerHTML = '<h3 style=\"color:red;\">Error del servidor</h3>';");
-        toClient.println("              }");
-        toClient.println("          };");
-        
-        toClient.println("          request.send(params);");
-        toClient.println("      }");
-        toClient.println("  }");
-        toClient.println("</script>");
+        toClient.println("<script src='js/arbitraje.js'></script>");
 
         toClient.println("</div>"); 
         toClient.println(Utils.footer());

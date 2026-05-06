@@ -1,52 +1,165 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Create Tournament - TournamentHub</title>
+    <title>Crear Torneo - TournamentHub</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 4px; color: #1a4f2c; }
+        .form-group input, .form-group textarea {
+            width: 100%; box-sizing: border-box;
+            padding: 9px 12px; border: 1px solid #ccc;
+            border-radius: 6px; font-size: 14px;
+        }
+        .form-group input:focus { outline: none; border-color: #2e8b57; box-shadow: 0 0 0 2px rgba(46,139,87,0.15); }
+        #mensaje {
+            display: none; margin-top: 18px; padding: 14px 18px;
+            border-radius: 8px; font-weight: bold; text-align: center; font-size: 15px;
+        }
+        #mensaje.ok  { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+        #mensaje.err { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+        #btnSubmit { width: 100%; margin-top: 8px; }
+        #btnSubmit:disabled { background: #aaa; cursor: not-allowed; }
+        .coord-row { display: flex; gap: 16px; }
+        .coord-row .form-group { flex: 1; }
+    </style>
 </head>
 <body>
 
-<h2>Create a new tournament</h2>
+<div class="topbar">
+    <span class="brand">🏆 TournamentHub</span>
+    <div>
+        <a href="home.html">Mi Panel</a>
+        <a href="gestion_organizador.html">Panel Organizador</a>
+    </div>
+</div>
 
-<form action="PCreateTournamentServlet" method="POST">
-    
-    <label>Organizer Id:</label><br>
-    <input type="text" name="organizerId" required><br><br>
-    
-    <label>Tournament Name:</label><br>
-    <input type="text" name="tournamentName" required><br><br>
+<div class="container" style="max-width: 600px;">
+    <h2 style="text-align:center; color:#1a4f2c; margin-bottom: 6px;">Crear Nuevo Torneo</h2>
+    <p style="text-align:center; color:#777; margin-bottom: 24px; font-size: 14px;">
+        El torneo quedará registrado a tu nombre como organizador.
+    </p>
 
-    <label>Modality (Game):</label><br>
-    <input type="text" name="modality" placeholder="e.g. Chess, Poker, Mus" required><br><br>
+    <form id="createForm">
 
-    <label>Date and Time:</label><br>
-    <input type="text" name="dateTime" required><br><br>
+        <div class="form-group">
+            <label>Nombre del Torneo</label>
+            <input type="text" name="tournamentName" placeholder="Ej: Torneo de Mus de Donostia" required>
+        </div>
 
-    <label>Location:</label><br>
-    <input type="text" name="address" required><br><br>
+        <div class="form-group">
+            <label>Modalidad</label>
+            <input type="text" name="modality" placeholder="Chess, Poker, Mus..." required>
+        </div>
 
-    <label>Rules:</label><br>
-    <input type="text" name="rules" required><br><br>
+        <div class="form-group">
+            <label>Fecha y Hora</label>
+            <input type="datetime-local" name="dateTime" required>
+        </div>
 
-    <label>Win Prize:</label><br>
-    <input type="number" name="prizes" required><br><br>
+        <div class="form-group">
+            <label>Ubicación</label>
+            <input type="text" name="address" placeholder="Dirección del evento" required>
+        </div>
 
-    <label>Max Participants:</label><br>
-    <input type="number" name="maxParticipants" min="1" required><br><br>
+        <div class="form-group">
+            <label>Reglas</label>
+            <input type="text" name="rules" placeholder="Descripción de las reglas" required>
+        </div>
 
-    <label>Entry Price (€):</label><br>
-    <input type="number" name="entryPrice" min="0" step="0.01" required><br><br>
+        <div class="form-group">
+            <label>Max. Participantes</label>
+            <input type="number" name="maxParticipants" min="2" placeholder="Ej: 16" required>
+        </div>
 
-    <label>Latitude:</label><br>
-    <input type="number" name="latitude" step="any" required><br><br>
+        <div class="form-group">
+            <label>Cuota de Entrada (€)</label>
+            <input type="number" name="entryPrice" min="0" step="0.01" placeholder="0.00" required>
+        </div>
 
-    <label>Longitude:</label><br>
-    <input type="number" name="longitude" step="any" required><br><br>
+        <div class="form-group">
+            <label>Premio al Ganador (€)</label>
+            <input type="number" name="prizes" min="0" step="0.01" placeholder="0.00" required>
+        </div>
 
-    <button type="submit">Create Tournament</button>
-</form>
+        <div class="coord-row">
+            <div class="form-group">
+                <label>Latitud</label>
+                <input type="number" name="latitude" step="any" placeholder="Ej: 43.3183" required>
+            </div>
+            <div class="form-group">
+                <label>Longitud</label>
+                <input type="number" name="longitude" step="any" placeholder="Ej: -1.9812" required>
+            </div>
+        </div>
 
-<br><div style="text-align:center;"><a href="gestion_organizador.html">← Panel Organizador</a></div>
+        <button type="submit" id="btnSubmit" class="btn">Crear Torneo</button>
+
+        <div id="mensaje"></div>
+    </form>
+
+    <div style="text-align:center; margin-top: 20px;">
+        <a href="gestion_organizador.html">← Volver al Panel Organizador</a>
+    </div>
+</div>
+
+<script>
+document.getElementById('createForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var form = e.target;
+    var btn  = document.getElementById('btnSubmit');
+    var msg  = document.getElementById('mensaje');
+
+    // Recoger todos los campos del formulario
+    var params = new URLSearchParams({
+        tournamentName:  form.tournamentName.value,
+        modality:        form.modality.value,
+        dateTime:        form.dateTime.value,
+        address:         form.address.value,
+        rules:           form.rules.value,
+        maxParticipants: form.maxParticipants.value,
+        entryPrice:      form.entryPrice.value,
+        prizes:          form.prizes.value,
+        latitude:        form.latitude.value,
+        longitude:       form.longitude.value,
+        format:          'json'   // <-- activa el modo AJAX en el servlet
+    });
+
+    // Estado de carga
+    btn.disabled = true;
+    btn.textContent = 'Creando...';
+    msg.style.display = 'none';
+
+    fetch('PCreateTournamentServlet', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: params.toString()
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+        msg.style.display = 'block';
+        if (data.success) {
+            msg.className = 'ok';
+            msg.textContent = '✓ ' + data.message;
+            form.reset();  // limpia el formulario tras el éxito
+        } else {
+            msg.className = 'err';
+            msg.textContent = '✗ ' + data.message;
+        }
+    })
+    .catch(function() {
+        msg.style.display = 'block';
+        msg.className = 'err';
+        msg.textContent = '✗ Error de conexión con el servidor.';
+    })
+    .finally(function() {
+        btn.disabled = false;
+        btn.textContent = 'Crear Torneo';
+    });
+});
+</script>
+
 </body>
 </html>

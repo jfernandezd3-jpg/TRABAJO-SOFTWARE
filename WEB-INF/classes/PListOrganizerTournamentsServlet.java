@@ -15,10 +15,6 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet para listar torneos del organizador que ha iniciado sesión.
  * Autor: Paul
- *
- * Cambios:
- *  - El organizerId se obtiene automáticamente de la sesión.
- *  - Soporta AJAX: si viene format=json responde JSON, si no responde HTML normal.
  */
 public class PListOrganizerTournamentsServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;

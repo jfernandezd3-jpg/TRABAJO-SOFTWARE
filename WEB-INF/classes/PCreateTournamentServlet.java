@@ -14,10 +14,6 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet encargado de la creación de nuevos torneos (FR13).
  * Autor: Paul
- *
- * Cambios:
- *  - El organizerId se obtiene automáticamente de la sesión (no hace falta introducirlo manualmente).
- *  - Soporta AJAX: si viene format=json responde JSON, si no responde HTML normal.
  */
 public class PCreateTournamentServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;

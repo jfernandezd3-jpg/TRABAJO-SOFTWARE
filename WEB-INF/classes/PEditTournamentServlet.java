@@ -43,49 +43,7 @@ public class PEditTournamentServlet extends HttpServlet {
 
         out.println("<div id='mensaje' style='display:none; margin-top:16px; padding:12px 16px; border-radius:8px; font-weight:bold; text-align:center;'></div>");
 
-        out.println("<script>");
-        out.println("document.getElementById('editForm').addEventListener('submit', function(e) {");
-        out.println("  e.preventDefault();");
-        out.println("  var form = e.target;");
-        out.println("  var btn = document.getElementById('btnGuardar');");
-        out.println("  var msg = document.getElementById('mensaje');");
-        out.println("  var params = new URLSearchParams({");
-        out.println("    id:              form.querySelector('[name=id]').value,");
-        out.println("    tournamentName:  form.querySelector('[name=tournamentName]').value,");
-        out.println("    modality:        form.querySelector('[name=modality]').value,");
-        out.println("    dateTime:        form.querySelector('[name=dateTime]').value,");
-        out.println("    location:        form.querySelector('[name=location]').value,");
-        out.println("    entryPrice:      form.querySelector('[name=entryPrice]').value,");
-        out.println("    prizes:          form.querySelector('[name=prizes]').value,");
-        out.println("    rules:           form.querySelector('[name=rules]').value,");
-        out.println("    maxParticipants: form.querySelector('[name=maxParticipants]').value,");
-        out.println("    latitude:        form.querySelector('[name=latitude]').value,");
-        out.println("    longitude:       form.querySelector('[name=longitude]').value,");
-        out.println("    format:          'json'");
-        out.println("  });");
-        out.println("  btn.disabled = true;");
-        out.println("  btn.textContent = 'Guardando...';");
-        out.println("  msg.style.display = 'none';");
-        out.println("  fetch('PEditTournamentServlet', { method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, body: params.toString() })");
-        out.println("  .then(function(r) { return r.json(); })");
-        out.println("  .then(function(data) {");
-        out.println("    msg.style.display = 'block';");
-        out.println("    if (data.success) {");
-        out.println("      msg.style.background = '#e8f5e9'; msg.style.color = '#2e7d32'; msg.style.border = '1px solid #a5d6a7';");
-        out.println("      msg.textContent = '\\u2713 ' + data.message;");
-        out.println("    } else {");
-        out.println("      msg.style.background = '#ffebee'; msg.style.color = '#c62828'; msg.style.border = '1px solid #ef9a9a';");
-        out.println("      msg.textContent = '\\u2717 ' + data.message;");
-        out.println("    }");
-        out.println("  })");
-        out.println("  .catch(function() {");
-        out.println("    msg.style.display = 'block';");
-        out.println("    msg.style.background = '#ffebee'; msg.style.color = '#c62828'; msg.style.border = '1px solid #ef9a9a';");
-        out.println("    msg.textContent = '\\u2717 Error de conexion con el servidor.';");
-        out.println("  })");
-        out.println("  .finally(function() { btn.disabled = false; btn.textContent = 'Guardar Cambios'; });");
-        out.println("});");
-        out.println("</script>");
+        out.println("<script src='js/editTournament.js'></script>");
 
         out.println(Utils.footer());
     }

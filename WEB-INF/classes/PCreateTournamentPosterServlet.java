@@ -89,7 +89,7 @@ public class PCreateTournamentPosterServlet extends HttpServlet {
             out.println("<div style='text-align: center; margin-top: 10px; margin-bottom: 30px;'>");
             // Botón que llama a la función de JavaScript
             out.println("<button onclick='descargarCartel()' style='background-color: #ff9800; color: white; padding: 12px 24px; border: none; cursor: pointer; font-weight: bold; border-radius: 5px; font-size: 16px; margin-right: 15px;'>Descargar como Imagen</button>");
-            out.println("<a href='searchorganizer.html' style='text-decoration: none; background-color: #666; color: white; padding: 12px 24px; border-radius: 5px; font-weight: bold; font-size: 16px;'>Volver al Panel</a>");
+            out.println("<a href='gestion_organizador.html' style='text-decoration: none; background-color: #666; color: white; padding: 12px 24px; border-radius: 5px; font-weight: bold; font-size: 16px;'>Volver al Panel</a>");
             out.println("</div>");
 
             // 7. El Script que hace la captura de pantalla

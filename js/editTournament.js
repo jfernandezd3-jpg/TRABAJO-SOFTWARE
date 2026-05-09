@@ -1,4 +1,6 @@
+
 // PAUL AYALA
+
 // AJAX para editar torneos (PEditTournamentServlet GET -> PEditTournamentServlet POST)
 
 document.addEventListener('DOMContentLoaded', function() {

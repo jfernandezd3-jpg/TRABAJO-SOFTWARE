@@ -1,4 +1,6 @@
+
 // PAUL AYALA
+
 // AJAX para listar torneos del organizador (gestion_organizador.html -> PListOrganizerTournamentsServlet)
 
 function cargarMisTorneos() {

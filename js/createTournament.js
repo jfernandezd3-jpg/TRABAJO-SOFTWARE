@@ -1,4 +1,6 @@
+
 // PAUL AYALA
+
 // AJAX para la creación de torneos (insertTournament.html -> PCreateTournamentServlet)
 
 document.addEventListener('DOMContentLoaded', function() {

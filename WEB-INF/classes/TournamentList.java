@@ -26,14 +26,12 @@ public class TournamentList extends HttpServlet {
             tournaments = TournamentData.getTournamentList(connection);
         }
 
-        // --- NUEVO: si viene format=json respondemos con JSON ---
         String format = req.getParameter("format");
         if ("json".equals(format)) {
             respondJson(res, tournaments);
             ConnectionUtils.close(connection);
             return;
         }
-        // --- FIN NUEVO ---
 
         out.println(Utils.header("Lista de Torneos", req));
 
@@ -44,7 +42,6 @@ public class TournamentList extends HttpServlet {
 
         out.println("<div style='background-color: white; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); padding: 20px; margin: 20px auto; width: 98%; max-width: 1400px; box-sizing: border-box;'>");
 
-        // Formulario de filtro — sin action/method, el submit lo gestiona AJAX
         out.println("<form id='filterForm' style='text-align: center; margin-bottom: 25px;'>");
         out.println("Modalidad: <input type='text' id='modality' name='modality' style='padding: 6px; border-radius: 4px; border: 1px solid #ccc; margin-right: 15px;'> ");
         out.println("Localidad: <input type='text' id='location' name='location' style='padding: 6px; border-radius: 4px; border: 1px solid #ccc; margin-right: 15px;'> ");
@@ -53,15 +50,12 @@ public class TournamentList extends HttpServlet {
         out.println("<button type='button' class='btn' style='padding: 8px 15px; font-size: 14px; width: auto; background-color: #17a2b8;' onclick=\"window.location.href='BTournamentMap'\">Ver en Mapa</button>");
         out.println("</form><br>");
 
-        // Div donde se renderiza la tabla via AJAX
         out.println("<div id='resultados' style='overflow-x: auto;'>");
 
-        // Tabla inicial con los datos que ya tiene el servlet (carga normal)
         out.println(buildTable(tournaments));
 
         out.println("</div>");
 
-        // AJAX: al filtrar, actualizamos solo la tabla sin recargar la página
         out.println("<script>");
         out.println("function cargarTorneos(modality, location) {");
         out.println("  var params = new URLSearchParams({ format: 'json' });");
@@ -105,7 +99,6 @@ public class TournamentList extends HttpServlet {
         ConnectionUtils.close(connection);
     }
 
-    // Devuelve JSON cuando se llama con format=json (para las llamadas AJAX del propio servlet)
     private void respondJson(HttpServletResponse res, Vector<TournamentData> tournaments) throws IOException {
         res.setContentType("application/json; charset=UTF-8");
         PrintWriter out = res.getWriter();

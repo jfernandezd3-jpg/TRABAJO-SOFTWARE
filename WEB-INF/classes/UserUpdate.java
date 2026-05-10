@@ -10,7 +10,6 @@ public class UserUpdate extends HttpServlet {
 
         HttpSession session = req.getSession(false);
         if (session == null || session.getAttribute("userEmail") == null) {
-            // Si es llamada AJAX, no podemos hacer sendRedirect, devolvemos JSON de error
             String format = req.getParameter("format");
             if ("json".equals(format)) {
                 res.setContentType("application/json; charset=UTF-8");
@@ -25,20 +24,26 @@ public class UserUpdate extends HttpServlet {
         Connection connection = ConnectionUtils.getConnection(getServletConfig());
         UserData user = UserData.getUserByEmail(connection, email);
 
-        // --- NUEVO: soporte AJAX/JSON ---
         String format = req.getParameter("format");
         if ("json".equals(format)) {
             res.setContentType("application/json; charset=UTF-8");
             PrintWriter out = res.getWriter();
+
             if (user == null) {
                 out.println("{\"success\": false, \"message\": \"Usuario no encontrado.\"}");
                 out.close();
                 ConnectionUtils.close(connection);
                 return;
             }
+
             user.username = req.getParameter("username");
-            user.password = req.getParameter("password");
             user.phone    = req.getParameter("phone");
+
+            String newPassword = req.getParameter("password");
+            if (newPassword != null && !newPassword.trim().isEmpty()) {
+                user.password = newPassword;
+            }
+
             int n = UserData.updateUser(connection, user);
             if (n > 0) {
                 out.println("{\"success\": true, \"message\": \"Datos actualizados correctamente.\"}");
@@ -49,9 +54,7 @@ public class UserUpdate extends HttpServlet {
             ConnectionUtils.close(connection);
             return;
         }
-        // --- FIN NUEVO ---
 
-        // Comportamiento original sin cambios
         res.setContentType("text/html; charset=UTF-8");
         PrintWriter out = res.getWriter();
 
@@ -62,8 +65,12 @@ public class UserUpdate extends HttpServlet {
         }
 
         user.username = req.getParameter("username");
-        user.password = req.getParameter("password");
         user.phone    = req.getParameter("phone");
+
+        String newPassword = req.getParameter("password");
+        if (newPassword != null && !newPassword.trim().isEmpty()) {
+            user.password = newPassword;
+        }
 
         int n = UserData.updateUser(connection, user);
 

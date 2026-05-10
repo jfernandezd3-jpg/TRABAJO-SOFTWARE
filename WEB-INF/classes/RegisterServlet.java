@@ -25,7 +25,6 @@ public class RegisterServlet extends HttpServlet {
             req.getParameter("phone")
         );
 
-        // --- NUEVO: si viene format=json respondemos con JSON (llamada AJAX) ---
         String format = req.getParameter("format");
         if ("json".equals(format)) {
             res.setContentType("application/json; charset=UTF-8");
@@ -43,9 +42,7 @@ public class RegisterServlet extends HttpServlet {
             out.close();
             return;
         }
-        // --- FIN NUEVO ---
 
-        // Comportamiento original: insertar y redirigir
         int n = DatosRegistrarse.insertUser(connection, user);
         res.sendRedirect("login.html");
     }

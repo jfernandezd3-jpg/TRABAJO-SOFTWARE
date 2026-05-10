@@ -22,25 +22,39 @@ public class UserEdit extends HttpServlet {
         UserData user = UserData.getUserByEmail(connection, email);
 
         if (user == null) {
-            out.println("Error: usuario no encontrado.");
+            out.println(Utils.header("Editar mi perfil", req));
+            out.println("<div class='container'><p style='color:red;'>Error: usuario no encontrado.</p></div>");
+            out.println(Utils.footer());
             ConnectionUtils.close(connection);
             return;
         }
 
         out.println(Utils.header("Editar mi perfil", req));
 
-        out.println("<form id='editForm'>");
-        out.println("<table border='1'>");
-        out.println("<tr><td>Username</td><td><input id='username' name='username' value='" + user.username + "'></td></tr>");
-        out.println("<tr><td>Email</td><td><input name='email' value='" + user.email + "' readonly></td></tr>");
-        out.println("<tr><td>Password</td><td><input id='password' name='password' value='" + user.password + "'></td></tr>");
-        out.println("<tr><td>Phone</td><td><input id='phone' name='phone' value='" + user.phone + "'></td></tr>");
-        out.println("</table>");
-        out.println("<input type='submit' value='Actualizar'>");
-        out.println("</form>");
-        out.println("<div id='resultado' style='margin-top:12px; font-weight:bold;'></div>");
+        out.println("<div class='container'>");
 
-        // Todo el bloque JS en un solo println para evitar problemas de parsing
+        out.println("<form id='editForm'>");
+
+        out.println("  <label for='username'>Username</label>");
+        out.println("  <input type='text' id='username' name='username' value='" + user.username + "'>");
+
+        out.println("  <label for='email'>Email</label>");
+        out.println("  <input type='email' id='email' name='email' value='" + user.email + "' readonly"
+                  + " style='background:#eee; cursor:not-allowed;' title='El email no se puede cambiar'>");
+
+        out.println("  <label for='password'>Nueva password</label>");
+        out.println("  <input type='password' id='password' name='password' placeholder='Deja en blanco para no cambiarla'>");
+
+        out.println("  <label for='phone'>Telefono</label>");
+        out.println("  <input type='text' id='phone' name='phone' value='" + user.phone + "'>");
+
+        out.println("  <button type='submit'>Guardar cambios</button>");
+        out.println("</form>");
+
+        out.println("<div id='resultado' style='margin-top:12px; font-weight:bold; text-align:center;'></div>");
+
+        out.println("</div>"); // cierra .container
+
         out.println("<script>" +
             "document.getElementById('editForm').addEventListener('submit', function(e) {" +
             "  e.preventDefault();" +
